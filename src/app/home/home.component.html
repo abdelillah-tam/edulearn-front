@@ -1,3 +1,61 @@
-<header>
-    <app-navigation></app-navigation>
+<header class="px-8 bg-white border-b border-b-gray-300">
+  <app-navigation></app-navigation>
 </header>
+<main>
+  <div class="h-124 flex flex-col items-center justify-evenly">
+    <p class="rounded-xl bg-red-theme font-bold text-white px-2 py-1">
+      Welcome to EduLearn
+    </p>
+    <p class="text-lg">Transform Your Career with World-Class Education</p>
+    <p class="text-gray-500 text-xl w-2/3 text-center">
+      Join millions of learners worldwide in mastering new skills and advancing
+      your career with our expert-led courses
+    </p>
+    <div class="flex gap-4">
+      <button
+        class="bg-red-theme px-6 py-3 rounded-xl text-white font-bold cursor-pointer"
+      >
+        Get Started
+      </button>
+      <button
+        class="border-gray-300 border rounded-xl px-6 py-3 font-bold cursor-pointer hover:text-red-900
+        hover:bg-red-200 hover:border-red-300"
+      >
+        Explore Courses
+      </button>
+    </div>
+
+    <ul class="flex gap-16">
+      <li class="flex flex-col items-center">
+        <p class="text-2xl text-red-theme">{{ 10000 | number }}+</p>
+        <p class="text-gray-500">Students</p>
+      </li>
+      <li class="flex flex-col items-center">
+        <p class="text-2xl text-red-theme">500+</p>
+        <p class="text-gray-500">Courses</p>
+      </li>
+      <li class="flex flex-col items-center">
+        <p class="text-2xl text-red-theme">150+</p>
+        <p class="text-gray-500">Instructors</p>
+      </li>
+      <li class="flex flex-col items-center">
+        <p class="text-2xl text-red-theme">95%</p>
+        <p class="text-gray-500">Satisfaction</p>
+      </li>
+    </ul>
+  </div>
+  <div class="h-124 bg-white"></div>
+</main>
+<footer>
+  <div class="bg-red-theme flex flex-col items-center justify-evenly h-64 py-6">
+    <p class="text-white">Ready to start learning?</p>
+    <p class="text-white text-xl">
+      Join thousands of students already learning on EduLear
+    </p>
+    <button
+      class="bg-white text-red-theme rounded-xl text-base font-bold py-2 px-6 cursor-pointer"
+    >
+      Get Started Today
+    </button>
+  </div>
+</footer>
