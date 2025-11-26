@@ -2,7 +2,7 @@
   <app-navigation></app-navigation>
 </header>
 <main>
-  <div class="h-124 flex flex-col items-center justify-evenly">
+  <div class="h-124 flex flex-col items-center justify-evenly px-8 bg-radial from-white to-red-50">
     <p class="rounded-xl bg-red-theme font-bold text-white px-2 py-1">
       Welcome to EduLearn
     </p>
@@ -13,13 +13,12 @@
     </p>
     <div class="flex gap-4">
       <button
-        class="bg-red-theme px-6 py-3 rounded-xl text-white font-bold cursor-pointer"
+        class="bg-red-theme px-6 py-3 rounded-xl text-white font-bold cursor-pointer hover:bg-red-400"
       >
         Get Started
       </button>
       <button
-        class="border-gray-300 border rounded-xl px-6 py-3 font-bold cursor-pointer hover:text-red-900
-        hover:bg-red-200 hover:border-red-300"
+        class="border-gray-300 border rounded-xl px-6 py-3 font-bold cursor-pointer hover:text-red-900 hover:bg-red-200 hover:border-red-300"
       >
         Explore Courses
       </button>
@@ -44,18 +43,111 @@
       </li>
     </ul>
   </div>
-  <div class="h-124 bg-white"></div>
+  <div class="h-124 bg-white px-8">
+    <ul class="flex flex-col items-center justify-center gap-8 h-full">
+      <li>
+        <p class="text-xl font-bold">Why Choose EduLearn?</p>
+      </li>
+      <li>
+        <p class="text-gray-500">
+          We provide everything you need to succeed in your learning journey
+        </p>
+      </li>
+      <li>
+        <ul class="flex gap-8">
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="import_contacts"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Expert-Led Courses</p>
+            <p class="text-gray-500">
+              Learn from industry professionals with years of experience
+            </p>
+          </li>
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="group"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Community Learning</p>
+            <p class="text-gray-500">
+              Connect with thousands of students around the world
+            </p>
+          </li>
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="license"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Certified Programs</p>
+            <p class="text-gray-500">
+              Earn recognized certificates upon course completion
+            </p>
+          </li>
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="pace"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Learn at Your Pace</p>
+            <p class="text-gray-500">
+              Study anytime, anywhere with lifetime access
+            </p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="px-8 py-20 flex flex-col gap-8 justify-around items-center">
+    <p class="text-xl font-bold">Popular Courses</p>
+    <p class="text-gray-500">
+      Explore our most loved courses taught by expert instructors
+    </p>
+    <ul class="flex gap-5">
+      <li><app-course-item></app-course-item></li>
+      <li><app-course-item></app-course-item></li>
+      <li><app-course-item></app-course-item></li>
+    </ul>
+    <button
+      type="button"
+      class="border border-gray-300 rounded-xl bg-white font-bold px-6 py-3 cursor-pointer hover:text-red-900 hover:bg-red-200 hover:border-red-300"
+      routerLink="/courses"
+      >
+      View All Courses
+    </button>
+  </div>
 </main>
 <footer>
-  <div class="bg-red-theme flex flex-col items-center justify-evenly h-64 py-6">
+  <div
+    class="bg-red-theme flex flex-col items-center justify-evenly h-64 py-6 px-8"
+  >
     <p class="text-white">Ready to start learning?</p>
     <p class="text-white text-xl">
-      Join thousands of students already learning on EduLear
+      Join thousands of students already learning on EduLearn
     </p>
     <button
-      class="bg-white text-red-theme rounded-xl text-base font-bold py-2 px-6 cursor-pointer"
+      class="bg-white text-red-theme rounded-xl text-base font-bold py-2 px-6 cursor-pointer hover:text-red-900 hover:bg-red-200"
     >
       Get Started Today
     </button>
   </div>
+  <app-footer></app-footer>
 </footer>

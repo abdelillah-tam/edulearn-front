@@ -3,9 +3,15 @@
 
 @theme {
     --color-red-theme:#D92929;
+    --color-custom-gray:#F2F2F2;
 };
 
 html, body { height: 100%; }
 body { margin: 0; 
     font-family: "Lato", sans-serif; 
+}
+
+::selection{
+    background-color: var(--color-red-300);
+    color: var(--color-red-900);
 }

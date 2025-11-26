@@ -1,9 +1,8 @@
-.mat-icon {
+.logo-mat-icon {
     width: 100% !important;
     height: 100% !important;
     font-size: 32px !important;
     align-content: center;
     text-align: center;
-    color: var(--color-red-theme);
+    color: white;
 }
-

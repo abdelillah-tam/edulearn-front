@@ -1,0 +1,70 @@
+<header class="px-8 bg-white border-b border-b-gray-300">
+  <app-navigation></app-navigation>
+</header>
+<main>
+  <div
+    class="h-64 px-8 flex flex-col items-center justify-evenly bg-radial from-white to-red-50"
+  >
+    <p class="px-2 py-1 rounded-xl bg-red-theme font-bold text-white">
+      Course Catalog
+    </p>
+    <p class="text-lg">Explore Our Courses</p>
+    <p class="text-gray-500 text-xl w-2/3 text-center">
+      Browse through our extensive collection of expert-led courses and find the
+      perfect one for you
+    </p>
+  </div>
+  <div class="bg-white px-8 py-6">
+    <ul class="flex gap-4">
+      <li class="basis-2/4">
+        <input
+          class="w-full p-2 rounded-xl bg-custom-gray focus:outline-2 outline-red-300 focus:border border-red-theme"
+          type="text"
+          placeholder="Search Courses..."
+        />
+      </li>
+      <li class="basis-1/4">
+        <select
+          class="w-full h-full px-2 rounded-xl bg-custom-gray focus:outline-2 outline-red-300 focus:border border-red-theme cursor-pointer"
+        >
+          <option value="all" class="">All Categories</option>
+          <option value="value" class="">Development</option>
+        </select>
+      </li>
+      <li class="basis-1/4">
+        <select
+          class="w-full h-full px-2 rounded-xl bg-custom-gray focus:outline-2 outline-red-300 focus:border border-red-theme cursor-pointer"
+        >
+          <option value="all" class="">Begineer</option>
+          <option value="value" class="">Intermediate</option>
+        </select>
+      </li>
+    </ul>
+    <ul
+      class="flex flex-wrap gap-6 pt-8 mt-8 border-t border-gray-300 justify-between"
+    >
+      <li class="basis-[calc(33.3333%-1.5rem)]">
+        <app-course-item></app-course-item>
+      </li>
+      <li class="basis-[calc(33.3333%-1.5rem)]">
+        <app-course-item></app-course-item>
+      </li>
+      <li class="basis-[calc(33.3333%-1.5rem)]">
+        <app-course-item></app-course-item>
+      </li>
+      <li class="basis-[calc(33.3333%-1.5rem)]">
+        <app-course-item></app-course-item>
+      </li>
+      <li class="basis-[calc(33.3333%-1.5rem)]">
+        <app-course-item></app-course-item>
+      </li>
+      <li class="basis-[calc(33.3333%-1.5rem)]">
+        <app-course-item></app-course-item>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
