@@ -1,0 +1,288 @@
+<header
+  class="z-50 w-full overflow-hidden border-b border-b-gray-300 bg-white px-[clamp(0.5rem,2vw,2rem)]"
+>
+  <app-navigation></app-navigation>
+</header>
+
+<main
+  class="mt-24 flex w-full flex-col items-end gap-8 px-[clamp(1rem,10vw,9rem)] py-8"
+>
+  <form class="flex w-full flex-col gap-8" [formGroup]="courseFormGroup">
+    <div
+      class="flex w-full flex-col gap-8 rounded-xl border border-gray-300 bg-white p-8"
+    >
+      <div>
+        <h2 class="text-[clamp(1rem,2vw,2rem)] font-bold">Basic Information</h2>
+        <p class="text-lg text-gray-500">
+          Enter the core details about your course
+        </p>
+      </div>
+      <ul class="flex flex-col gap-4">
+        <li class="flex flex-col gap-2">
+          <label class="font-bold" for="title">Course Title *</label>
+          <input
+            class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="e.g., Complete Web Development Bootcamp"
+            formControlName="title"
+          />
+        </li>
+        <li class="flex flex-col gap-2">
+          <label class="font-bold" for="description"
+            >Course Description *</label
+          >
+          <textarea
+            class="bg-custom-gray border-red-theme h-24 w-full resize-none rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+            type="text"
+            name="description"
+            id="description"
+            placeholder="Describe what studenst will learn in this course..."
+            formControlName="description"
+          ></textarea>
+        </li>
+        <li class="flex flex-wrap gap-4">
+          <div class="flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2">
+            <label class="font-bold" for="category">Category *</label>
+            <input
+              class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              type="text"
+              name="category"
+              id="category"
+              placeholder="Select a category"
+              formControlName="category"
+            />
+          </div>
+          <div class="flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2">
+            <label class="font-bold" for="difficulty">Difficulty *</label>
+            <input
+              class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              type="text"
+              name="difficulty"
+              id="difficulty"
+              placeholder="Select a difficulty"
+              formControlName="difficulty"
+            />
+          </div>
+          <div class="flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2">
+            <label class="font-bold" for="duration">Duration *</label>
+            <input
+              class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              type="text"
+              name="duration"
+              id="duration"
+              placeholder="eg., 12 weeks"
+              formControlName="duration"
+            />
+          </div>
+        </li>
+        <li class="flex flex-col gap-2">
+          <label class="font-bold" for="thumbnail">Tumbnail *</label>
+          <input
+            class="bg-custom-gray border-red-theme h-10 w-full cursor-pointer rounded-xl p-2 hover:border hover:border-dashed"
+            type="file"
+            name="thumbnail"
+            id="thubnail"
+            accept="image/*"
+            (change)="onThumbnailAdded($event)"
+          />
+
+          @if (thumbnailFile && imageUrl) {
+            <div class="h-86 w-full overflow-hidden">
+              <img class="h-full w-full object-contain" [src]="imageUrl" />
+            </div>
+          }
+        </li>
+      </ul>
+    </div>
+    <div
+      class="flex w-full flex-col gap-8 rounded-xl border border-gray-300 bg-white p-8"
+      formArrayName="objectives"
+    >
+      <div>
+        <h2 class="text-lg font-bold">Learning Objectives</h2>
+        <p class="text-lg text-gray-500">
+          What will students learn from this course?
+        </p>
+      </div>
+
+      <ul class="flex flex-col gap-4">
+        @for (
+          item of courseFormGroup.controls.objectives.controls;
+          track $index
+        ) {
+          <li class="flex items-center justify-between gap-2">
+            <input
+              class="bg-custom-gray border-red-theme h-10 basis-25/26 rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              type="text"
+              placeholder="Learning objective {{ $index + 1 }}"
+              [formControlName]="$index"
+            />
+            <button
+              class="close flex h-10 basis-1/26 cursor-pointer items-center justify-center rounded-xl p-2"
+              [disabled]="
+                courseFormGroup.controls.objectives.controls.length === 1
+              "
+              (click)="removeObjective($index)"
+            >
+              <mat-icon class="mat-close-icon">close</mat-icon>
+            </button>
+          </li>
+        }
+        <button
+          class="add-objective flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 py-2 hover:border-red-300"
+          type="button"
+          (click)="addObjective()"
+        >
+          <mat-icon class="material-symbols-rounded mat-add-icon">add</mat-icon>
+          <p>Add Learning Objective</p>
+        </button>
+      </ul>
+    </div>
+
+    <div
+      class="flex w-full flex-col gap-8 rounded-xl border border-gray-300 bg-white p-8"
+    >
+      <div>
+        <h2 class="text-lg font-bold">Prerequisites</h2>
+        <p class="text-lg text-gray-500">
+          What knowledge or skills should students have before taking this
+          course?
+        </p>
+      </div>
+
+      <textarea
+        class="bg-custom-gray border-red-theme h-24 w-full resize-none rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+        type="text"
+        name="description"
+        id="description"
+        placeholder="e.g., Basic understanding of HTML and CSS, No prior programming experience required"
+        formControlName="prerequisites"
+      ></textarea>
+    </div>
+
+    <div
+      class="flex w-full flex-col gap-8 rounded-xl border border-gray-300 bg-white p-8"
+      formArrayName="modules"
+    >
+      <div>
+        <h2 class="text-lg font-bold">Course Curriculum</h2>
+        <p class="text-lg text-gray-500">
+          Organize your course content into modules and lessons
+        </p>
+      </div>
+
+      <section
+        class="flex flex-col gap-4 overflow-hidden rounded-xl border border-gray-300 p-[clamp(0.5rem,5vw,1rem)]"
+      >
+        @for (
+          item of courseFormGroup.controls.modules.controls;
+          track $index;
+          let i = $index
+        ) {
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <p
+              class="rounded-xl bg-red-200 px-3 py-1 text-xs font-bold text-nowrap text-red-900"
+            >
+              Module
+              {{ i + 1 }}
+            </p>
+            <div
+              class="flex grow flex-wrap items-center justify-center gap-2"
+              [formGroup]="courseFormGroup.controls.modules.controls[i]"
+            >
+              <input
+                class="bg-custom-gray border-red-theme h-10 grow rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                type="text"
+                placeholder="Module title"
+                formControlName="title"
+              />
+              <button
+                class="close flex h-10 items-center justify-center rounded-xl px-2"
+                type="button"
+                [disabled]="
+                  courseFormGroup.controls.modules.controls.length === 1
+                "
+                (click)="removeModule(i)"
+              >
+                <mat-icon class="mat-close-icon">close</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div
+            class="flex items-center"
+            [formGroup]="courseFormGroup.controls.modules.controls[i]"
+          >
+            <div
+              class="flex w-full flex-col items-stretch gap-4"
+              formArrayName="lessons"
+            >
+              @for (
+                item of courseFormGroup.controls.modules.controls[i].controls
+                  .lessons.controls;
+                track $index;
+                let j = $index
+              ) {
+                <div class="flex flex-wrap items-center justify-center gap-2">
+                  <p class="grow text-center text-xs text-nowrap text-gray-500">
+                    Lesson {{ j + 1 }}
+                  </p>
+                  <div class="flex grow-4 flex-wrap items-center gap-2">
+                    <input
+                      class="bg-custom-gray border-red-theme h-10 grow basis-[calc((2/3*100%)-0.25rem)] rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                      type="text"
+                      placeholder="Lesson title"
+                      [formControlName]="j"
+                    />
+                    <input
+                      class="bg-custom-gray border-red-theme h-10 grow basis-[calc((1/3*100%)-0.25rem)] rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                      type="text"
+                      placeholder="Duration"
+                    />
+                  </div>
+                  <button
+                    class="close flex h-10 cursor-pointer items-center justify-center rounded-xl p-2"
+                    type="button"
+                    [disabled]="
+                      courseFormGroup.controls.modules.controls[i].controls
+                        .lessons.controls.length === 1
+                    "
+                    (click)="removeLesson(i, j)"
+                  >
+                    <mat-icon class="mat-close-icon">close</mat-icon>
+                  </button>
+                </div>
+              }
+              <button
+                class="add-lesson mx-[calc(1/7*100%)] flex items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-1 hover:border-red-300"
+                type="button"
+                (click)="addLesson(i)"
+              >
+                <mat-icon class="material-symbols-rounded mat-add-icon"
+                  >add</mat-icon
+                >Add Lesson
+              </button>
+            </div>
+          </div>
+        }
+      </section>
+      <button
+        class="add-objective flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 py-2 hover:border-red-300"
+        type="button"
+        (click)="addModule()"
+      >
+        <mat-icon class="material-symbols-rounded mat-add-icon">add</mat-icon>
+        <p>Add Module</p>
+      </button>
+    </div>
+  </form>
+
+  <button
+    class="bg-red-theme cursor-pointer rounded-xl px-3 py-2 font-bold text-white"
+    type="button"
+    (click)="submitCourse()"
+  >
+    Create Course
+  </button>
+</main>

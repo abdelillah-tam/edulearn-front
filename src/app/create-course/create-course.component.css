@@ -1,0 +1,37 @@
+.mat-close-icon {
+  display: flex;
+  justify-content: center;
+}
+
+button:not([disabled]) {
+  &.close:hover {
+    background-color: var(--color-red-200);
+    cursor: pointer;
+    color: var(--color-red-900);
+
+    .mat-close-icon,
+    .mat-add-icon {
+      color: var(--color-red-900);
+    }
+  }
+}
+
+.add-lesson:hover,
+.add-objective:hover {
+  background-color: var(--color-red-200);
+  cursor: pointer;
+  color: var(--color-red-900);
+
+  .mat-close-icon,
+  .mat-add-icon {
+    color: var(--color-red-900);
+  }
+}
+
+button[disabled] {
+  background-color: white;
+
+  .mat-close-icon {
+    color: var(--color-gray-500);
+  }
+}

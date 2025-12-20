@@ -1,8 +1,8 @@
-<header class="px-8 bg-white border-b border-b-gray-300">
+<header class="px-8 bg-white border-b border-b-gray-300 fixed top-0 w-full z-50">
   <app-navigation></app-navigation>
 </header>
 
-<main>
+<main class="mt-24">
   <div
     class="h-64 px-8 flex flex-col items-center justify-evenly bg-radial from-white to-red-50"
   >
@@ -72,7 +72,78 @@
     </div>
   </div>
 
-  <div class="h-124"></div>
+  <div class="h-124 px-8">
+    <ul class="flex flex-col items-center justify-center gap-8 h-full">
+      <li>
+        <p class="text-xl font-bold">Our Targets</p>
+      </li>
+      <li>
+        <p class="text-gray-500">
+          We provide everything you need to succeed in your learning journey
+        </p>
+      </li>
+      <li>
+        <ul class="flex gap-8">
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="target"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Mission-Driven</p>
+            <p class="text-gray-500">
+              Making quality education accessible to everyone, everywhere
+            </p>
+          </li>
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="favorite"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Student-Focused</p>
+            <p class="text-gray-500">
+              Every decision is made with our learners in mind
+            </p>
+          </li>
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="lightbulb"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Innovation</p>
+            <p class="text-gray-500">
+              Constantly evolving our platform with cutting-edge technology
+            </p>
+          </li>
+          <li
+            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+          >
+            <div class="w-12 h-12 bg-red-200 rounded-xl">
+              <mat-icon
+                class="material-symbols-rounded mat-icon"
+                fontIcon="language"
+              ></mat-icon>
+            </div>
+            <p class="text-xl">Global Community</p>
+            <p class="text-gray-500">
+              Connecting learners and educators across the world
+            </p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
   <footer>
     <app-footer></app-footer>
   </footer>

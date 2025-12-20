@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavigationComponent } from "./navigation/navigation.component";
 import { DecimalPipe } from '@angular/common';
 import { MatIconModule} from '@angular/material/icon';
 import { CourseItemComponent } from '../course-item/course-item.component';
 import { FooterComponent } from '../footer/footer.component';
 import { RouterLink } from '@angular/router';
+import { NavigationComponent } from '../navigation/navigation.component';
 
 @Component({
     selector: 'app-home',

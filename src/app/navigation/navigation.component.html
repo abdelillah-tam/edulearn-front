@@ -1,0 +1,89 @@
+<nav
+  class="bg-white h-24 flex flex-col items-center justify-center"
+>
+  <ul class="flex justify-between w-full">
+    <li
+      class="flex items-center px-2 basis-[25%] select-none cursor-pointer"
+      routerLink="/"
+    >
+      <div class="bg-red-theme flex p-2 rounded-xl">
+        <mat-icon
+          class="material-symbols-rounded mat-icon"
+          fontIcon="school"
+        ></mat-icon>
+      </div>
+      <h1 class="text-xl px-1">EduLearn</h1>
+    </li>
+    <li class="basis-[50%]">
+      <ul class="h-full flex justify-evenly items-center text-lg font-normal">
+        <li>
+          <a
+            class="cursor-pointer px-2 hover:text-red-theme"
+            href="courses"
+            [class.text-red-theme]="currentRouter === 1"
+            >Courses</a
+          >
+        </li>
+        <li>
+          <a
+            class="cursor-pointer px-2 hover:text-red-theme"
+            href="about"
+            [class.text-red-theme]="currentRouter === 2"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            class="cursor-pointer px-2 hover:text-red-theme"
+            href="contact"
+            [class.text-red-theme]="currentRouter === 3"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </li>
+    <li class="flex justify-end items-center basis-[25%]">
+      @if (!isSigned) {
+      <button
+        class="text-white bg-red-theme rounded-xl font-bold px-6 py-2 cursor-pointer"
+        routerLink="/signin"
+      >
+        Sign In
+      </button>
+      }@else{
+      <button class="flex items-center relative">
+        <mat-icon
+          class="material-symbols-rounded mat-person px-2 py-2 hover:bg-red-200 rounded-full cursor-pointer"
+          fontIcon="person"
+          (click)="showDropdown()"
+        ></mat-icon>
+        <ul
+          class="absolute bg-white right-0 top-full flex flex-col overflow-hidden rounded-lg p-0.5 border border-gray-200 z-50 shadow-xl mt-1"
+          [class.hidden]="hideDropdown"
+        >
+          <li
+            class="flex items-center hover:text-red-900 px-16 hover:bg-red-200 cursor-pointer p-2 rounded-lg"
+            routerLink="/dashboard"
+          >
+            <mat-icon
+              class="material-symbols-rounded mat-logout"
+              fontIcon="space_dashboard"
+            ></mat-icon
+            >Dashboard
+          </li>
+          <li
+            class="flex items-center hover:text-red-900 px-16 hover:bg-red-200 cursor-pointer p-2 rounded-lg"
+            (click)="logout()"
+          >
+            <mat-icon
+              class="material-symbols-rounded mat-logout"
+              fontIcon="logout"
+            ></mat-icon
+            >Logout
+          </li>
+        </ul>
+      </button>
+      }
+    </li>
+  </ul>
+</nav>

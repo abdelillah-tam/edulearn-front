@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './courses/courses.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CreateCourseComponent } from './create-course/create-course.component';
 
 export const routes: Routes = [
   {
@@ -16,4 +21,24 @@ export const routes: Routes = [
     path: 'about',
     component: AboutComponent,
   },
+  {
+    path: 'contact',
+    component: ContactComponent,
+  },
+  {
+    path: 'signin',
+    component: SigninComponent,
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
+  {
+    path: 'create',
+    component: CreateCourseComponent
+  }
 ];
