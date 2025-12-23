@@ -5,6 +5,11 @@ import { CourseItemComponent } from '../course-item/course-item.component';
 import { FooterComponent } from '../footer/footer.component';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { CourseService } from '../services/course.service';
+import { LoadingComponent } from '../loading/loading.component';
+import { CategoryListComponent } from '../category/category.component';
+import { CATEGORIES } from '../global/categories';
+import { DifficultyComponent } from '../difficulty/difficulty.component';
+import { DIFFICULTY } from '../global/difficulty-list';
 
 @Component({
   selector: 'app-courses',
@@ -14,6 +19,9 @@ import { CourseService } from '../services/course.service';
     CourseItemComponent,
     FooterComponent,
     MatIconModule,
+    LoadingComponent,
+    CategoryListComponent,
+    DifficultyComponent,
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
@@ -21,27 +29,69 @@ import { CourseService } from '../services/course.service';
 export class CoursesComponent implements OnInit {
   closedCategories = true;
 
-  closedLevels = true;
+  closedDifficulties = true;
 
   courses = [];
 
-  categories: string[] = ['All Categories'];
+  selectedCategory = '';
 
-  selectedCategoryIndex = 0;
+  selectedDifficulty = '';
+
+  categoryList: string[] = [CATEGORIES[0]];
+
+  difficultyList: string[] = [DIFFICULTY[0]];
+
+  isLoading = true;
+
+  searchValue: string = '';
 
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.courseService.retrievAllCourses().subscribe((response) => {
-      this.courses = response;
+    this.selectedCategory = this.categoryList[0];
+    this.selectedDifficulty = this.difficultyList[0];
+    this.retrieveCoursesList();
+
+    this.courseService.getCategoryList().subscribe((response) => {
+      this.categoryList.push(...response);
     });
 
-    this.courseService.getCategories().subscribe((response) => {
-      this.categories.push(...response);
+    this.courseService.getDifficultyList().subscribe((response) => {
+      this.difficultyList.push(...response);
     });
   }
 
-  selectCategory(index: number) {
-    this.selectedCategoryIndex = index;
+  setSelectedCategory(category: string) {
+    this.selectedCategory = category;
+    this.closedCategories = true;
+    this.retrieveCoursesList();
+  }
+
+  setSelectedDifficulty(difficulty: string) {
+    this.selectedDifficulty = difficulty;
+    this.closedCategories = true;
+    this.retrieveCoursesList();
+  }
+
+  search(ev: Event) {
+    this.searchValue = (ev.target as HTMLInputElement).value;
+    this.retrieveCoursesList();
+  }
+
+  retrieveCoursesList() {
+    this.courses = [];
+    this.isLoading = true;
+    this.courseService
+      .retrievAllCourses(
+        this.selectedCategory,
+        this.selectedDifficulty,
+        this.searchValue,
+      )
+      .subscribe((response) => {
+        setTimeout(() => {
+          this.courses = response;
+          this.isLoading = false;
+        }, 500);
+      });
   }
 }

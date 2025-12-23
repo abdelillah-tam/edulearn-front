@@ -1,43 +1,47 @@
-<header class="px-8 bg-white border-b border-b-gray-300 fixed top-0 w-full z-50">
+<header
+  class="fixed top-0 z-50 w-full border-b border-b-gray-300 bg-white px-8"
+>
   <app-navigation></app-navigation>
 </header>
 
 <main class="mt-24">
   <div
-    class="h-64 px-8 flex flex-col items-center justify-evenly bg-radial from-white to-red-50"
+    class="flex h-64 flex-col items-center justify-evenly bg-radial from-white to-red-50 px-8"
   >
-    <p class="rounded-xl bg-red-theme font-bold text-white px-2 py-1">
+    <p class="bg-red-theme rounded-xl px-2 py-1 font-bold text-white">
       About EduLearn
     </p>
     <p class="text-lg">Empowering Learners Worldwide</p>
-    <p class="text-gray-500 text-xl w-2/3 text-center">
+    <p class="w-2/3 text-center text-xl text-gray-500">
       We're on a mission to make quality education accessible to everyone
     </p>
   </div>
-  <div class="h-196 bg-white">
-    <div class="flex flex-col justify-evenly h-full">
+  <div class="bg-white md:h-196">
+    <div class="flex h-full flex-col justify-evenly">
       <ul
-        class="w-full flex justify-around px-8 basis-1/6 border-b border-gray-300"
+        class="flex w-full basis-1/6 flex-wrap justify-around gap-8 border-b border-gray-300 px-8 py-8"
       >
-        <li class="flex flex-col items-center">
-          <p class="text-4xl text-red-theme">{{ 1000 | number }}+</p>
+        <li class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center">
+          <p class="text-red-theme text-4xl">{{ 1000 | number }}+</p>
           <p class="text-gray-500">Active Students</p>
         </li>
-        <li class="flex flex-col items-center">
-          <p class="text-4xl text-red-theme">500+</p>
+        <li class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center">
+          <p class="text-red-theme text-4xl">500+</p>
           <p class="text-gray-500">Expert Courses</p>
         </li>
-        <li class="flex flex-col items-center">
-          <p class="text-4xl text-red-theme">150+</p>
+        <li class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center">
+          <p class="text-red-theme text-4xl">150+</p>
           <p class="text-gray-500">Instructors</p>
         </li>
-        <li class="flex flex-col items-center">
-          <p class="text-4xl text-red-theme">95%</p>
+        <li class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center">
+          <p class="text-red-theme text-4xl">95%</p>
           <p class="text-gray-500">Satisfaction Rate</p>
         </li>
       </ul>
-      <ul class="basis-3/6 px-8 flex gap-8">
-        <li class="basis-1/2 flex flex-col justify-between items-start">
+      <ul class="flex basis-3/6 flex-col-reverse gap-8 px-8 py-8 md:flex-row">
+        <li
+          class="flex basis-1/2 flex-col items-start justify-between gap-8 md:gap-0"
+        >
           <p class="text-lg">Our Story</p>
           <p class="text-gray-500">
             Founded in 2020, EduLearn was born from a simple belief: everyone
@@ -57,23 +61,24 @@
           </p>
           <button
             type="button"
-            class="bg-red-theme px-6 py-3 rounded-xl text-white font-bold cursor-pointer hover:bg-red-400"
+            class="bg-red-theme cursor-pointer rounded-xl px-6 py-3 font-bold text-white hover:bg-red-400"
           >
             Join Our Community
           </button>
         </li>
-        <li class="basis-1/2 rounded-xl overflow-hidden">
+        <li class="basis-1/2 overflow-hidden rounded-xl bg-yellow-700">
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="image"
+            class="h-full w-full object-cover"
           />
         </li>
       </ul>
     </div>
   </div>
 
-  <div class="h-124 px-8">
-    <ul class="flex flex-col items-center justify-center gap-8 h-full">
+  <div class="overflow-hidden px-8 py-4 xl:h-124">
+    <ul class="flex h-full flex-col items-center justify-center gap-8">
       <li>
         <p class="text-xl font-bold">Our Targets</p>
       </li>
@@ -83,11 +88,11 @@
         </p>
       </li>
       <li>
-        <ul class="flex gap-8">
+        <ul class="flex flex-wrap justify-between gap-8">
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc((1/3*100%)-2rem)] xl:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="target"
@@ -99,9 +104,9 @@
             </p>
           </li>
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc((1/3*100%)-2rem)] xl:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="favorite"
@@ -113,9 +118,9 @@
             </p>
           </li>
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc((1/3*100%)-2rem)] xl:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="lightbulb"
@@ -127,9 +132,9 @@
             </p>
           </li>
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc((1/3*100%)-2rem)] xl:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="language"

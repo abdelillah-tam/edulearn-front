@@ -7,7 +7,15 @@
 <main
   class="mt-24 flex w-full flex-col items-end gap-8 px-[clamp(1rem,10vw,9rem)] py-8"
 >
-  <form class="flex w-full flex-col gap-8" [formGroup]="courseFormGroup">
+  <form
+    class="relative flex w-full flex-col gap-8"
+    [formGroup]="courseFormGroup"
+  >
+    <loading
+      class="absolute h-full w-full"
+      [isLoading]="isLoading"
+      [class.hidden]="!isLoading"
+    ></loading>
     <div
       class="flex w-full flex-col gap-8 rounded-xl border border-gray-300 bg-white p-8"
     >
@@ -43,27 +51,55 @@
           ></textarea>
         </li>
         <li class="flex flex-wrap gap-4">
-          <div class="flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2">
+          <div
+            class="relative flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2"
+          >
             <label class="font-bold" for="category">Category *</label>
-            <input
-              class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
-              type="text"
-              name="category"
-              id="category"
-              placeholder="Select a category"
-              formControlName="category"
-            />
+            <div class="relative h-10 w-full">
+              <input
+                class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                type="text"
+                name="category"
+                id="category"
+                placeholder="Select a category"
+                formControlName="category"
+              />
+              <button
+                class="absolute left-0 h-full w-full cursor-pointer"
+                (click)="closedCategoryList = !closedCategoryList"
+              ></button>
+            </div>
+            <category-list
+              class="absolute top-full w-full"
+              [categoryList]="categoryList"
+              [closedCategories]="closedCategoryList"
+              (selectedCategory)="setCategory($event)"
+            ></category-list>
           </div>
-          <div class="flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2">
+          <div
+            class="relative flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2"
+          >
             <label class="font-bold" for="difficulty">Difficulty *</label>
-            <input
-              class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
-              type="text"
-              name="difficulty"
-              id="difficulty"
-              placeholder="Select a difficulty"
-              formControlName="difficulty"
-            />
+            <div class="relative h-10 w-full">
+              <input
+                class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                type="text"
+                name="difficulty"
+                id="difficulty"
+                placeholder="Select a difficulty"
+                formControlName="difficulty"
+              />
+              <button
+                class="absolute left-0 h-full w-full cursor-pointer"
+                (click)="closedDifficultyList = !closedDifficultyList"
+              ></button>
+            </div>
+            <difficulty-list
+              class="absolute top-full w-full"
+              [difficultyList]="difficultyList"
+              [closedDifficulty]="closedDifficultyList"
+              (selectedDifficulty)="setDifficulty($event)"
+            ></difficulty-list>
           </div>
           <div class="flex grow basis-[calc((1/3*100%)-1rem)] flex-col gap-2">
             <label class="font-bold" for="duration">Duration *</label>
@@ -224,7 +260,10 @@
                 track $index;
                 let j = $index
               ) {
-                <div class="flex flex-wrap items-center justify-center gap-2">
+                <div
+                  class="flex flex-wrap items-center justify-center gap-2"
+                  [formGroup]="item"
+                >
                   <p class="grow text-center text-xs text-nowrap text-gray-500">
                     Lesson {{ j + 1 }}
                   </p>
@@ -233,12 +272,13 @@
                       class="bg-custom-gray border-red-theme h-10 grow basis-[calc((2/3*100%)-0.25rem)] rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
                       type="text"
                       placeholder="Lesson title"
-                      [formControlName]="j"
+                      formControlName="title"
                     />
                     <input
                       class="bg-custom-gray border-red-theme h-10 grow basis-[calc((1/3*100%)-0.25rem)] rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
                       type="text"
                       placeholder="Duration"
+                      formControlName="duration"
                     />
                   </div>
                   <button
@@ -279,7 +319,7 @@
   </form>
 
   <button
-    class="bg-red-theme cursor-pointer rounded-xl px-3 py-2 font-bold text-white"
+    class="bg-red-theme cursor-pointer rounded-xl px-6 py-2 font-bold text-white hover:bg-red-400"
     type="button"
     (click)="submitCourse()"
   >

@@ -18,7 +18,10 @@ export class CourseService {
     thumbnailUrl: string,
     objectiveValues: string[],
     prerequisites: string,
-    moduleValues: { title: string; lessons: string[] }[],
+    moduleValues: {
+      title: string;
+      lessons: { title: string; duration: string }[];
+    }[],
   ) {
     return this.httpClient.post(
       `${environment.API}/createCourse`,
@@ -39,8 +42,18 @@ export class CourseService {
     );
   }
 
-  retrievAllCourses() {
-    return this.httpClient.get<[]>(`${environment.API}/getAllCourses`);
+  retrievAllCourses(category: string, difficulty: string, search: string) {
+    return this.httpClient.post<[]>(
+      `${environment.API}/getAllCourses`,
+      {
+        category: category,
+        difficulty: difficulty,
+        search: search,
+      },
+      {
+        withCredentials: true,
+      },
+    );
   }
 
   async uploadCourseThumbnail(file: File) {
@@ -55,7 +68,13 @@ export class CourseService {
     return downloadUrl;
   }
 
-  getCategories() {
-    return this.httpClient.get<string[]>(`${environment.API}/getCategories`);
+  getCategoryList() {
+    return this.httpClient.get<string[]>(`${environment.API}/getCategoryList`);
+  }
+
+  getDifficultyList() {
+    return this.httpClient.get<string[]>(
+      `${environment.API}/getDifficultyList`,
+    );
   }
 }

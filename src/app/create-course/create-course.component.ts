@@ -1,26 +1,58 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 import { MatIconModule } from '@angular/material/icon';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CourseService } from '../services/course.service';
 
 import imageCompression from 'browser-image-compression';
+import { LoadingComponent } from '../loading/loading.component';
+import { CategoryListComponent } from '../category/category.component';
+import { CATEGORIES } from '../global/categories';
+import { DifficultyComponent } from '../difficulty/difficulty.component';
+import { DIFFICULTY } from '../global/difficulty-list';
 
 @Component({
   selector: 'app-create-course',
-  imports: [NavigationComponent, ReactiveFormsModule, MatIconModule],
+  imports: [
+    NavigationComponent,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    LoadingComponent,
+    CategoryListComponent,
+    DifficultyComponent,
+  ],
   templateUrl: './create-course.component.html',
   styleUrl: './create-course.component.css',
 })
 export class CreateCourseComponent {
   formBuilder = inject(FormBuilder);
 
+  isLoading = false;
+
+  categoryList = CATEGORIES.splice(1);
+
+  difficultyList = DIFFICULTY.splice(1);
+
+  closedCategoryList = true;
+
+  closedDifficultyList = true;
+
   courseFormGroup = this.formBuilder.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
-    category: ['', Validators.required],
+    category: this.formBuilder.control({ value: '', disabled: true }, [
+      Validators.required,
+    ]),
     duration: ['', Validators.required],
     difficulty: ['', Validators.required],
     objectives: this.formBuilder.array([
@@ -31,7 +63,10 @@ export class CreateCourseComponent {
       this.formBuilder.group({
         title: this.formBuilder.control('', [Validators.required]),
         lessons: this.formBuilder.array([
-          this.formBuilder.control('', [Validators.required]),
+          this.formBuilder.group({
+            title: this.formBuilder.control('', [Validators.required]),
+            duration: this.formBuilder.control('', [Validators.required]),
+          }),
         ]),
       }),
     ]),
@@ -58,7 +93,10 @@ export class CreateCourseComponent {
       this.formBuilder.group({
         title: this.formBuilder.control('', [Validators.required]),
         lessons: this.formBuilder.array([
-          this.formBuilder.control('', [Validators.required]),
+          this.formBuilder.group({
+            title: this.formBuilder.control('', [Validators.required]),
+            duration: this.formBuilder.control('', [Validators.required]),
+          }),
         ]),
       }),
     );
@@ -72,10 +110,11 @@ export class CreateCourseComponent {
     this.courseFormGroup.controls.modules.controls[
       moduleIndex
     ].controls.lessons.controls.push(
-      this.formBuilder.control('', [Validators.required]),
+      this.formBuilder.group({
+        title: this.formBuilder.control('', [Validators.required]),
+        duration: this.formBuilder.control('', [Validators.required]),
+      }),
     );
-
-    console.log(this.courseFormGroup.controls.modules);
   }
 
   removeLesson(moduleIndex: number, lessonIndex: number) {
@@ -99,6 +138,7 @@ export class CreateCourseComponent {
 
   submitCourse() {
     if (this.courseFormGroup.valid && this.thumbnailFile && this.imageUrl) {
+      this.isLoading = true;
       imageCompression(this.thumbnailFile, {
         maxSizeMB: 0.3,
         maxWidthOrHeight: 1920,
@@ -111,12 +151,18 @@ export class CreateCourseComponent {
             objectiveValues.push(item.value!);
           });
 
-          let moduleValues: { title: string; lessons: string[] }[] = [];
+          let moduleValues: {
+            title: string;
+            lessons: { title: string; duration: string }[];
+          }[] = [];
 
           this.courseFormGroup.controls.modules.controls.forEach((item) => {
-            let lessons: string[] = [];
+            let lessons: { title: string; duration: string }[] = [];
             item.controls.lessons.controls.forEach((lessonControl) => {
-              lessons.push(lessonControl.value!);
+              lessons.push({
+                title: lessonControl.controls.title.value!,
+                duration: lessonControl.controls.duration.value!,
+              });
             });
             moduleValues.push({
               title: item.controls.title.value!,
@@ -136,9 +182,21 @@ export class CreateCourseComponent {
               this.courseFormGroup.controls.prerequisites.value!,
               moduleValues,
             )
-            .subscribe((response) => console.log(response));
+            .subscribe((response) => {
+              this.isLoading = false;
+            });
         });
       });
     }
+  }
+
+  setCategory(category: string) {
+    this.closedCategoryList = true;
+    this.courseFormGroup.controls.category.setValue(category);
+  }
+
+  setDifficulty(difficulty: string) {
+    this.closedDifficultyList = true;
+    this.courseFormGroup.controls.difficulty.setValue(difficulty);
   }
 }

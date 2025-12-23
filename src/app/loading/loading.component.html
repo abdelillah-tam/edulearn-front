@@ -1,0 +1,9 @@
+<div
+  class="flex h-full w-full items-center justify-center"
+  [class.hidden]="!isLoading()"
+>
+  <div
+    class="absolute flex h-full w-full items-center justify-center rounded-xl bg-white opacity-50"
+  ></div>
+  <mat-spinner [diameter]="diameter()"></mat-spinner>
+</div>
