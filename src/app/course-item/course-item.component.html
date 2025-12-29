@@ -58,23 +58,27 @@
 <ul
   class="flex justify-around overflow-hidden rounded-xl border border-gray-300 bg-white"
 >
-  <li class="relative basis-2/5 xl:basis-2/8 overflow-hidden bg-gray-900">
+  <li class="relative basis-2/5 overflow-hidden bg-gray-900 xl:basis-2/8">
     <p
       class="bg-red-theme absolute right-0 mt-2 mr-2 rounded-xl px-3 py-1.5 text-xs font-bold text-white"
     >
-      {{course()?.category}}
+      {{ course()?.category }}
     </p>
 
     <img class="h-full w-full object-cover" [src]="course()?.thumbnail" />
   </li>
-  <li class="flex basis-3/5 xl:basis-6/8 flex-col justify-between overflow-hidden p-2 px-4 gap-4">
+  <li
+    class="flex basis-3/5 flex-col justify-between gap-4 overflow-hidden p-2 px-4 xl:basis-6/8"
+  >
     <p class="cursor-pointer font-bold">
       {{ course()?.title }}
     </p>
-    <p class="text-gray-500">
+    <p class="text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">
       {{ shortDescription(course()?.description) }}
     </p>
-    <ul class="flex flex-col md:flex-row md:items-center justify-start gap-2 md:gap-8 text-gray-500">
+    <ul
+      class="flex flex-col justify-start gap-2 text-gray-500 md:flex-row md:items-center md:gap-8"
+    >
       <li class="flex items-center gap-1">
         <mat-icon class="mat-star-icon" fontIcon="star"></mat-icon>4.3 stars
       </li>
@@ -91,16 +95,16 @@
       </li>
     </ul>
     <p class="">by {{ course()?.instructor }}</p>
-    <div class="flex flex-col md:flex-row gap-2">
+    <div class="flex flex-col gap-2 md:flex-row md:justify-end">
       <button
         type="button"
-        class="basis-1/2 cursor-pointer rounded-xl border border-gray-300 px-6 py-2 font-bold hover:border-red-300 hover:bg-red-200 hover:text-red-900"
+        class="cursor-pointer rounded-xl border border-gray-300 px-6 py-2 font-bold hover:border-red-300 hover:bg-red-200 hover:text-red-900"
       >
         View Details
       </button>
       <button
         type="button"
-        class="bg-red-theme basis-1/2 cursor-pointer rounded-xl px-6 py-2 font-bold text-white hover:bg-red-400"
+        class="bg-red-theme cursor-pointer rounded-xl px-6 py-2 font-bold text-white hover:bg-red-400"
       >
         Enroll Now
       </button>

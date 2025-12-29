@@ -1,88 +1,109 @@
-<nav
-  class="bg-white h-24 flex flex-col items-center justify-center"
->
-  <ul class="flex justify-between w-full">
+<nav class="flex h-24 flex-col items-center justify-center bg-white">
+  <ul class="flex w-full justify-between">
     <li
-      class="flex items-center px-2 basis-[25%] select-none cursor-pointer"
+      class="flex cursor-pointer items-center px-2 select-none"
       routerLink="/"
     >
-      <div class="bg-red-theme flex p-2 rounded-xl">
+      <div class="bg-red-theme flex rounded-xl p-2">
         <mat-icon
           class="material-symbols-rounded mat-icon"
           fontIcon="school"
         ></mat-icon>
       </div>
-      <h1 class="text-xl px-1">EduLearn</h1>
+      <h1 class="px-1 text-xl">EduLearn</h1>
     </li>
-    <li class="basis-[50%]">
-      <ul class="h-full flex justify-evenly items-center text-lg font-normal">
-        <li>
-          <a
-            class="cursor-pointer px-2 hover:text-red-theme"
-            href="courses"
-            [class.text-red-theme]="currentRouter === 1"
-            >Courses</a
-          >
-        </li>
-        <li>
-          <a
-            class="cursor-pointer px-2 hover:text-red-theme"
-            href="about"
-            [class.text-red-theme]="currentRouter === 2"
-            >About</a
-          >
-        </li>
-        <li>
-          <a
-            class="cursor-pointer px-2 hover:text-red-theme"
-            href="contact"
-            [class.text-red-theme]="currentRouter === 3"
-            >Contact</a
-          >
-        </li>
-      </ul>
-    </li>
-    <li class="flex justify-end items-center basis-[25%]">
+    @if (!isSmallScreen) {
+      <li>
+        <app-nav-menu></app-nav-menu>
+      </li>
+    }
+    <li class="flex items-center justify-end">
       @if (!isSigned) {
-      <button
-        class="text-white bg-red-theme rounded-xl font-bold px-6 py-2 cursor-pointer"
-        routerLink="/signin"
-      >
-        Sign In
-      </button>
-      }@else{
-      <button class="flex items-center relative">
-        <mat-icon
-          class="material-symbols-rounded mat-person px-2 py-2 hover:bg-red-200 rounded-full cursor-pointer"
-          fontIcon="person"
-          (click)="showDropdown()"
-        ></mat-icon>
-        <ul
-          class="absolute bg-white right-0 top-full flex flex-col overflow-hidden rounded-lg p-0.5 border border-gray-200 z-50 shadow-xl mt-1"
-          [class.hidden]="hideDropdown"
+        <button
+          class="bg-red-theme cursor-pointer rounded-xl px-6 py-2 font-bold text-white"
+          routerLink="/signin"
         >
-          <li
-            class="flex items-center hover:text-red-900 px-16 hover:bg-red-200 cursor-pointer p-2 rounded-lg"
-            routerLink="/dashboard"
+          Sign In
+        </button>
+      } @else {
+        <button class="relative flex items-center">
+          <mat-icon
+            class="material-symbols-rounded mat-person cursor-pointer rounded-full px-2 py-2 hover:bg-red-200"
+            fontIcon="person"
+            (click)="showDropdown()"
+          ></mat-icon>
+          <ul
+            class="absolute top-full right-0 z-50 mt-1 flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white p-0.5 shadow-xl"
+            [class.hidden]="hideDropdown"
           >
-            <mat-icon
-              class="material-symbols-rounded mat-logout"
-              fontIcon="space_dashboard"
-            ></mat-icon
-            >Dashboard
-          </li>
-          <li
-            class="flex items-center hover:text-red-900 px-16 hover:bg-red-200 cursor-pointer p-2 rounded-lg"
-            (click)="logout()"
+            <li
+              class="flex cursor-pointer items-center rounded-lg p-2 px-16 hover:bg-red-200 hover:text-red-900"
+              routerLink="/dashboard"
+            >
+              <mat-icon
+                class="material-symbols-rounded mat-logout"
+                fontIcon="space_dashboard"
+              ></mat-icon
+              >Dashboard
+            </li>
+            <li
+              class="flex cursor-pointer items-center rounded-lg p-2 px-16 hover:bg-red-200 hover:text-red-900"
+              (click)="logout()"
+            >
+              <mat-icon
+                class="material-symbols-rounded mat-logout"
+                fontIcon="logout"
+              ></mat-icon
+              >Logout
+            </li>
+          </ul>
+        </button>
+      }
+      @if (isSmallScreen) {
+        <button class="flex cursor-pointer items-center" (click)="openMenu()">
+          <mat-icon
+            class="material-symbols-rounded mat-logout"
+            fontIcon="menu"
+          ></mat-icon>
+        </button>
+        @if (isOpenMenu) {
+          <div
+            class="absolute right-0 bottom-0 z-100 flex h-full w-full flex-col items-stretch gap-6 bg-white py-2"
+            animate.enter="enter-animation"
+            animate.leave="leave-animation"
           >
-            <mat-icon
-              class="material-symbols-rounded mat-logout"
-              fontIcon="logout"
-            ></mat-icon
-            >Logout
-          </li>
-        </ul>
-      </button>
+            <div class="flex justify-between px-2">
+              <input
+                class="bg-custom-gray border-red-theme h-10 grow rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                type="text"
+                placeholder="Search courses ..."
+              />
+              <button class="cursor-pointer" (click)="closeMenu()">
+                <mat-icon
+                  class="material-symbols-rounded mat-logout"
+                  fontIcon="close"
+                ></mat-icon>
+              </button>
+            </div>
+            <div class="flex flex-col px-2">
+              <h3 class="text-lg text-gray-500">Menu</h3>
+              <app-nav-menu [isOpenMenu]="isOpenMenu"></app-nav-menu>
+            </div>
+            <div class="flex flex-col px-2">
+              <h3 class="text-lg text-gray-500">Courses By Category</h3>
+              <ul class="flex flex-col gap-2">
+                @for (item of categoryList; track $index) {
+                  <li>
+                    <a
+                      class="hover:text-red-theme cursor-pointer text-lg font-bold"
+                      >{{ item }}</a
+                    >
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
       }
     </li>
   </ul>

@@ -1,64 +1,84 @@
-<header class="px-8 bg-white border-b border-b-gray-300  w-full z-50 top-0 fixed">
+<header
+  class="top-0 z-50 w-full border-b border-b-gray-300 bg-white px-4 md:px-8"
+>
   <app-navigation></app-navigation>
 </header>
-<main class="mt-24">
-  <div class="h-124 flex flex-col items-center justify-evenly px-8 bg-radial from-white to-red-50">
-    <p class="rounded-xl bg-red-theme font-bold text-white px-2 py-1">
+<main>
+  <div
+    class="flex flex-col items-center gap-8 bg-radial from-white to-red-50 px-8 py-16"
+  >
+    <p
+      class="bg-red-theme rounded-xl px-2 py-1 text-center font-bold text-white"
+    >
       Welcome to EduLearn
     </p>
-    <p class="text-lg">Transform Your Career with World-Class Education</p>
-    <p class="text-gray-500 text-xl w-2/3 text-center">
+    <p class="text-center text-lg">
+      Transform Your Career with World-Class Education
+    </p>
+    <p
+      class="text-center text-xl text-[clamp(12px,3vw,1.125rem)] text-gray-500"
+    >
       Join millions of learners worldwide in mastering new skills and advancing
       your career with our expert-led courses
     </p>
-    <div class="flex gap-4">
+    <div class="flex w-full flex-col gap-4 sm:w-fit sm:flex-row">
       <button
-        class="bg-red-theme px-6 py-3 rounded-xl text-white font-bold cursor-pointer hover:bg-red-400"
+        class="bg-red-theme cursor-pointer rounded-xl px-6 py-3 font-bold text-white hover:bg-red-400"
       >
         Get Started
       </button>
       <button
-        class="border-gray-300 border rounded-xl px-6 py-3 font-bold cursor-pointer hover:text-red-900 hover:bg-red-200 hover:border-red-300"
+        class="cursor-pointer rounded-xl border border-gray-300 px-6 py-3 font-bold hover:border-red-300 hover:bg-red-200 hover:text-red-900"
       >
         Explore Courses
       </button>
     </div>
 
-    <ul class="flex gap-16">
-      <li class="flex flex-col items-center">
-        <p class="text-2xl text-red-theme">{{ 10000 | number }}+</p>
+    <ul class="flex flex-wrap justify-center gap-8 md:gap-16">
+      <li
+        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
+      >
+        <p class="text-red-theme text-2xl">{{ 10000 | number }}+</p>
         <p class="text-gray-500">Students</p>
       </li>
-      <li class="flex flex-col items-center">
-        <p class="text-2xl text-red-theme">500+</p>
+      <li
+        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
+      >
+        <p class="text-red-theme text-2xl">500+</p>
         <p class="text-gray-500">Courses</p>
       </li>
-      <li class="flex flex-col items-center">
-        <p class="text-2xl text-red-theme">150+</p>
+      <li
+        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
+      >
+        <p class="text-red-theme text-2xl">150+</p>
         <p class="text-gray-500">Instructors</p>
       </li>
-      <li class="flex flex-col items-center">
-        <p class="text-2xl text-red-theme">95%</p>
+      <li
+        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
+      >
+        <p class="text-red-theme text-2xl">95%</p>
         <p class="text-gray-500">Satisfaction</p>
       </li>
     </ul>
   </div>
-  <div class="h-124 bg-white px-8">
-    <ul class="flex flex-col items-center justify-center gap-8 h-full">
+  <div class="bg-white px-8 py-16">
+    <ul class="flex h-full flex-col items-center justify-center gap-8">
       <li>
-        <p class="text-xl font-bold">Why Choose EduLearn?</p>
+        <p class="text-center text-xl font-bold">Why Choose EduLearn?</p>
       </li>
       <li>
-        <p class="text-gray-500">
+        <p class="text-center text-gray-500">
           We provide everything you need to succeed in your learning journey
         </p>
       </li>
-      <li>
-        <ul class="flex gap-8">
+      <li class="w-full">
+        <ul
+          class="flex flex-col flex-wrap gap-8 md:flex-row md:justify-between"
+        >
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc(50%-2rem)] lg:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="import_contacts"
@@ -70,9 +90,9 @@
             </p>
           </li>
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc(50%-2rem)] lg:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="group"
@@ -84,9 +104,9 @@
             </p>
           </li>
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc(50%-2rem)] lg:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="license"
@@ -98,9 +118,9 @@
             </p>
           </li>
           <li
-            class="basis-[calc(25%-0.5rem)] flex flex-col gap-3 items-start border border-gray-300 rounded-xl p-8"
+            class="flex w-full flex-col items-start gap-3 rounded-xl border border-gray-300 p-8 md:basis-[calc(50%-2rem)] lg:basis-[calc(25%-2rem)]"
           >
-            <div class="w-12 h-12 bg-red-200 rounded-xl">
+            <div class="h-12 w-12 rounded-xl bg-red-200">
               <mat-icon
                 class="material-symbols-rounded mat-icon"
                 fontIcon="pace"
@@ -116,35 +136,37 @@
     </ul>
   </div>
 
-  <div class="px-8 py-20 flex flex-col gap-8 justify-around items-center">
+  <!--<div
+    class="flex flex-col items-center justify-around gap-8 overflow-hidden px-8 py-20"
+  >
     <p class="text-xl font-bold">Popular Courses</p>
     <p class="text-gray-500">
       Explore our most loved courses taught by expert instructors
     </p>
-    <ul class="flex gap-5">
-      <li><app-course-item></app-course-item></li>
-      <li><app-course-item></app-course-item></li>
+    <ul class="flex flex-col gap-5 md:flex-row">
+      <li class="w-full"><app-course-item></app-course-item></li>
+      <li class="w-full"><app-course-item></app-course-item></li>
       <li><app-course-item></app-course-item></li>
     </ul>
     <button
       type="button"
-      class="border border-gray-300 rounded-xl bg-white font-bold px-6 py-3 cursor-pointer hover:text-red-900 hover:bg-red-200 hover:border-red-300"
+      class="cursor-pointer rounded-xl border border-gray-300 bg-white px-6 py-3 font-bold hover:border-red-300 hover:bg-red-200 hover:text-red-900"
       routerLink="/courses"
-      >
+    >
       View All Courses
     </button>
-  </div>
+  </div>-->
 </main>
 <footer>
   <div
-    class="bg-red-theme flex flex-col items-center justify-evenly h-64 py-6 px-8"
+    class="bg-red-theme flex h-64 flex-col items-center justify-evenly px-8 py-6"
   >
-    <p class="text-white">Ready to start learning?</p>
-    <p class="text-white text-xl">
+    <p class="text-center text-white">Ready to start learning?</p>
+    <p class="text-center text-xl text-white">
       Join thousands of students already learning on EduLearn
     </p>
     <button
-      class="bg-white text-red-theme rounded-xl text-base font-bold py-2 px-6 cursor-pointer hover:text-red-900 hover:bg-red-200"
+      class="text-red-theme cursor-pointer rounded-xl bg-white px-6 py-2 text-base font-bold hover:bg-red-200 hover:text-red-900"
     >
       Get Started Today
     </button>

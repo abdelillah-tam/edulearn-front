@@ -24,7 +24,9 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/favico.ico",
+              "src/assets"
             ],
             "styles": [
               "src/custom-theme.scss",

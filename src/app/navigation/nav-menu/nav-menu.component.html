@@ -1,0 +1,37 @@
+<ul
+  class="flex h-full items-center justify-center sm:gap-24 text-lg font-normal"
+  [class.flex-col]="isSmallScreen"
+  [class.items-start]="isSmallScreen"
+  [class.gap-2]="isSmallScreen"
+>
+  <li>
+    <a
+      class="hover:text-red-theme cursor-pointer"
+      href="courses"
+      [class.text-red-theme]="currentRouter === 1"
+      [class.text-2xl]="isOpenMenu()"
+      [class.font-bold]="isOpenMenu()"
+      >Courses</a
+    >
+  </li>
+  <li>
+    <a
+      class="hover:text-red-theme cursor-pointer"
+      href="about"
+      [class.text-red-theme]="currentRouter === 2"
+      [class.text-2xl]="isOpenMenu()"
+      [class.font-bold]="isOpenMenu()"
+      >About</a
+    >
+  </li>
+  <li>
+    <a
+      class="hover:text-red-theme cursor-pointer"
+      href="contact"
+      [class.text-red-theme]="currentRouter === 3"
+      [class.text-2xl]="isOpenMenu()"
+      [class.font-bold]="isOpenMenu()"
+      >Contact</a
+    >
+  </li>
+</ul>

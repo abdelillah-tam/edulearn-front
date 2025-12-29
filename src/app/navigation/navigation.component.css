@@ -15,7 +15,37 @@
     }
 }
 
-.mat-logout{
+.mat-logout {
     color: black;
-    
+
+}
+
+.enter-animation {
+    animation-name: animate-menu;
+    animation-duration: 1s;
+}
+
+.leave-animation {
+    animation-name: close-menu;
+    animation-duration: 1s;
+}
+
+@keyframes animate-menu {
+    from {
+        translate: 100%;
+    }
+
+    to {
+        translate: 0%;
+    }
+}
+
+@keyframes close-menu {
+    from {
+        translate: 0%;
+    }
+
+    to {
+        translate: 100%;
+    }
 }

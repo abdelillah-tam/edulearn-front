@@ -8,19 +8,42 @@
 
 ;
 
+@font-face {
+    font-family: 'SamsungOne';
+    src: url('./assets/fonts/SamsungOne-400.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Samsung One - Bold (700) */
+@font-face {
+    font-family: 'SamsungOne';
+    src: url('./assets/fonts/SamsungOne-700.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Samsung Sharp Sans - Bold */
+@font-face {
+    font-family: 'SamsungSharpSans';
+    src: url('./assets/fonts/SamsungSharpSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 html,
 body {
     height: 100%;
     --mat-progress-spinner-active-indicator-color: var(--color-red-theme);
+
 }
 
 body {
     margin: 0;
-    font-family: "Lato", sans-serif;
+    font-family: 'SamsungOne';
 }
 
 ::selection {
     background-color: var(--color-red-300);
     color: var(--color-red-900);
 }
-
