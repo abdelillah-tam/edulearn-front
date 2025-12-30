@@ -11,6 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../model/user';
 import { getCsrfTokenCookie } from '../global/get-csrf-token-cookie';
+import { environment } from '../../environments/environment.development';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +30,10 @@ export class SignupComponent {
     password_confirmation: new FormControl('', [Validators.required]),
   });
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+  ) {
     if (Boolean(localStorage.getItem('signed')).valueOf() === true) {
       this.router.navigate(['/']);
     }
@@ -41,18 +45,18 @@ export class SignupComponent {
 
   signup() {
     lastValueFrom(
-      this.httpClient.get('http://127.0.0.1:8000/sanctum/csrf-cookie')
+      this.httpClient.get(`${environment.API}/sanctum/csrf-cookie`),
     ).then((response) => {
       if (this.signupFormGroup.valid) {
         let user: User = new User(
           this.signupFormGroup.value.fullname!,
           this.signupFormGroup.value.email!,
-          this.signupFormGroup.value.type! as 'Instructor' | 'Student'
+          this.signupFormGroup.value.type! as 'Instructor' | 'Student',
         );
 
         this.httpClient
           .post(
-            'http://127.0.0.1:8000/api/signup',
+            `${environment.API}/api/signup`,
             {
               user: user,
               password: this.signupFormGroup.value.password,
@@ -64,7 +68,7 @@ export class SignupComponent {
               headers: new HttpHeaders({
                 'X-XSRF-TOKEN': getCsrfTokenCookie('XSRF-TOKEN')!,
               }),
-            }
+            },
           )
           .subscribe((response) => {
             if (response === true) {

@@ -1,21 +1,13 @@
-<header
-  class="fixed top-0 z-50 w-full border-b border-b-gray-300 bg-white px-8"
->
+<header class="z-50 w-full border-b border-b-gray-300 bg-white px-4 md:px-8">
   <app-navigation></app-navigation>
 </header>
 
-<main class="mt-24">
-  <div
-    class="flex h-64 flex-col items-center justify-evenly bg-radial from-white to-red-50 px-8"
-  >
-    <p class="bg-red-theme rounded-xl px-2 py-1 font-bold text-white">
-      About EduLearn
-    </p>
-    <p class="text-lg">Empowering Learners Worldwide</p>
-    <p class="w-2/3 text-center text-xl text-gray-500">
-      We're on a mission to make quality education accessible to everyone
-    </p>
-  </div>
+<main>
+  <app-main-section
+    [title]="title"
+    [subtitle]="subtitle"
+    [paragraph]="paragraph"
+  ></app-main-section>
   <div class="bg-white md:h-196">
     <div class="flex h-full flex-col justify-evenly">
       <ul
@@ -66,7 +58,7 @@
             Join Our Community
           </button>
         </li>
-        <li class="basis-1/2 overflow-hidden rounded-xl bg-yellow-700">
+        <li class="basis-1/2 overflow-hidden rounded-xl">
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="image"

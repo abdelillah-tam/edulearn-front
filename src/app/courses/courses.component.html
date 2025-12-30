@@ -7,22 +7,11 @@
     [class.flex]="isEmptyCourses()"
     [class.flex-col]="isEmptyCourses()"
   >
-    <div
-      class="flex flex-col items-center justify-evenly gap-8 bg-radial from-white to-red-50 py-16"
-    >
-      <p
-        class="bg-red-theme rounded-xl px-2 py-1 text-center font-bold text-white"
-      >
-        Course Catalog
-      </p>
-      <p class="text-[clamp(14px,3vw,1.125rem)]">Explore Our Courses</p>
-      <p
-        class="w-2/3 text-center text-[clamp(12px,3vw,1.125rem)] text-gray-500"
-      >
-        Browse through our extensive collection of expert-led courses and find
-        the perfect one for you
-      </p>
-    </div>
+    <app-main-section
+      [title]="title"
+      [subtitle]="subtitle"
+      [paragraph]="paragraph"
+    ></app-main-section>
     <div
       class="flex flex-col justify-between bg-white px-4 py-6 md:px-8"
       [class.grow]="isEmptyCourses()"

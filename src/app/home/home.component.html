@@ -4,23 +4,11 @@
   <app-navigation></app-navigation>
 </header>
 <main>
-  <div
-    class="flex flex-col items-center gap-8 bg-radial from-white to-red-50 px-8 py-16"
+  <app-main-section
+    [title]="title"
+    [subtitle]="subtitle"
+    [paragraph]="paragraph"
   >
-    <p
-      class="bg-red-theme rounded-xl px-2 py-1 text-center font-bold text-white"
-    >
-      Welcome to EduLearn
-    </p>
-    <p class="text-center text-lg">
-      Transform Your Career with World-Class Education
-    </p>
-    <p
-      class="text-center text-xl text-[clamp(12px,3vw,1.125rem)] text-gray-500"
-    >
-      Join millions of learners worldwide in mastering new skills and advancing
-      your career with our expert-led courses
-    </p>
     <div class="flex w-full flex-col gap-4 sm:w-fit sm:flex-row">
       <button
         class="bg-red-theme cursor-pointer rounded-xl px-6 py-3 font-bold text-white hover:bg-red-400"
@@ -60,7 +48,8 @@
         <p class="text-gray-500">Satisfaction</p>
       </li>
     </ul>
-  </div>
+  </app-main-section>
+
   <div class="bg-white px-8 py-16">
     <ul class="flex h-full flex-col items-center justify-center gap-8">
       <li>

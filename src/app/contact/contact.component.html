@@ -2,20 +2,11 @@
   <app-navigation></app-navigation>
 </header>
 <main>
-  <div
-    class="flex flex-col items-center justify-evenly gap-8 bg-radial from-white to-red-50 px-8 py-16"
-  >
-    <p class="bg-red-theme rounded-xl px-2 py-1 font-bold text-white">
-      Get In Touch
-    </p>
-    <p class="text-center text-lg">Contact Us</p>
-    <p
-      class="text-center text-xl text-[clamp(12px,3vw,1.125rem)] text-gray-500"
-    >
-      Have questions? We'd love to hear from you. Send us a message and we'll
-      respond as soon as possible.
-    </p>
-  </div>
+  <app-main-section
+    [title]="title"
+    [subtitle]="subtitle"
+    [paragraph]="paragraph"
+  ></app-main-section>
   <div class="bg-white">
     <div
       class="flex flex-col items-center justify-center gap-8 border-b border-gray-300 py-16"

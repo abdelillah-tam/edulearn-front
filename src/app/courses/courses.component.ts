@@ -16,6 +16,7 @@ import {
   ReactiveFormsModule,
   ɵInternalFormsSharedModule,
 } from '@angular/forms';
+import { MainSectionComponent } from "../custom-components/main-section/main-section.component";
 
 @Component({
   selector: 'app-courses',
@@ -29,11 +30,19 @@ import {
     CategoryListComponent,
     DifficultyComponent,
     ReactiveFormsModule,
-  ],
+    MainSectionComponent
+],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
 })
 export class CoursesComponent implements OnInit {
+  title = 'Course Catalog';
+
+  subtitle = 'Explore Our Courses';
+
+  paragraph =
+    'Browse through our extensive collection of expert-led courses and find the perfect one for you';
+
   closedCategories = true;
 
   closedDifficulties = true;
@@ -94,7 +103,6 @@ export class CoursesComponent implements OnInit {
   }
 
   retrieveCoursesList() {
-    //this.courses = [];
     this.isLoading = true;
     this.courseService
       .retrievAllCourses(

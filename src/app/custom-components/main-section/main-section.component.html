@@ -1,0 +1,15 @@
+<div
+  class="flex flex-col items-center gap-8 bg-radial from-white to-red-50 px-8 py-16"
+>
+  <p class="bg-red-theme rounded-xl px-2 py-1 text-center font-bold text-white">
+    {{ title() }}
+  </p>
+  <p class="text-center text-lg text-[clamp(14px,3vw,1.125rem)]">
+    {{ subtitle() }}
+  </p>
+  <p class="text-center text-xl text-[clamp(12px,3vw,1.125rem)] text-gray-500">
+    {{ paragraph() }}
+  </p>
+
+  <ng-content />
+</div>
