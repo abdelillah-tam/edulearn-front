@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../model/user';
 import { getCsrfTokenCookie } from '../global/get-csrf-token-cookie';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-signup',
