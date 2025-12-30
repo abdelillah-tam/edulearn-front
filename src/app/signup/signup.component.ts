@@ -45,7 +45,7 @@ export class SignupComponent {
 
   signup() {
     lastValueFrom(
-      this.httpClient.get(`${environment.API}/sanctum/csrf-cookie`),
+      this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`),
     ).then((response) => {
       if (this.signupFormGroup.valid) {
         let user: User = new User(

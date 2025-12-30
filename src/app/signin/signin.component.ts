@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { getCsrfTokenCookie } from '../global/get-csrf-token-cookie';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-signin',
@@ -33,7 +34,10 @@ export class SigninComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+  ) {
     if (Boolean(localStorage.getItem('signed')).valueOf() === true) {
       this.router.navigate(['/']);
     }
@@ -45,14 +49,14 @@ export class SigninComponent {
 
   signin() {
     lastValueFrom(
-      this.httpClient.get('http://127.0.0.1:8000/sanctum/csrf-cookie', {
+      this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`, {
         withCredentials: true,
-      })
+      }),
     ).then((response) => {
       if (this.signinGroup.valid) {
         this.httpClient
           .post<boolean>(
-            'http://127.0.0.1:8000/api/signin',
+            `${environment.API}/signin`,
             {
               type: this.signinGroup.value.type,
               email: this.signinGroup.value.email,
@@ -63,7 +67,7 @@ export class SigninComponent {
               headers: new HttpHeaders({
                 'X-XSRF-TOKEN': getCsrfTokenCookie('XSRF-TOKEN')!,
               }),
-            }
+            },
           )
           .subscribe((response) => {
             if (response === true) {
@@ -74,5 +78,4 @@ export class SigninComponent {
       }
     });
   }
-
 }
