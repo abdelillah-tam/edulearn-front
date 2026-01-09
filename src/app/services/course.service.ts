@@ -77,4 +77,44 @@ export class CourseService {
       `${environment.API}/getDifficultyList`,
     );
   }
+
+  enroll(course_id: number) {
+    return this.httpClient.post<boolean>(
+      `${environment.API}/enroll`,
+      {
+        course_id: course_id,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+  }
+
+  getCourse(id: number) {
+    return this.httpClient.get(`${environment.API}/course/${id}`, {
+      withCredentials: true,
+    });
+  }
+
+  getCoursesEnrolled() {
+    return this.httpClient.get(`${environment.API}/getCoursesEnrolled`, {
+      withCredentials: true,
+    });
+  }
+
+  getPopularCourses() {
+    return this.httpClient.get(`${environment.API}/getPopularCourses`);
+  }
+
+  setWatched(lessonId: number) {
+    return this.httpClient.post(
+      `${environment.API}/setWatched`,
+      {
+        id: lessonId,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+  }
 }

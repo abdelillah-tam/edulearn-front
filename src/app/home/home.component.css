@@ -7,3 +7,25 @@
     color: var(--color-red-theme);
 }
 
+.achievement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: calc((1 / 2 * 100%) - 2rem);
+
+    @media (width >=40rem) {
+        flex-basis: calc(var(--spacing) * 0);
+    }
+}
+
+.achievement p {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+    color: var(--color-red-theme);
+
+    &+p {
+        color: var(--color-gray-500);
+        text-align: center;
+        font-size: var(--text-base);
+    }
+}

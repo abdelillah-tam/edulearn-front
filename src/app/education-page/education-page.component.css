@@ -1,0 +1,7 @@
+.watched {
+    color: var(--color-red-theme);
+}
+
+.video {
+    color: var(--color-gray-500);
+}

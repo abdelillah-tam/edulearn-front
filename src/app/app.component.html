@@ -1,1 +1,9 @@
-<router-outlet />
+@if (loading) {
+  <loading
+    class="h-full w-full"
+    [diameter]="50"
+    [isLoading]="loading"
+  ></loading>
+} @else {
+  <router-outlet />
+}

@@ -1,0 +1,6 @@
+.check {
+    color: var(--color-green-600);
+    height: 56px;
+    width: 56px;
+    font-size: 56px;
+}

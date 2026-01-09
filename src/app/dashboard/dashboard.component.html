@@ -1,10 +1,22 @@
-<header
-  class="px-8 bg-white border-b border-b-gray-300 w-full z-50 top-0 fixed"
->
-  <app-navigation></app-navigation>
-</header>
-<main class="mt-24 flex flex-col items-start">
-  <a class="bg-red-theme px-8 py-2 cursor-pointer text-white rounded-xl" routerLink="/create"
-    >Create a course</a
-  >
-</main>
+<div class="flex min-h-dvh flex-col">
+  <header class="z-50 w-full border-b border-b-gray-300 bg-white px-4 md:px-8">
+    <app-navigation></app-navigation>
+  </header>
+  <main class="relative flex grow flex-col items-start">
+    @if (user.type === "Instructor") {
+      <app-instructor class="w-full h-full grow"></app-instructor>
+    } @else if (user.type === "Student") {
+      <app-student class="w-full h-full flex grow" [user]="user"></app-student>
+    } @else {
+      <loading
+        class="absolute h-full w-full"
+        [diameter]="50"
+        [isLoading]="true"
+      ></loading>
+    }
+  </main>
+
+  <footer>
+    <app-footer></app-footer>
+  </footer>
+</div>

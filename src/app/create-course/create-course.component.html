@@ -5,7 +5,7 @@
 </header>
 
 <main
-  class="mt-24 flex w-full flex-col items-end gap-8 px-[clamp(1rem,10vw,9rem)] py-8"
+  class="flex w-full flex-col items-end gap-8 px-[clamp(1rem,10vw,9rem)] py-24"
 >
   <form
     class="relative flex w-full flex-col gap-8"
@@ -20,12 +20,17 @@
       class="flex w-full flex-col gap-8 rounded-xl border border-gray-300 bg-white p-8"
     >
       <div>
-        <h2 class="text-[clamp(1rem,2vw,2rem)] font-bold">Basic Information</h2>
+        <h2 class="text-lg font-bold">Basic Information</h2>
         <p class="text-lg text-gray-500">
           Enter the core details about your course
         </p>
       </div>
       <ul class="flex flex-col gap-4">
+        @let titleControl = courseFormGroup.controls.title;
+        @let descriptionControl = courseFormGroup.controls.description;
+        @let categoryControl = courseFormGroup.controls.category;
+        @let difficultyControl = courseFormGroup.controls.difficulty;
+        @let durationControl = courseFormGroup.controls.duration;
         <li class="flex flex-col gap-2">
           <label class="font-bold" for="title">Course Title *</label>
           <input
@@ -34,8 +39,11 @@
             name="title"
             id="title"
             placeholder="e.g., Complete Web Development Bootcamp"
-            formControlName="title"
+            [formControl]="titleControl"
           />
+          @if (titleControl.invalid && titleControl.touched) {
+            <mat-error class="text-red-theme">This field is required</mat-error>
+          }
         </li>
         <li class="flex flex-col gap-2">
           <label class="font-bold" for="description"
@@ -47,8 +55,11 @@
             name="description"
             id="description"
             placeholder="Describe what studenst will learn in this course..."
-            formControlName="description"
+            [formControl]="descriptionControl"
           ></textarea>
+          @if (descriptionControl.invalid && descriptionControl.touched) {
+            <mat-error class="text-red-theme">This field is required</mat-error>
+          }
         </li>
         <li class="flex flex-wrap gap-4">
           <div
@@ -57,18 +68,20 @@
             <label class="font-bold" for="category">Category *</label>
             <div class="relative h-10 w-full">
               <input
-                class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
-                type="text"
+                class="bg-custom-gray border-red-theme h-10 w-full cursor-pointer rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
                 name="category"
                 id="category"
                 placeholder="Select a category"
-                formControlName="category"
-              />
-              <button
-                class="absolute left-0 h-full w-full cursor-pointer"
+                [formControl]="categoryControl"
+                readonly
                 (click)="closedCategoryList = !closedCategoryList"
-              ></button>
+              />
             </div>
+            @if (categoryControl.invalid && categoryControl.touched) {
+              <mat-error class="text-red-theme"
+                >This field is required</mat-error
+              >
+            }
             <category-list
               class="absolute top-full w-full"
               [categoryList]="categoryList"
@@ -82,18 +95,21 @@
             <label class="font-bold" for="difficulty">Difficulty *</label>
             <div class="relative h-10 w-full">
               <input
-                class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+                class="bg-custom-gray border-red-theme h-10 w-full cursor-pointer rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
                 type="text"
                 name="difficulty"
                 id="difficulty"
                 placeholder="Select a difficulty"
-                formControlName="difficulty"
-              />
-              <button
-                class="absolute left-0 h-full w-full cursor-pointer"
+                [formControl]="difficultyControl"
+                readonly
                 (click)="closedDifficultyList = !closedDifficultyList"
-              ></button>
+              />
             </div>
+            @if (difficultyControl.invalid && difficultyControl.touched) {
+              <mat-error class="text-red-theme"
+                >This field is required</mat-error
+              >
+            }
             <difficulty-list
               class="absolute top-full w-full"
               [difficultyList]="difficultyList"
@@ -111,6 +127,11 @@
               placeholder="eg., 12 weeks"
               formControlName="duration"
             />
+            @if (durationControl.invalid && durationControl.touched) {
+              <mat-error class="text-red-theme"
+                >This field is required</mat-error
+              >
+            }
           </div>
         </li>
         <li class="flex flex-col gap-2">
@@ -137,17 +158,15 @@
       formArrayName="objectives"
     >
       <div>
-        <h2 class="text-lg font-bold">Learning Objectives</h2>
+        <h2 class="text-lg font-bold">Learning Objectives *</h2>
         <p class="text-lg text-gray-500">
           What will students learn from this course?
         </p>
       </div>
 
       <ul class="flex flex-col gap-4">
-        @for (
-          item of courseFormGroup.controls.objectives.controls;
-          track $index
-        ) {
+        @let objectives = courseFormGroup.controls.objectives.controls;
+        @for (item of objectives; track $index) {
           <li class="flex items-center justify-between gap-2">
             <input
               class="bg-custom-gray border-red-theme h-10 basis-25/26 rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
@@ -157,14 +176,19 @@
             />
             <button
               class="close flex h-10 basis-1/26 cursor-pointer items-center justify-center rounded-xl p-2"
-              [disabled]="
-                courseFormGroup.controls.objectives.controls.length === 1
-              "
+              [disabled]="objectives.length === 1"
               (click)="removeObjective($index)"
             >
               <mat-icon class="mat-close-icon">close</mat-icon>
             </button>
           </li>
+          @if (objectives[$index].invalid && objectives[$index].touched) {
+            <li>
+              <mat-error class="text-red-theme"
+                >This field is required</mat-error
+              >
+            </li>
+          }
         }
         <button
           class="add-objective flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 py-2 hover:border-red-300"
@@ -180,22 +204,27 @@
     <div
       class="flex w-full flex-col gap-8 rounded-xl border border-gray-300 bg-white p-8"
     >
+      @let prerequisitesControl = courseFormGroup.controls.prerequisites;
       <div>
-        <h2 class="text-lg font-bold">Prerequisites</h2>
+        <h2 class="text-lg font-bold">Prerequisites *</h2>
         <p class="text-lg text-gray-500">
           What knowledge or skills should students have before taking this
           course?
         </p>
       </div>
-
-      <textarea
-        class="bg-custom-gray border-red-theme h-24 w-full resize-none rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
-        type="text"
-        name="description"
-        id="description"
-        placeholder="e.g., Basic understanding of HTML and CSS, No prior programming experience required"
-        formControlName="prerequisites"
-      ></textarea>
+      <div class="flex flex-col gap-2">
+        <textarea
+          class="bg-custom-gray border-red-theme h-24 w-full resize-none rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+          type="text"
+          name="description"
+          id="description"
+          placeholder="e.g., Basic understanding of HTML and CSS, No prior programming experience required"
+          [formControl]="prerequisitesControl"
+        ></textarea>
+        @if (prerequisitesControl.invalid && prerequisitesControl.touched) {
+          <mat-error class="text-red-theme">This field is required</mat-error>
+        }
+      </div>
     </div>
 
     <div
@@ -203,7 +232,7 @@
       formArrayName="modules"
     >
       <div>
-        <h2 class="text-lg font-bold">Course Curriculum</h2>
+        <h2 class="text-lg font-bold">Course Curriculum *</h2>
         <p class="text-lg text-gray-500">
           Organize your course content into modules and lessons
         </p>
@@ -212,11 +241,9 @@
       <section
         class="flex flex-col gap-4 overflow-hidden rounded-xl border border-gray-300 p-[clamp(0.5rem,5vw,1rem)]"
       >
-        @for (
-          item of courseFormGroup.controls.modules.controls;
-          track $index;
-          let i = $index
-        ) {
+        @let modules = courseFormGroup.controls.modules.controls;
+        @for (item of modules; track $index; let i = $index) {
+          @let moduleTitleControl = modules[i].controls.title;
           <div class="flex flex-wrap items-center justify-center gap-2">
             <p
               class="rounded-xl bg-red-200 px-3 py-1 text-xs font-bold text-nowrap text-red-900"
@@ -226,40 +253,37 @@
             </p>
             <div
               class="flex grow flex-wrap items-center justify-center gap-2"
-              [formGroup]="courseFormGroup.controls.modules.controls[i]"
+              [formGroup]="modules[i]"
             >
               <input
                 class="bg-custom-gray border-red-theme h-10 grow rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
                 type="text"
                 placeholder="Module title"
-                formControlName="title"
+                [formControl]="modules[i].controls.title"
               />
               <button
                 class="close flex h-10 items-center justify-center rounded-xl px-2"
                 type="button"
-                [disabled]="
-                  courseFormGroup.controls.modules.controls.length === 1
-                "
+                [disabled]="modules.length === 1"
                 (click)="removeModule(i)"
               >
                 <mat-icon class="mat-close-icon">close</mat-icon>
               </button>
             </div>
           </div>
-          <div
-            class="flex items-center"
-            [formGroup]="courseFormGroup.controls.modules.controls[i]"
-          >
+
+          @if (moduleTitleControl.invalid && moduleTitleControl.touched) {
+            <mat-error class="text-red-theme">This field is required</mat-error>
+          }
+          <div class="flex items-center" [formGroup]="modules[i]">
             <div
               class="flex w-full flex-col items-stretch gap-4"
               formArrayName="lessons"
             >
-              @for (
-                item of courseFormGroup.controls.modules.controls[i].controls
-                  .lessons.controls;
-                track $index;
-                let j = $index
-              ) {
+              @let lessons =
+                courseFormGroup.controls.modules.controls[i].controls.lessons
+                  .controls;
+              @for (item of lessons; track $index; let j = $index) {
                 <div
                   class="flex flex-wrap items-center justify-center gap-2"
                   [formGroup]="item"
@@ -280,14 +304,16 @@
                       placeholder="Duration"
                       formControlName="duration"
                     />
+                    @if (lessons[j].invalid && lessons[j].touched) {
+                      <mat-error class="text-red-theme"
+                        >This field is required</mat-error
+                      >
+                    }
                   </div>
                   <button
                     class="close flex h-10 cursor-pointer items-center justify-center rounded-xl p-2"
                     type="button"
-                    [disabled]="
-                      courseFormGroup.controls.modules.controls[i].controls
-                        .lessons.controls.length === 1
-                    "
+                    [disabled]="lessons.length === 1"
                     (click)="removeLesson(i, j)"
                   >
                     <mat-icon class="mat-close-icon">close</mat-icon>

@@ -9,20 +9,16 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
-import {
-  NavigationEnd,
-  NavigationStart,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment.development';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { CourseService } from '../services/course.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-navigation',
-  imports: [MatIconModule, RouterLink, NavMenuComponent],
+  imports: [MatIconModule, RouterLink, NavMenuComponent, MatTooltipModule],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css',
 })
@@ -42,9 +38,12 @@ export class NavigationComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private courseService: CourseService,
+    private authService: AuthService,
     private renderer: Renderer2,
   ) {
-    this.isSigned = Boolean(localStorage.getItem('signed'));
+    if (localStorage.getItem('signed') === 'true') {
+      this.isSigned = true;
+    }
   }
 
   ngOnInit(): void {
@@ -71,21 +70,13 @@ export class NavigationComponent implements OnInit {
   }
 
   logout() {
-    this.httpClient
-      .post<string>(
-        `${environment.API}/logout`,
-        {},
-        {
-          withCredentials: true,
-        },
-      )
-      .subscribe((response) => {
-        if (response === 'done') {
-          localStorage.clear();
+    this.authService.logout().subscribe((response) => {
+      if (response === true) {
+        localStorage.clear();
 
-          window.location.reload();
-        }
-      });
+        window.location.reload();
+      }
+    });
   }
 
   openMenu() {
@@ -107,5 +98,4 @@ export class NavigationComponent implements OnInit {
       this.renderer.removeClass(document.body, 'w-full');
     }
   }
-
 }

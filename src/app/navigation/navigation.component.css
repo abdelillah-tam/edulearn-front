@@ -22,12 +22,12 @@
 
 .enter-animation {
     animation-name: animate-menu;
-    animation-duration: 1s;
+    animation-duration: 0.8s;
 }
 
 .leave-animation {
     animation-name: close-menu;
-    animation-duration: 1s;
+    animation-duration: 0.8s;
 }
 
 @keyframes animate-menu {

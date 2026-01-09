@@ -10,47 +10,31 @@
     [paragraph]="paragraph"
   >
     <div class="flex w-full flex-col gap-4 sm:w-fit sm:flex-row">
-      <button
-        class="bg-red-theme cursor-pointer rounded-xl px-6 py-3 font-bold text-white hover:bg-red-400"
-      >
-        Get Started
-      </button>
-      <button
-        class="cursor-pointer rounded-xl border border-gray-300 px-6 py-3 font-bold hover:border-red-300 hover:bg-red-200 hover:text-red-900"
-      >
-        Explore Courses
-      </button>
+      <button class="red-btn text-white">Get Started</button>
+      <button class="white-btn">Explore Courses</button>
     </div>
 
     <ul class="flex flex-wrap justify-center gap-8 md:gap-16">
-      <li
-        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
-      >
-        <p class="text-red-theme text-2xl">{{ 10000 | number }}+</p>
-        <p class="text-gray-500">Students</p>
+      <li class="achievement">
+        <p>{{ 10000 | number }}+</p>
+        <p>Students</p>
       </li>
-      <li
-        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
-      >
-        <p class="text-red-theme text-2xl">500+</p>
-        <p class="text-gray-500">Courses</p>
+      <li class="achievement">
+        <p>500+</p>
+        <p>Courses</p>
       </li>
-      <li
-        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
-      >
-        <p class="text-red-theme text-2xl">150+</p>
-        <p class="text-gray-500">Instructors</p>
+      <li class="achievement">
+        <p>150+</p>
+        <p>Instructors</p>
       </li>
-      <li
-        class="flex basis-[calc((1/2*100%)-2rem)] flex-col items-center sm:basis-0"
-      >
-        <p class="text-red-theme text-2xl">95%</p>
-        <p class="text-gray-500">Satisfaction</p>
+      <li class="achievement">
+        <p>95%</p>
+        <p>Satisfaction</p>
       </li>
     </ul>
   </app-main-section>
 
-  <div class="bg-white px-8 py-16">
+  <div class="bg-white px-4 py-16 md:px-8">
     <ul class="flex h-full flex-col items-center justify-center gap-8">
       <li>
         <p class="text-center text-xl font-bold">Why Choose EduLearn?</p>
@@ -125,37 +109,41 @@
     </ul>
   </div>
 
-  <!--<div
-    class="flex flex-col items-center justify-around gap-8 overflow-hidden px-8 py-20"
+  <div
+    class="flex flex-col items-center justify-around gap-8 overflow-hidden px-4 py-20 md:px-8"
   >
     <p class="text-xl font-bold">Popular Courses</p>
     <p class="text-gray-500">
       Explore our most loved courses taught by expert instructors
     </p>
-    <ul class="flex flex-col gap-5 md:flex-row">
-      <li class="w-full"><app-course-item></app-course-item></li>
-      <li class="w-full"><app-course-item></app-course-item></li>
-      <li><app-course-item></app-course-item></li>
+    <ul class="relative flex w-full flex-col gap-5">
+      @if (isPopularLoading) {
+        <loading
+          class="absolute h-full w-full"
+          [isLoading]="isPopularLoading"
+          [diameter]="30"
+        ></loading>
+      } @else {
+        @for (item of popularCourses; track $index) {
+          <app-course-item [course]="item"></app-course-item>
+        }
+      }
     </ul>
-    <button
-      type="button"
-      class="cursor-pointer rounded-xl border border-gray-300 bg-white px-6 py-3 font-bold hover:border-red-300 hover:bg-red-200 hover:text-red-900"
-      routerLink="/courses"
-    >
+    <button type="button" class="white-btn" routerLink="/courses">
       View All Courses
     </button>
-  </div>-->
+  </div>
 </main>
 <footer>
   <div
     class="bg-red-theme flex h-64 flex-col items-center justify-evenly px-8 py-6"
   >
     <p class="text-center text-white">Ready to start learning?</p>
-    <p class="text-center text-xl text-white">
+    <p class="text-center text-[clamp(14px,3vw,1.125rem)] text-white">
       Join thousands of students already learning on EduLearn
     </p>
     <button
-      class="text-red-theme cursor-pointer rounded-xl bg-white px-6 py-2 text-base font-bold hover:bg-red-200 hover:text-red-900"
+      class="text-red-theme h-10 cursor-pointer rounded-xl bg-white px-6 text-base font-bold hover:bg-red-200 hover:text-red-900"
     >
       Get Started Today
     </button>

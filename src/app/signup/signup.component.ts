@@ -12,10 +12,16 @@ import { lastValueFrom } from 'rxjs';
 import { User } from '../model/user';
 import { getCsrfTokenCookie } from '../global/get-csrf-token-cookie';
 import { environment } from '../../environments/environment';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-signup',
-  imports: [MatIconModule, RouterLink, ReactiveFormsModule],
+  imports: [
+    MatIconModule,
+    RouterLink,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
@@ -29,6 +35,8 @@ export class SignupComponent {
     password: new FormControl('', [Validators.required]),
     password_confirmation: new FormControl('', [Validators.required]),
   });
+
+  isSignupLoading = false;
 
   constructor(
     private httpClient: HttpClient,
@@ -44,6 +52,7 @@ export class SignupComponent {
   }
 
   signup() {
+    this.isSignupLoading = true;
     lastValueFrom(
       this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`),
     ).then((response) => {
@@ -56,7 +65,7 @@ export class SignupComponent {
 
         this.httpClient
           .post(
-            `${environment.API}/api/signup`,
+            `${environment.API}/signup`,
             {
               user: user,
               password: this.signupFormGroup.value.password,

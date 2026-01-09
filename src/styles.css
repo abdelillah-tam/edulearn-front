@@ -47,3 +47,62 @@ body {
     background-color: var(--color-red-300);
     color: var(--color-red-900);
 }
+
+.red-btn {
+    height: calc(var(--spacing) * 10);
+    padding-inline: calc(var(--spacing) * 6);
+    background-color: var(--color-red-theme);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    border-radius: var(--radius-xl);
+    color: var(--color-white);
+
+    &:hover {
+        background-color: var(--color-red-400);
+    }
+}
+
+.white-btn {
+    height: calc(var(--spacing) * 10);
+    padding-inline: calc(var(--spacing) * 6);
+    background-color: var(--color-white);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    border-radius: var(--radius-xl);
+    border-color: var(--color-gray-300);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    color: var(--color-black);
+
+    &:hover {
+        background-color: var(--color-red-200);
+        border-color: var(--color-red-300);
+        color: var(--color-red-900);
+    }
+}
+
+.mat-mdc-tooltip .mdc-tooltip__surface {
+    background-color: var(--color-red-theme);
+    color: var(--color-white);
+    font-size: 14px;
+    font-family: 'SamsungOne';
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.input-style {
+    background-color: var(--color-custom-gray);
+    border-color: var(--color-red-theme);
+    width: 100%;
+    height: calc(var(--spacing) * 10);
+    border-radius: var(--radius-xl);
+    padding: calc(var(--spacing) * 2);
+    outline-color: var(--color-red-300);
+
+    &:focus {
+        border-style: var(--tw-border-style);
+        border-width: 1px;
+        outline-style: var(--tw-outline-style);
+        outline-width: 2px;
+    }
+}

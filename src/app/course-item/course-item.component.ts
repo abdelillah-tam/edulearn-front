@@ -1,22 +1,37 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { CourseService } from '../services/course.service';
+import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-course-item',
-  imports: [DecimalPipe, MatIcon],
+  imports: [DecimalPipe, MatIcon, MatProgressSpinnerModule],
   templateUrl: './course-item.component.html',
   styleUrl: './course-item.component.css',
 })
 export class CourseItemComponent {
   course = input<{
+    id: number;
     title: string;
     description: string;
     duration: string;
     thumbnail: string;
     instructor: string;
     category: string;
+    students: number;
+    users_count: number;
   }>();
+
+  enrolled = output<boolean>();
+
+  enrollLoading = false;
+
+  constructor(
+    private courseService: CourseService,
+    private router: Router,
+  ) {}
 
   shortDescription(description?: string) {
     const firstPeriod = description?.indexOf('.');
@@ -29,5 +44,19 @@ export class CourseItemComponent {
     }
 
     return firstPeriod;
+  }
+
+  enroll() {
+    this.enrollLoading = true;
+    this.courseService.enroll(this.course()!.id).subscribe((response) => {
+      if (response) {
+        this.enrollLoading = false;
+        this.enrolled.emit(response);
+      }
+    });
+  }
+
+  moveToDetails() {
+    this.router.navigate([`/course/${this.course()!.id}`]);
   }
 }

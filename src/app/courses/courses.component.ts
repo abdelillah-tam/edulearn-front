@@ -16,7 +16,9 @@ import {
   ReactiveFormsModule,
   ɵInternalFormsSharedModule,
 } from '@angular/forms';
-import { MainSectionComponent } from "../custom-components/main-section/main-section.component";
+import { MainSectionComponent } from '../custom-components/main-section/main-section.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EnrolledComponent } from "../enrolled/enrolled.component";
 
 @Component({
   selector: 'app-courses',
@@ -30,7 +32,8 @@ import { MainSectionComponent } from "../custom-components/main-section/main-sec
     CategoryListComponent,
     DifficultyComponent,
     ReactiveFormsModule,
-    MainSectionComponent
+    MainSectionComponent,
+    EnrolledComponent
 ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
@@ -47,7 +50,7 @@ export class CoursesComponent implements OnInit {
 
   closedDifficulties = true;
 
-  courses = [];
+  courses: any[] = [];
 
   selectedCategory = '';
 
@@ -63,12 +66,17 @@ export class CoursesComponent implements OnInit {
 
   searchFormControl = new FormControl('');
 
-  constructor(private courseService: CourseService) {}
+  enrolled = false;
+
+  constructor(
+    private courseService: CourseService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.selectedCategory = this.categoryList[0];
     this.selectedDifficulty = this.difficultyList[0];
-    this.retrieveCoursesList();
 
     this.courseService.getCategoryList().subscribe((response) => {
       this.categoryList.push(...response);
@@ -80,9 +88,20 @@ export class CoursesComponent implements OnInit {
 
     this.searchFormControl.valueChanges
       .pipe(debounceTime(500))
-      .subscribe(() => {
+      .subscribe((value) => {
+        this.router.navigate([], {
+          queryParams: {
+            search: value,
+          },
+          queryParamsHandling: 'merge',
+        });
         this.retrieveCoursesList();
       });
+
+    this.activatedRoute.queryParams.subscribe((values) => {
+      this.searchFormControl.setValue(values['search']);
+      this.retrieveCoursesList();
+    });
   }
 
   setSelectedCategory(category: string) {
@@ -94,11 +113,6 @@ export class CoursesComponent implements OnInit {
   setSelectedDifficulty(difficulty: string) {
     this.selectedDifficulty = difficulty;
     this.closedDifficulties = true;
-    this.retrieveCoursesList();
-  }
-
-  search(ev: Event) {
-    this.searchValue = (ev.target as HTMLInputElement).value;
     this.retrieveCoursesList();
   }
 

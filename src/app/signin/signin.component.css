@@ -6,3 +6,7 @@
     text-align: center;
     color: white;
 }
+
+.signin-loading {
+    --mat-progress-spinner-active-indicator-color: white;
+}

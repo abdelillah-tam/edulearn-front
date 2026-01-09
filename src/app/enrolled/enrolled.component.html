@@ -1,0 +1,45 @@
+<main class="flex grow flex-col gap-8 px-4 md:px-8 justify-center">
+  <ul class="flex flex-col items-center gap-8">
+    <li class="flex items-end">
+      <div
+        class="flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
+      >
+        <mat-icon
+          class="material-symbols-rounded check"
+          fontIcon="check_circle"
+        ></mat-icon>
+      </div>
+      <p
+        class="rounded-xl bg-green-600 px-2 py-1 text-center font-bold text-white"
+      >
+        Enrollment Successful
+      </p>
+    </li>
+    <li>You're Enrolled Successfully!</li>
+    <li class="text-center text-lg text-gray-500">
+      Congratulations! You've successfully enrolled in your course. Get ready to
+      embark on an exciting learning journey.
+    </li>
+  </ul>
+  <ul class="flex items-center justify-center gap-4">
+    <li>
+      <button
+        class="bg-red-theme flex cursor-pointer items-center justify-between rounded-xl px-6 py-3 font-bold text-white hover:bg-red-400"
+        routerLink="/dashboard"
+      >
+        Go to Dashboard
+        <mat-icon
+          class="material-symbols-rounded"
+          fontIcon="arrow_forward"
+        ></mat-icon>
+      </button>
+    </li>
+    <li>
+      <button
+        class="cursor-pointer rounded-xl border border-gray-300 px-6 py-3 font-bold hover:border-red-300 hover:bg-red-200 hover:text-red-900"
+      >
+        Browse More Courses
+      </button>
+    </li>
+  </ul>
+</main>

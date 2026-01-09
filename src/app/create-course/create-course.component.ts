@@ -4,6 +4,7 @@ import {
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
+  TouchedChangeEvent,
   Validators,
 } from '@angular/forms';
 
@@ -19,6 +20,7 @@ import { CategoryListComponent } from '../category/category.component';
 import { CATEGORIES } from '../global/categories';
 import { DifficultyComponent } from '../difficulty/difficulty.component';
 import { DIFFICULTY } from '../global/difficulty-list';
+import { MatError } from '@angular/material/select';
 
 @Component({
   selector: 'app-create-course',
@@ -30,6 +32,7 @@ import { DIFFICULTY } from '../global/difficulty-list';
     LoadingComponent,
     CategoryListComponent,
     DifficultyComponent,
+    MatError,
   ],
   templateUrl: './create-course.component.html',
   styleUrl: './create-course.component.css',
@@ -50,9 +53,7 @@ export class CreateCourseComponent {
   courseFormGroup = this.formBuilder.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
-    category: this.formBuilder.control({ value: '', disabled: true }, [
-      Validators.required,
-    ]),
+    category: this.formBuilder.control('', [Validators.required]),
     duration: ['', Validators.required],
     difficulty: ['', Validators.required],
     objectives: this.formBuilder.array([
@@ -192,6 +193,7 @@ export class CreateCourseComponent {
 
   setCategory(category: string) {
     this.closedCategoryList = true;
+  
     this.courseFormGroup.controls.category.setValue(category);
   }
 

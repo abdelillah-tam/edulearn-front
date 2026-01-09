@@ -1,0 +1,171 @@
+<div class="flex min-h-dvh flex-col">
+  <header class="w-full border-b border-b-gray-300 bg-white px-4 md:px-8">
+    <app-navigation></app-navigation>
+  </header>
+
+  <main class="relative flex grow flex-col pb-8">
+    @if (isLoading) {
+      <loading
+        class="absolute h-full w-full"
+        [diameter]="40"
+        [isLoading]="isLoading"
+      ></loading>
+    } @else if (enrolled) {
+      <app-enrolled class="flex grow"></app-enrolled>
+    } @else {
+      <ul
+        class="flex flex-col gap-4 bg-radial from-white to-red-50 px-4 py-8 md:flex-row md:px-8"
+      >
+        <li class="basis-2/3">
+          <ul class="flex flex-col items-start gap-4">
+            <li>
+              <p
+                class="bg-red-theme rounded-xl px-2 py-1 text-center font-bold text-white"
+              >
+                {{ course().category }}
+              </p>
+            </li>
+            <li>
+              <p>{{ course().title }}</p>
+            </li>
+            <li>
+              <p class="text-[clamp(14px,3vw,1.125rem)] text-gray-500">
+                {{ course().description }}
+              </p>
+            </li>
+            <li class="flex items-center gap-4">
+              <div class="flex items-center gap-1">
+                <mat-icon
+                  class="material-symbols-rounded"
+                  fontIcon="group"
+                ></mat-icon
+                >{{ course()?.users_count | number }}
+              </div>
+              <div class="flex items-center gap-1">
+                <mat-icon
+                  class="material-symbols-rounded"
+                  fontIcon="schedule"
+                ></mat-icon
+                >{{ course()?.duration }}
+              </div>
+            </li>
+            <li>
+              <p>
+                Created by
+                <span class="text-red-theme">{{ course().instructor }}</span>
+              </p>
+            </li>
+          </ul>
+        </li>
+        <li class="basis-1/3 overflow-hidden rounded-xl">
+          <ul class="bg-white">
+            <li><img [src]="course().thumbnail" /></li>
+            <li class="flex flex-col gap-4 p-4">
+              <button
+                class="red-btn flex items-center justify-center"
+                (click)="enroll()"
+              >
+                @if (isEnrollLoading) {
+                  <mat-spinner
+                    class="enroll-loading"
+                    [diameter]="25"
+                  ></mat-spinner>
+                } @else {
+                  Enroll Now
+                }
+              </button>
+              <div
+                class="flex items-center gap-1 border-t border-gray-300 pt-2"
+              >
+                <div class="flex items-center">
+                  <mat-icon
+                    class="material-symbols-rounded objective"
+                    fontIcon="check_circle"
+                  ></mat-icon>
+                </div>
+                <p>{{ course().lessons_count }} Lectures</p>
+              </div>
+              <div class="flex items-center gap-1">
+                <div class="flex items-center">
+                  <mat-icon
+                    class="material-symbols-rounded objective"
+                    fontIcon="check_circle"
+                  ></mat-icon>
+                </div>
+                <p>Lifetime access</p>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul
+        class="mx-4 mt-8 flex flex-col gap-4 rounded-xl border border-gray-300 p-6 md:mx-8"
+      >
+        <li class="text-lg">What You'll Learn</li>
+
+        <li class="flex">
+          <ul class="flex flex-col gap-2">
+            @for (item of course().objectives; track $index) {
+              <li class="flex items-center">
+                <div class="flex items-center pr-1">
+                  <mat-icon
+                    class="material-symbols-rounded objective"
+                    fontIcon="check_circle"
+                  ></mat-icon>
+                </div>
+                <p class="text-start">{{ item.objective }}</p>
+              </li>
+            }
+          </ul>
+        </li>
+      </ul>
+      <ul
+        class="mx-4 mt-8 flex flex-col gap-4 rounded-xl border border-gray-300 p-6 md:mx-8"
+      >
+        <li class="text-lg">Prerequisites</li>
+        <li class="text-gray-500">- {{ course().prerequisites }}</li>
+      </ul>
+
+      <ul
+        class="mx-4 mt-8 flex flex-col gap-8 rounded-xl border border-gray-300 p-6 md:mx-8"
+      >
+        <li>
+          <p class="text-lg font-bold">Course Curriculum</p>
+          <div>
+            <p class="text-gray-500">{{ course().modules.length }} sections</p>
+          </div>
+        </li>
+        <ul class="flex flex-col gap-4">
+          @for (moduleObject of course().modules; track $index) {
+            <li
+              class="flex flex-col gap-8 rounded-xl border border-gray-300 p-6"
+            >
+              <div class="flex justify-between">
+                <p class="font-bold">{{ moduleObject.module }}</p>
+                <p class="text-gray-500">
+                  {{ moduleObject.lessons.length }} Lectures
+                </p>
+              </div>
+              <div class="flex flex-col gap-4">
+                @for (item of moduleObject.lessons; track $index) {
+                  <div
+                    class="flex justify-between border-b border-gray-300 pb-2"
+                    [class.border-b]="
+                      $index !== moduleObject.lessons.length - 1
+                    "
+                  >
+                    <p>{{ item.lesson }}</p>
+                    <p>{{ item.duration }}</p>
+                  </div>
+                }
+              </div>
+            </li>
+          }
+        </ul>
+      </ul>
+    }
+  </main>
+  <footer>
+    <app-footer></app-footer>
+  </footer>
+</div>

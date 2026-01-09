@@ -6,3 +6,27 @@
     align-content: center;
     text-align: center;
 }
+
+.achievement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: calc((1 / 2 * 100%) - 2rem);
+}
+
+.achievement p {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+    color: var(--color-red-theme);
+
+    @media (width >=48rem) {
+        font-size: var(--text-4xl);
+        line-height: var(--tw-leading, var(--text-4xl--line-height));
+    }
+
+    &+p {
+        color: var(--color-gray-500);
+        text-align: center;
+        font-size: var(--text-base);
+    }
+}

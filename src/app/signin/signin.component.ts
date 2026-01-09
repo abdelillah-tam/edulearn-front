@@ -18,21 +18,29 @@ import { Router, RouterLink } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { getCsrfTokenCookie } from '../global/get-csrf-token-cookie';
 import { environment } from '../../environments/environment';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-signin',
-  imports: [MatIconModule, RouterLink, ReactiveFormsModule],
+  imports: [
+    MatIconModule,
+    RouterLink,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css',
 })
 export class SigninComponent {
   selectedType: number = 0;
 
-  signinGroup = new FormGroup({
+  signinFormGroup = new FormGroup({
     type: new FormControl('Student', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
+
+  isSigninLoading = false;
 
   constructor(
     private httpClient: HttpClient,
@@ -48,19 +56,21 @@ export class SigninComponent {
   }
 
   signin() {
-    lastValueFrom(
-      this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`, {
-        withCredentials: true,
-      }),
-    ).then((response) => {
-      if (this.signinGroup.valid) {
+    if (this.signinFormGroup.valid) {
+      this.isSigninLoading = true;
+      this.signinFormGroup.disable();
+      lastValueFrom(
+        this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`, {
+          withCredentials: true,
+        }),
+      ).then((response) => {
         this.httpClient
           .post<boolean>(
             `${environment.API}/signin`,
             {
-              type: this.signinGroup.value.type,
-              email: this.signinGroup.value.email,
-              password: this.signinGroup.value.password,
+              type: this.signinFormGroup.value.type,
+              email: this.signinFormGroup.value.email,
+              password: this.signinFormGroup.value.password,
             },
             {
               withCredentials: true,
@@ -75,7 +85,7 @@ export class SigninComponent {
               this.router.navigate(['/']);
             }
           });
-      }
-    });
+      });
+    }
   }
 }
