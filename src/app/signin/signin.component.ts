@@ -45,11 +45,7 @@ export class SigninComponent {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-  ) {
-    if (Boolean(localStorage.getItem('signed')).valueOf() === true) {
-      this.router.navigate(['/']);
-    }
-  }
+  ) {}
 
   selectType(index: number) {
     this.selectedType = index;
@@ -60,10 +56,9 @@ export class SigninComponent {
       this.isSigninLoading = true;
       this.signinFormGroup.disable();
       lastValueFrom(
-        this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`, {
-          withCredentials: true,
-        }),
+        this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`),
       ).then((response) => {
+        console.log(response);
         this.httpClient
           .post<boolean>(
             `${environment.API}/signin`,
@@ -81,7 +76,6 @@ export class SigninComponent {
           )
           .subscribe((response) => {
             if (response === true) {
-              localStorage.setItem('signed', String(response));
               this.router.navigate(['/']);
             }
           });
