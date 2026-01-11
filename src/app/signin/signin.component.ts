@@ -71,9 +71,6 @@ export class SigninComponent {
             },
             {
               withCredentials: true,
-              headers: new HttpHeaders({
-                'X-XSRF-TOKEN': getCsrfTokenCookie('XSRF-TOKEN')!,
-              }),
             },
           )
           .subscribe((response) => {
