@@ -7,7 +7,11 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
-import { authGuard } from './guards/auth.guard';
+import {
+  loggedInGuard,
+  loggedOutGuard,
+  studentGuard,
+} from './guards/auth.guard';
 import { CoursePageComponent } from './course-page/course-page.component';
 import { EnrolledComponent } from './enrolled/enrolled.component';
 import { EducationPageComponent } from './education-page/education-page.component';
@@ -32,15 +36,17 @@ export const routes: Routes = [
   {
     path: 'signin',
     component: SigninComponent,
+    canActivate: [loggedOutGuard],
   },
   {
     path: 'signup',
     component: SignupComponent,
+    canActivate: [loggedOutGuard],
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    canActivate: [loggedInGuard],
   },
   {
     path: 'create',
@@ -56,6 +62,7 @@ export const routes: Routes = [
   },
   {
     path: 'education',
-    component: EducationPageComponent
-  }
+    component: EducationPageComponent,
+    canActivate: [loggedInGuard, studentGuard],
+  },
 ];

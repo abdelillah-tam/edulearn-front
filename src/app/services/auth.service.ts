@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   isLoggedIn() {
-    return this.httpClient.get<boolean>(`${environment.API}/test`, {
+    return this.httpClient.get<boolean>(`${environment.API}/loggedIn`, {
       withCredentials: true,
     });
   }
@@ -22,6 +22,18 @@ export class AuthService {
 
   logout() {
     return this.httpClient.get<boolean>(`${environment.API}/logout`, {
+      withCredentials: true,
+    });
+  }
+
+  isInstructor() {
+    return this.httpClient.get<boolean>(`${environment.API}/isInstructor`, {
+      withCredentials: true,
+    });
+  }
+
+  isStudent() {
+    return this.httpClient.get<boolean>(`${environment.API}/isStudent`, {
       withCredentials: true,
     });
   }

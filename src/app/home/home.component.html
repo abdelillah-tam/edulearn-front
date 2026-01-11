@@ -10,8 +10,10 @@
     [paragraph]="paragraph"
   >
     <div class="flex w-full flex-col gap-4 sm:w-fit sm:flex-row">
-      <button class="red-btn text-white">Get Started</button>
-      <button class="white-btn">Explore Courses</button>
+      <button class="red-btn text-white" routerLink="/signin">
+        Get Started
+      </button>
+      <button class="white-btn" routerLink="/courses">Explore Courses</button>
     </div>
 
     <ul class="flex flex-wrap justify-center gap-8 md:gap-16">
@@ -144,6 +146,7 @@
     </p>
     <button
       class="text-red-theme h-10 cursor-pointer rounded-xl bg-white px-6 text-base font-bold hover:bg-red-200 hover:text-red-900"
+      routerLink="/signin"
     >
       Get Started Today
     </button>

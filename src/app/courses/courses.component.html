@@ -2,7 +2,7 @@
   <header class="z-50 w-full border-b border-b-gray-300 bg-white px-4 md:px-8">
     <app-navigation></app-navigation>
   </header>
-  <main class="flex grow flex-col" [class.justify-center]="enrolled">
+  <main class="flex grow flex-col bg-white" [class.justify-center]="enrolled">
     @if (enrolled) {
       <app-enrolled class="grow flex flex-col"></app-enrolled>
     } @else {

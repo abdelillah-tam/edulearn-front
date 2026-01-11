@@ -4,6 +4,7 @@ import { CourseService } from '../../services/course.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-student',
@@ -20,8 +21,12 @@ export class StudentComponent {
 
   constructor(
     private courseService: CourseService,
+    private authService: AuthService,
     private router: Router,
   ) {
+    if (this.user() && this.user()?.type != 'Student') {
+      this.router.navigate(['/']);
+    }
     this.courseService.getCoursesEnrolled().subscribe((response) => {
       this.courses = response;
       this.isLoading = false;

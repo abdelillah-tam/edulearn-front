@@ -3,10 +3,10 @@
     <app-navigation></app-navigation>
   </header>
   <main class="relative flex grow flex-col items-start">
-    @if (user.type === "Instructor") {
-      <app-instructor class="w-full h-full grow"></app-instructor>
-    } @else if (user.type === "Student") {
-      <app-student class="w-full h-full flex grow" [user]="user"></app-student>
+    @if (type == "Instructor") {
+      <app-instructor class="h-full w-full grow"></app-instructor>
+    } @else if (type === "Student") {
+      <app-student class="flex h-full w-full grow" [user]="user"></app-student>
     } @else {
       <loading
         class="absolute h-full w-full"

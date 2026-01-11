@@ -3,10 +3,10 @@
     <app-navigation></app-navigation>
   </header>
 
-  <main class="relative flex grow flex-col pb-8">
+  <main class="relative flex grow flex-col pb-8 bg-white">
     @if (isLoading) {
       <loading
-        class="absolute h-full w-full"
+        class="absolute h-full w-full bg-white"
         [diameter]="40"
         [isLoading]="isLoading"
       ></loading>
@@ -57,7 +57,7 @@
             </li>
           </ul>
         </li>
-        <li class="basis-1/3 overflow-hidden rounded-xl">
+        <li class="basis-1/3 overflow-hidden rounded-xl shadow-lg">
           <ul class="bg-white">
             <li><img [src]="course().thumbnail" /></li>
             <li class="flex flex-col gap-4 p-4">

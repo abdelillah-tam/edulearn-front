@@ -1,9 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,13 +30,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class SignupComponent {
   selectedType: number = 0;
 
-  signupFormGroup = new FormGroup({
-    type: new FormControl('Student', [Validators.required]),
-    fullname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-    password_confirmation: new FormControl('', [Validators.required]),
-  });
+  signupFormGroup = new FormGroup(
+    {
+      type: new FormControl('Student', [Validators.required]),
+      fullname: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      password_confirmation: new FormControl('', [Validators.required]),
+    },
+    [this.passwordMatchValidator],
+  );
 
   isSignupLoading = false;
 
@@ -86,5 +91,25 @@ export class SignupComponent {
           });
       }
     });
+  }
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password');
+    const confirmation = control.get('password_confirmation');
+
+    if (!password || !confirmation) {
+      return null;
+    }
+
+    if (password.value !== confirmation.value) {
+      console.log(true);
+      return { passwordMismatch: true };
+    }
+
+    if (confirmation.value == '') {
+      return null;
+    }
+
+    return null;
   }
 }

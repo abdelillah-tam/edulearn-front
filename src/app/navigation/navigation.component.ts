@@ -15,18 +15,25 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { CourseService } from '../services/course.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../services/auth.service';
+import { Observable, of, tap } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { LoadingComponent } from '../loading/loading.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-navigation',
-  imports: [MatIconModule, RouterLink, NavMenuComponent, MatTooltipModule],
+  imports: [
+    MatIconModule,
+    RouterLink,
+    NavMenuComponent,
+    MatTooltipModule,
+    AsyncPipe,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css',
 })
 export class NavigationComponent implements OnInit {
-  isSigned: boolean = false;
-
-  hideDropdown: boolean = true;
-
   breakPointObserver = inject(BreakpointObserver);
 
   isSmallScreen = false;
@@ -35,14 +42,29 @@ export class NavigationComponent implements OnInit {
 
   categoryList: string[] = [];
 
+  isLoggedIn: Observable<boolean>;
+
+  isLoggingOut = false;
+
   constructor(
     private httpClient: HttpClient,
     private courseService: CourseService,
     private authService: AuthService,
     private renderer: Renderer2,
   ) {
-    if (localStorage.getItem('signed') === 'true') {
-      this.isSigned = true;
+    if (
+      sessionStorage.getItem('signed') != null &&
+      Boolean(sessionStorage.getItem('signed')) == true
+    ) {
+      this.isLoggedIn = of(true);
+    } else {
+      this.isLoggedIn = this.authService.isLoggedIn().pipe(
+        tap((loggedIn) => {
+          if (loggedIn == true) {
+            sessionStorage.setItem('signed', 'true');
+          }
+        }),
+      );
     }
   }
 
@@ -60,19 +82,11 @@ export class NavigationComponent implements OnInit {
     });
   }
 
-  showDropdown() {
-    this.hideDropdown = !this.hideDropdown;
-  }
-
-  showMenu() {
-    if (this.isSmallScreen) {
-    }
-  }
-
   logout() {
+    this.isLoggingOut = true;
     this.authService.logout().subscribe((response) => {
       if (response === true) {
-        localStorage.clear();
+        sessionStorage.clear();
 
         window.location.reload();
       }

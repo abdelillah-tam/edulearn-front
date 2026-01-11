@@ -7,7 +7,9 @@ import { RouterLink } from '@angular/router';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { MainSectionComponent } from '../custom-components/main-section/main-section.component';
 import { CourseService } from '../services/course.service';
-import { LoadingComponent } from "../loading/loading.component";
+import { LoadingComponent } from '../loading/loading.component';
+import { Observable, Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +21,8 @@ import { LoadingComponent } from "../loading/loading.component";
     MainSectionComponent,
     CourseItemComponent,
     RouterLink,
-    LoadingComponent
-],
+    LoadingComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -34,9 +36,15 @@ export class HomeComponent {
 
   isPopularLoading = true;
 
-  constructor(private courseService: CourseService) {
+  
+
+  constructor(
+    private courseService: CourseService,
+    private authService: AuthService,
+  ) {
     //localStorage.clear();
     this.getPopularCourses();
+    
   }
 
   getPopularCourses() {
