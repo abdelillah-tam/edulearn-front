@@ -60,6 +60,7 @@ export class SigninComponent {
           withCredentials: true,
         }),
       ).then((response) => {
+        console.log('xsrf token', getCsrfTokenCookie('XSRF-TOKEN'));
         this.httpClient
           .post<boolean>(
             `${environment.API}/signin`,
