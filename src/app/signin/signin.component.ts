@@ -56,9 +56,10 @@ export class SigninComponent {
       this.isSigninLoading = true;
       this.signinFormGroup.disable();
       lastValueFrom(
-        this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`),
+        this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`, {
+          withCredentials: true,
+        }),
       ).then((response) => {
-        console.log(response);
         this.httpClient
           .post<boolean>(
             `${environment.API}/signin`,
