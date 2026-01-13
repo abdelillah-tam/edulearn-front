@@ -1,4 +1,4 @@
 export const environment = {
-  API: 'https://api.edu.tamoussat.com/api/api',
-  API_CSRF: 'https://api.edu.tamoussat.com/api',
+  API: '//api.edu.tamoussat.com/api/api',
+  API_CSRF: '//api.edu.tamoussat.com/api',
 };
