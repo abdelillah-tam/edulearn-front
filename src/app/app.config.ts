@@ -7,9 +7,14 @@ import {
 
 import { routes } from './app.routes';
 import {
+  HttpEvent,
+  HttpHandlerFn,
+  HttpRequest,
   provideHttpClient,
+  withInterceptors,
   withXsrfConfiguration,
 } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,9 +24,26 @@ export const appConfig: ApplicationConfig = {
       withXsrfConfiguration({
         cookieName: 'XSRF-TOKEN',
         headerName: 'X-XSRF-TOKEN',
-        
-      })
-
+      }),
+      withInterceptors([xsrf]),
     ),
   ],
 };
+
+export function xsrf(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn,
+): Observable<HttpEvent<unknown>> {
+  let token = req.headers.get('X-Xsrf-Token');
+
+  if (token) {
+    const decoded = decodeURIComponent(token);
+
+    req = req.clone({
+      setHeaders: {
+        'X-XSRF-TOKEN': decoded,
+      },
+    });
+  }
+  return next(req);
+}
