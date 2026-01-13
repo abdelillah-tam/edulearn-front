@@ -1,4 +1,4 @@
 export const environment = {
-  API: 'https://eduback.tamoussat.com/api/api',
-  API_CSRF: 'https://eduback.tamoussat.com/api',
+  API: 'https://api.edu.tamoussat.com/api/api',
+  API_CSRF: 'https://api.edu.tamoussat.com/api',
 };
