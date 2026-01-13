@@ -9,9 +9,11 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   isLoggedIn() {
-    return this.httpClient.get<boolean>(`${environment.API}/loggedIn`, {
-      withCredentials: true,
-    });
+    return this.httpClient.post<boolean>(
+      `${environment.API}/loggedIn`,
+      {},
+      { withCredentials: true },
+    );
   }
 
   getUser() {
