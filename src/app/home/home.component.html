@@ -10,9 +10,11 @@
     [paragraph]="paragraph"
   >
     <div class="flex w-full flex-col gap-4 sm:w-fit sm:flex-row">
-      <button class="red-btn text-white" routerLink="/signin">
-        Get Started
-      </button>
+      @if (!isSignedIn) {
+        <button class="red-btn text-white" routerLink="/signin">
+          Get Started
+        </button>
+      }
       <button class="white-btn" routerLink="/courses">Explore Courses</button>
     </div>
 
@@ -137,19 +139,22 @@
   </div>
 </main>
 <footer>
-  <div
-    class="bg-red-theme flex h-64 flex-col items-center justify-evenly px-8 py-6"
-  >
-    <p class="text-center text-white">Ready to start learning?</p>
-    <p class="text-center text-[clamp(14px,3vw,1.125rem)] text-white">
-      Join thousands of students already learning on EduLearn
-    </p>
-    <button
-      class="text-red-theme h-10 cursor-pointer rounded-xl bg-white px-6 text-base font-bold hover:bg-red-200 hover:text-red-900"
-      routerLink="/signin"
+  @if (!isSignedIn) {
+    <div
+      class="bg-red-theme flex h-64 flex-col items-center justify-evenly px-8 py-6"
     >
-      Get Started Today
-    </button>
-  </div>
+      <p class="text-center text-white">Ready to start learning?</p>
+      <p class="text-center text-[clamp(14px,3vw,1.125rem)] text-white">
+        Join thousands of students already learning on EduLearn
+      </p>
+      <button
+        class="text-red-theme h-10 cursor-pointer rounded-xl bg-white px-6 text-base font-bold hover:bg-red-200 hover:text-red-900"
+        routerLink="/signin"
+      >
+        Get Started Today
+      </button>
+    </div>
+  }
+
   <app-footer></app-footer>
 </footer>

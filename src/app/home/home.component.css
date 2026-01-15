@@ -29,3 +29,10 @@
         font-size: var(--text-base);
     }
 }
+
+/*.mat-mdc-snackbar-surface {
+    background-color: var(--color-green-600) !important;
+    font-family: 'SamsungOne' !important;
+    border-radius: var(--radius-xl) !important;
+}
+*/

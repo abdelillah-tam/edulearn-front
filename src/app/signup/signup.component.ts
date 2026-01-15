@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -10,11 +9,11 @@ import {
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
 import { User } from '../model/user';
-import { getCsrfTokenCookie } from '../global/get-csrf-token-cookie';
-import { environment } from '../../environments/environment';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthService } from '../services/auth.service';
+import { showSnack } from '../global/show-snack';
+import { isSignedIn } from '../global/signed-in';
 
 @Component({
   selector: 'app-signup',
@@ -44,10 +43,10 @@ export class SignupComponent {
   isSignupLoading = false;
 
   constructor(
-    private httpClient: HttpClient,
     private router: Router,
+    private authService: AuthService,
   ) {
-    if (Boolean(localStorage.getItem('signed')).valueOf() === true) {
+    if (isSignedIn()) {
       this.router.navigate(['/']);
     }
   }
@@ -58,39 +57,33 @@ export class SignupComponent {
 
   signup() {
     this.isSignupLoading = true;
-    lastValueFrom(
-      this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`),
-    ).then((response) => {
-      if (this.signupFormGroup.valid) {
-        let user: User = new User(
-          this.signupFormGroup.value.fullname!,
-          this.signupFormGroup.value.email!,
-          this.signupFormGroup.value.type! as 'Instructor' | 'Student',
-        );
 
-        this.httpClient
-          .post(
-            `${environment.API}/signup`,
-            {
-              user: user,
-              password: this.signupFormGroup.value.password,
-              password_confirmation:
-                this.signupFormGroup.value.password_confirmation,
-            },
-            {
-              withCredentials: true,
-              headers: new HttpHeaders({
-                'X-XSRF-TOKEN': getCsrfTokenCookie('XSRF-TOKEN')!,
-              }),
-            },
+    if (this.signupFormGroup.valid) {
+      let user: User = new User(
+        this.signupFormGroup.value.fullname!,
+        this.signupFormGroup.value.email!,
+        this.signupFormGroup.value.type! as 'Instructor' | 'Student',
+      );
+      this.signupFormGroup.disable();
+      this.authService.requestCsrfCookie().subscribe(() => {
+        this.authService
+          .signup(
+            user,
+            this.signupFormGroup.value.password!,
+            this.signupFormGroup.value.password_confirmation!,
           )
           .subscribe((response) => {
-            if (response === true) {
+            if (response == true) {
+              this.isSignupLoading = false;
+              showSnack('Signed Up Successfully', 'success');
               this.router.navigate(['/signin']);
+            } else {
+              this.signupFormGroup.enable();
+              showSnack('Something Wrong! Try Again', 'success');
             }
           });
-      }
-    });
+      });
+    }
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {

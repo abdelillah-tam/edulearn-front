@@ -4,7 +4,7 @@
   </header>
   <main class="relative flex grow flex-col items-start">
     @if (type == "Instructor") {
-      <app-instructor class="h-full w-full grow"></app-instructor>
+      <app-instructor class="h-full w-full grow" [user]="user"></app-instructor>
     } @else if (type === "Student") {
       <app-student class="flex h-full w-full grow" [user]="user"></app-student>
     } @else {

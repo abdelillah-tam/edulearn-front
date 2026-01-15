@@ -8,6 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './loading.component.css',
 })
 export class LoadingComponent {
-  isLoading = input(false);
-  diameter = input(90);
+  isLoading = input(true);
+  diameter = input(50);
 }

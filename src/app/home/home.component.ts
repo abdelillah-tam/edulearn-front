@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { CourseItemComponent } from '../course-item/course-item.component';
@@ -10,6 +10,8 @@ import { CourseService } from '../services/course.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { isSignedIn } from '../global/signed-in';
 
 @Component({
   selector: 'app-home',
@@ -36,15 +38,10 @@ export class HomeComponent {
 
   isPopularLoading = true;
 
-  
+  isSignedIn = isSignedIn();
 
-  constructor(
-    private courseService: CourseService,
-    private authService: AuthService,
-  ) {
-    //localStorage.clear();
+  constructor(private courseService: CourseService) {
     this.getPopularCourses();
-    
   }
 
   getPopularCourses() {

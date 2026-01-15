@@ -8,7 +8,7 @@ import {
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs';
 
-export const loggedInGuard: CanActivateFn = (route, state) => {
+export const signedInGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
@@ -17,7 +17,7 @@ export const loggedInGuard: CanActivateFn = (route, state) => {
   if (isSigned === true) {
     return true;
   } else {
-    return authService.isLoggedIn().pipe(
+    return authService.isSignedIn().pipe(
       map((result) => {
         if (result) {
           sessionStorage.setItem('signed', 'true');
@@ -34,7 +34,7 @@ export const loggedOutGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  return authService.isLoggedIn().pipe(
+  return authService.isSignedIn().pipe(
     map((result) => {
       if (!result) {
         return true;
@@ -70,6 +70,15 @@ export const instructorGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
+  let userSessionStorage = sessionStorage.getItem('user');
+
+  if (
+    userSessionStorage &&
+    JSON.parse(userSessionStorage).type == 'Instructor'
+  ) {
+    return true;
+  }
+  
   return authService.isInstructor().pipe(
     map((result) => {
       if (result) {

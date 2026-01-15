@@ -1,12 +1,4 @@
-import { ɵparseCookieValue } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientXsrfModule,
-  HttpHeaders,
-  HttpXsrfTokenExtractor,
-  withXsrfConfiguration,
-} from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,10 +7,9 @@ import {
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
-import { getCsrfTokenCookie } from '../global/get-csrf-token-cookie';
-import { environment } from '../../environments/environment';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthService } from '../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signin',
@@ -42,9 +33,11 @@ export class SigninComponent {
 
   isSigninLoading = false;
 
+  snack = inject(MatSnackBar);
+
   constructor(
-    private httpClient: HttpClient,
     private router: Router,
+    private authService: AuthService,
   ) {}
 
   selectType(index: number) {
@@ -55,29 +48,37 @@ export class SigninComponent {
     if (this.signinFormGroup.valid) {
       this.isSigninLoading = true;
       this.signinFormGroup.disable();
-      lastValueFrom(
-        this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`, {
-          withCredentials: true,
-        }),
-      ).then((response) => {
-        this.httpClient
-          .post<boolean>(
-            `${environment.API}/signin`,
-            {
-              type: this.signinFormGroup.value.type,
-              email: this.signinFormGroup.value.email,
-              password: this.signinFormGroup.value.password,
-            },
-            {
-              withCredentials: true,
-            },
+
+      this.authService.requestCsrfCookie().subscribe(() => {
+        this.authService
+          .signin(
+            this.signinFormGroup.value.email!,
+            this.signinFormGroup.value.password!,
+            this.signinFormGroup.value.type!,
           )
           .subscribe((response) => {
-            if (response === true) {
+            if (response && response.email.length) {
+              sessionStorage.setItem('signed', 'true');
+              sessionStorage.setItem('user', JSON.stringify(response));
+              this.showSnack('Signed In Successfully', 'success');
               this.router.navigate(['/']);
+            } else {
+              this.isSigninLoading = false;
+              this.signinFormGroup.enable();
+              this.showSnack(
+                'Something Wrong ! Check Email And Password',
+                'error',
+              );
             }
           });
       });
     }
+  }
+
+  showSnack(value: string, type: 'success' | 'error') {
+    this.snack.open(value, '', {
+      panelClass: [`snack-${type}`],
+      duration: 3000,
+    });
   }
 }

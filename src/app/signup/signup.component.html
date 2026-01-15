@@ -155,12 +155,12 @@
 
           <button
             type="button"
-            class="red-btn"
+            class="red-btn flex items-center justify-center"
             (click)="signup()"
             [disabled]="isSignupLoading"
           >
             @if (isSignupLoading) {
-              <mat-spinner class="signin-loading" [diameter]="25"></mat-spinner>
+              <mat-spinner class="signup-loading" [diameter]="25"></mat-spinner>
             } @else {
               @if (selectedType === 0) {
                 Create Student Account

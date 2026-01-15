@@ -1,19 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
-import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  TouchedChangeEvent,
-  Validators,
-} from '@angular/forms';
-
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import {
+  MatProgressSpinner,
+  MatProgressSpinnerModule,
+} from '@angular/material/progress-spinner';
 import { CourseService } from '../services/course.service';
-
 import imageCompression from 'browser-image-compression';
 import { LoadingComponent } from '../loading/loading.component';
 import { CategoryListComponent } from '../category/category.component';
@@ -21,6 +14,8 @@ import { CATEGORIES } from '../global/categories';
 import { DifficultyComponent } from '../difficulty/difficulty.component';
 import { DIFFICULTY } from '../global/difficulty-list';
 import { MatError } from '@angular/material/select';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-create-course',
@@ -33,6 +28,7 @@ import { MatError } from '@angular/material/select';
     CategoryListComponent,
     DifficultyComponent,
     MatError,
+    MatDialogModule,
   ],
   templateUrl: './create-course.component.html',
   styleUrl: './create-course.component.css',
@@ -76,6 +72,8 @@ export class CreateCourseComponent {
   thumbnailFile: File | null = null;
 
   imageUrl: string | null = null;
+
+  readonly dialog = inject(MatDialog);
 
   constructor(private courseService: CourseService) {}
 
@@ -139,7 +137,7 @@ export class CreateCourseComponent {
 
   submitCourse() {
     if (this.courseFormGroup.valid && this.thumbnailFile && this.imageUrl) {
-      this.isLoading = true;
+      this.loading(true);
       imageCompression(this.thumbnailFile, {
         maxSizeMB: 0.3,
         maxWidthOrHeight: 1920,
@@ -184,7 +182,7 @@ export class CreateCourseComponent {
               moduleValues,
             )
             .subscribe((response) => {
-              this.isLoading = false;
+              this.loading(false);
             });
         });
       });
@@ -193,12 +191,24 @@ export class CreateCourseComponent {
 
   setCategory(category: string) {
     this.closedCategoryList = true;
-  
+
     this.courseFormGroup.controls.category.setValue(category);
   }
 
   setDifficulty(difficulty: string) {
     this.closedDifficultyList = true;
     this.courseFormGroup.controls.difficulty.setValue(difficulty);
+  }
+
+  loading(loading: boolean) {
+    if (loading) {
+      this.dialog.open(LoadingComponent, {
+        width: '400px',
+        height: '200px',
+        disableClose: true,
+      });
+    } else {
+      this.dialog.closeAll();
+    }
   }
 }

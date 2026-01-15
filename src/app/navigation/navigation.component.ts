@@ -58,7 +58,7 @@ export class NavigationComponent implements OnInit {
     ) {
       this.isLoggedIn = of(true);
     } else {
-      this.isLoggedIn = this.authService.isLoggedIn().pipe(
+      this.isLoggedIn = this.authService.isSignedIn().pipe(
         tap((loggedIn) => {
           if (loggedIn == true) {
             sessionStorage.setItem('signed', 'true');

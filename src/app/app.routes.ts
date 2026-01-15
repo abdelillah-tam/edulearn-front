@@ -8,7 +8,8 @@ import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import {
-  loggedInGuard,
+  instructorGuard,
+  signedInGuard,
   loggedOutGuard,
   studentGuard,
 } from './guards/auth.guard';
@@ -46,11 +47,12 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [loggedInGuard],
+    canActivate: [signedInGuard],
   },
   {
     path: 'create',
     component: CreateCourseComponent,
+    canActivate: [signedInGuard, instructorGuard],
   },
   {
     path: 'course/:id',
@@ -63,6 +65,6 @@ export const routes: Routes = [
   {
     path: 'education',
     component: EducationPageComponent,
-    canActivate: [loggedInGuard, studentGuard],
+    canActivate: [signedInGuard, studentGuard],
   },
 ];

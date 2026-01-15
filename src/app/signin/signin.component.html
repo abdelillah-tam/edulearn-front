@@ -109,7 +109,7 @@
           <button
             type="button"
             class="red-btn flex items-center justify-center"
-            (click)="!isSigninLoading ? signin() : ''"
+            (click)="signin()"
             [disabled]="isSigninLoading"
           >
             @if (isSigninLoading) {

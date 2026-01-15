@@ -117,4 +117,13 @@ export class CourseService {
       },
     );
   }
+
+  getInstructorCourses() {
+    return this.httpClient.get<any[]>(
+      `${environment.API}/getInstructorCourses`,
+      {
+        withCredentials: true,
+      },
+    );
+  }
 }

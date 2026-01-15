@@ -32,26 +32,28 @@
       </ul>
       <ul class="flex basis-3/6 flex-col-reverse gap-8 px-8 py-8 md:flex-row">
         <li
-          class="flex basis-1/2 flex-col items-start justify-between gap-8 md:gap-0"
+          class="flex basis-1/2 flex-col items-start justify-evenly md:gap-0"
         >
           <p class="text-lg">Our Story</p>
-          <p class="text-gray-500">
+          <p class="text-justify text-gray-500">
             Founded in 2020, EduLearn was born from a simple belief: everyone
             deserves access to world-class education, regardless of their
             location or background.
           </p>
 
-          <p class="text-gray-500">
+          <p class="text-justify text-gray-500">
             What started as a small platform with just 10 courses has grown into
             a global learning community with over 500 courses and 10,000
             students from around the world.
           </p>
-          <p class="text-gray-500">
+          <p class="text-justify text-gray-500">
             Our team of educators, technologists, and innovators work tirelessly
             to create engaging, effective learning experiences that help our
             students achieve their goals and transform their careers.
           </p>
-          <button type="button" class="red-btn">Join Our Community</button>
+          @if (!isSignedIn) {
+            <button type="button" class="red-btn">Join Our Community</button>
+          }
         </li>
         <li class="basis-1/2 overflow-hidden rounded-xl">
           <img

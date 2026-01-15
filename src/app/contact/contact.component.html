@@ -67,40 +67,40 @@
           </p>
         </div>
         <form class="flex flex-col justify-evenly gap-8">
-          <div class="flex flex-col gap-2">
+          <div class="grid grid-rows-[1fr_calc(var(--spacing)*10)] gap-1">
             <label for="fullname" class="font-bold">Full Name</label>
             <input
               type="text"
               placeholder="Abdelilah"
               id="fullname"
-              class="bg-custom-gray border-red-theme rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              class="input-style"
             />
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="grid grid-rows-[1fr_calc(var(--spacing)*10)] gap-1">
             <label for="email" class="font-bold">Email Address</label>
             <input
               type="email"
               id="email"
               placeholder="a@a.com"
-              class="bg-custom-gray border-red-theme rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              class="input-style"
             />
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="grid grid-rows-[1fr_calc(var(--spacing)*10)] gap-1">
             <label for="subject" class="font-bold">Subject</label>
             <input
               type="text"
               id="subject"
               placeholder="How can we help you?"
-              class="bg-custom-gray border-red-theme rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              class="input-style"
             />
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="grid grid-rows-[1fr_calc(var(--spacing)*24)] gap-1">
             <label for="message" class="font-bold">Message</label>
             <textarea
               type="text"
               id="message"
               placeholder="Tell us..."
-              class="bg-custom-gray border-red-theme h-24 resize-none rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              class="input-style resize-none h-full!"
             ></textarea>
           </div>
           <button
