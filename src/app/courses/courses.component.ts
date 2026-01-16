@@ -17,8 +17,9 @@ import {
   ɵInternalFormsSharedModule,
 } from '@angular/forms';
 import { MainSectionComponent } from '../custom-components/main-section/main-section.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EnrolledComponent } from "../enrolled/enrolled.component";
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { EnrolledComponent } from '../enrolled/enrolled.component';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-courses',
@@ -33,8 +34,9 @@ import { EnrolledComponent } from "../enrolled/enrolled.component";
     DifficultyComponent,
     ReactiveFormsModule,
     MainSectionComponent,
-    EnrolledComponent
-],
+    EnrolledComponent,
+    MatPaginatorModule,
+  ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
 })
@@ -50,7 +52,13 @@ export class CoursesComponent implements OnInit {
 
   closedDifficulties = true;
 
-  courses: any[] = [];
+  courses:
+    | {
+        current_page: number;
+        data: any[];
+        last_page: number;
+      }
+    | undefined = undefined;
 
   selectedCategory = '';
 
@@ -68,6 +76,8 @@ export class CoursesComponent implements OnInit {
 
   enrolled = false;
 
+  page: number = 1;
+
   constructor(
     private courseService: CourseService,
     private router: Router,
@@ -76,6 +86,7 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedCategory = this.categoryList[0];
+
     this.selectedDifficulty = this.difficultyList[0];
 
     this.courseService.getCategoryList().subscribe((response) => {
@@ -95,34 +106,36 @@ export class CoursesComponent implements OnInit {
           },
           queryParamsHandling: 'merge',
         });
-        this.retrieveCoursesList();
+        this.retrieveCoursesList(this.page);
       });
 
     this.activatedRoute.queryParams.subscribe((values) => {
-      this.searchFormControl.setValue(values['search']);
-      this.retrieveCoursesList();
+      this.searchFormControl.setValue(values['search'], { emitEvent: false });
+      this.page = values['page'];
+      this.retrieveCoursesList(this.page);
     });
   }
 
   setSelectedCategory(category: string) {
     this.selectedCategory = category;
     this.closedCategories = true;
-    this.retrieveCoursesList();
+    this.retrieveCoursesList(this.page);
   }
 
   setSelectedDifficulty(difficulty: string) {
     this.selectedDifficulty = difficulty;
     this.closedDifficulties = true;
-    this.retrieveCoursesList();
+    this.retrieveCoursesList(this.page);
   }
 
-  retrieveCoursesList() {
+  retrieveCoursesList(page: number) {
     this.isLoading = true;
     this.courseService
       .retrievAllCourses(
         this.selectedCategory,
         this.selectedDifficulty,
         this.searchFormControl.value ?? '',
+        page,
       )
       .subscribe((response) => {
         this.courses = response;
@@ -131,9 +144,27 @@ export class CoursesComponent implements OnInit {
   }
 
   isEmptyCourses() {
-    if (this.courses.length === 0) {
+    if (this.courses?.data.length === 0) {
       return true;
     }
     return false;
+  }
+
+  handlePage(event: PageEvent) {
+    this.router.navigate([], {
+      queryParams: {
+        page: event.pageIndex + 1,
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  backToFirstPage() {
+    this.router.navigate([], {
+      queryParams: {
+        page: 1,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 }

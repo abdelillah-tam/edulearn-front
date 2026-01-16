@@ -18,10 +18,10 @@ export class CourseItemComponent {
     description: string;
     duration: string;
     thumbnail: string;
-    instructor: string;
     category: string;
     students: number;
     users_count: number;
+    instructor_user: { fullname: string };
   }>();
 
   enrolled = output<boolean>();

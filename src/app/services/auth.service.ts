@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from '../model/user';
+import { catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +11,17 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   isSignedIn() {
-    return this.httpClient.post<boolean>(
-      `${environment.API}/signedIn`,
-      {},
-      { withCredentials: true },
-    );
+    return this.httpClient
+      .post<boolean>(
+        `${environment.API}/signedIn`,
+        {},
+        { withCredentials: true },
+      )
+      .pipe(
+        catchError((error) => {
+          return of(false);
+        }),
+      );
   }
 
   getUser() {

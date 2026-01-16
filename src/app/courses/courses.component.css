@@ -1,3 +1,9 @@
 .mat-icon {
     color: var(--color-gray-500);
 }
+.mat-mdc-paginator {
+    font-family: 'SamsungOne';
+    border-width: 1px;
+    border-radius: var(--radius-xl);
+    border-color: var(--color-gray-300);
+}

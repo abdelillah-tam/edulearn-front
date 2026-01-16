@@ -1,23 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import {
-  AnimationCallbackEvent,
-  Component,
-  inject,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { Component, inject, OnInit, Renderer2 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreakpointObserver } from '@angular/cdk/layout';
-
 import { RouterLink } from '@angular/router';
-import { environment } from '../../environments/environment.development';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { CourseService } from '../services/course.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../services/auth.service';
 import { Observable, of, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { LoadingComponent } from '../loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -42,12 +32,11 @@ export class NavigationComponent implements OnInit {
 
   categoryList: string[] = [];
 
-  isLoggedIn: Observable<boolean>;
+  isLoggedIn: Observable<boolean> | undefined;
 
   isLoggingOut = false;
 
   constructor(
-    private httpClient: HttpClient,
     private courseService: CourseService,
     private authService: AuthService,
     private renderer: Renderer2,

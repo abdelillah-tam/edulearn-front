@@ -42,9 +42,18 @@ export class CourseService {
     );
   }
 
-  retrievAllCourses(category: string, difficulty: string, search: string) {
-    return this.httpClient.post<[]>(
-      `${environment.API}/getAllCourses`,
+  retrievAllCourses(
+    category: string,
+    difficulty: string,
+    search: string,
+    page: number,
+  ) {
+    return this.httpClient.post<{
+      current_page: number;
+      data: any[];
+      last_page: number;
+    }>(
+      `${environment.API}/getAllCourses?page=${page}`,
       {
         category: category,
         difficulty: difficulty,

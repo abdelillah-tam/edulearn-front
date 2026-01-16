@@ -4,7 +4,7 @@
   </header>
   <main class="flex grow flex-col bg-white" [class.justify-center]="enrolled">
     @if (enrolled) {
-      <app-enrolled class="grow flex flex-col"></app-enrolled>
+      <app-enrolled class="flex grow flex-col"></app-enrolled>
     } @else {
       <app-main-section
         [title]="title"
@@ -15,7 +15,7 @@
         <ul class="flex flex-col gap-4 md:flex-row">
           <li class="basis-3/5">
             <input
-              class="bg-custom-gray border-red-theme h-10 w-full rounded-xl p-2 outline-red-300 focus:border focus:outline-2"
+              class="input-style"
               type="text"
               placeholder="Search Courses..."
               [formControl]="searchFormControl"
@@ -71,17 +71,40 @@
         >
           @if (isLoading) {
             <loading
-              class="absolute z-10 h-full w-full"
+              class="z-10 h-full w-full"
               [isLoading]="isLoading"
-              [diameter]="50"
+              [diameter]="40"
+              [class.absolute]="courses?.data?.length"
             ></loading>
           }
-          @for (item of courses; track $index) {
+          @for (item of courses?.data; track $index) {
             <li>
               <app-course-item
                 [course]="item"
                 (enrolled)="enrolled = $event"
               ></app-course-item>
+            </li>
+          } @empty {
+            @if (!isLoading) {
+              <li class="flex items-center justify-center gap-1">
+                <p class="text-center text-gray-500">
+                  No Courses In This Page.
+                </p>
+                <a
+                  class="text-red-theme cursor-pointer"
+                  (click)="backToFirstPage()"
+                  >Go Back</a
+                >
+              </li>
+            }
+          }
+          @if (courses?.data?.length) {
+            <li>
+              <mat-paginator
+                [length]="courses?.last_page"
+                [pageSize]="1"
+                (page)="handlePage($event)"
+              ></mat-paginator>
             </li>
           }
         </ul>

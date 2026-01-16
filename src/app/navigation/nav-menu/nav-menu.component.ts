@@ -1,11 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, inject, input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-nav-menu',
-  imports: [MatIconModule],
+  imports: [MatIconModule, RouterLink],
   templateUrl: './nav-menu.component.html',
   styleUrl: './nav-menu.component.css',
 })
@@ -16,7 +16,9 @@ export class NavMenuComponent implements OnInit {
   isOpenMenu = input(false);
 
   breakPointObserver = inject(BreakpointObserver);
+
   constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.breakPointObserver.observe(['(width<40rem)']).subscribe((result) => {
       this.isSmallScreen = result.matches;
@@ -28,5 +30,13 @@ export class NavMenuComponent implements OnInit {
     } else if (this.router.url === '/contact') {
       this.currentRouter = 3;
     }
+  }
+
+  courses() {
+    this.router.navigate(['/courses'], {
+      queryParams: {
+        page: 1,
+      },
+    });
   }
 }
