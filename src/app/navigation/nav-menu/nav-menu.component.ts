@@ -1,11 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, inject, input, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, inject, input, OnInit, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-nav-menu',
-  imports: [MatIconModule, RouterLink],
+  imports: [MatIconModule],
   templateUrl: './nav-menu.component.html',
   styleUrl: './nav-menu.component.css',
 })
@@ -17,7 +17,10 @@ export class NavMenuComponent implements OnInit {
 
   breakPointObserver = inject(BreakpointObserver);
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+  ) {}
 
   ngOnInit(): void {
     this.breakPointObserver.observe(['(width<40rem)']).subscribe((result) => {
@@ -32,11 +35,9 @@ export class NavMenuComponent implements OnInit {
     }
   }
 
-  courses() {
-    this.router.navigate(['/courses'], {
-      queryParams: {
-        page: 1,
-      },
-    });
+  navigate(path: string) {
+    this.renderer.removeClass(document.body, 'fixed');
+    this.renderer.removeClass(document.body, 'w-full');
+    this.router.navigate([`/${path}`]);
   }
 }

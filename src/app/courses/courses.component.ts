@@ -14,10 +14,9 @@ import { debounceTime } from 'rxjs';
 import {
   FormControl,
   ReactiveFormsModule,
-  ɵInternalFormsSharedModule,
 } from '@angular/forms';
 import { MainSectionComponent } from '../custom-components/main-section/main-section.component';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EnrolledComponent } from '../enrolled/enrolled.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
@@ -60,13 +59,13 @@ export class CoursesComponent implements OnInit {
       }
     | undefined = undefined;
 
-  selectedCategory = '';
-
-  selectedDifficulty = '';
-
   categoryList: string[] = [CATEGORIES[0]];
 
   difficultyList: string[] = [DIFFICULTY[0]];
+
+  selectedCategory = this.categoryList[0];
+
+  selectedDifficulty = this.difficultyList[0];
 
   isLoading = true;
 
@@ -106,26 +105,42 @@ export class CoursesComponent implements OnInit {
           },
           queryParamsHandling: 'merge',
         });
-        this.retrieveCoursesList(this.page);
       });
 
     this.activatedRoute.queryParams.subscribe((values) => {
       this.searchFormControl.setValue(values['search'], { emitEvent: false });
+
+      if (values['category']) {
+        this.selectedCategory = values['category'];
+      }
+
+      if (values['difficulty']) {
+        this.selectedDifficulty = values['difficulty'];
+      }
+
       this.page = values['page'];
       this.retrieveCoursesList(this.page);
     });
   }
 
   setSelectedCategory(category: string) {
-    this.selectedCategory = category;
     this.closedCategories = true;
-    this.retrieveCoursesList(this.page);
+    this.router.navigate([], {
+      queryParams: {
+        category: category,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   setSelectedDifficulty(difficulty: string) {
-    this.selectedDifficulty = difficulty;
     this.closedDifficulties = true;
-    this.retrieveCoursesList(this.page);
+    this.router.navigate([], {
+      queryParams: {
+        difficulty: difficulty,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   retrieveCoursesList(page: number) {

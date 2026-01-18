@@ -3,7 +3,6 @@ import {
   CanActivateFn,
   RedirectCommand,
   Router,
-  UrlTree,
 } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs';

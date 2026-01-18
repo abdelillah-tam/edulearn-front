@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, input, OnInit, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { CourseService } from '../services/course.service';
 import { Router } from '@angular/router';

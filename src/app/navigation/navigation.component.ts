@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Renderer2 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { CourseService } from '../services/course.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -40,6 +40,7 @@ export class NavigationComponent implements OnInit {
     private courseService: CourseService,
     private authService: AuthService,
     private renderer: Renderer2,
+    private router: Router,
   ) {
     if (
       sessionStorage.getItem('signed') != null &&
@@ -100,5 +101,14 @@ export class NavigationComponent implements OnInit {
       this.renderer.removeClass(document.body, 'fixed');
       this.renderer.removeClass(document.body, 'w-full');
     }
+  }
+
+  navigateToCoursesCategory(category: string) {
+    this.router.navigate(['/courses'], {
+      queryParams: {
+        category: category,
+      },
+      queryParamsHandling: 'replace',
+    });
   }
 }

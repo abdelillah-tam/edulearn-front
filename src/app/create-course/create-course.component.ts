@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import {
-  MatProgressSpinner,
   MatProgressSpinnerModule,
 } from '@angular/material/progress-spinner';
 import { CourseService } from '../services/course.service';
@@ -15,7 +14,6 @@ import { DifficultyComponent } from '../difficulty/difficulty.component';
 import { DIFFICULTY } from '../global/difficulty-list';
 import { MatError } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-create-course',

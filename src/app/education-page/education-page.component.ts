@@ -1,8 +1,7 @@
-import { Component, OnInit, Renderer2, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../services/course.service';
-import { distinctUntilChanged } from 'rxjs';
 import { LoadingComponent } from '../loading/loading.component';
 import { FooterComponent } from '../footer/footer.component';
 import { MatIcon } from '@angular/material/icon';
@@ -23,7 +22,6 @@ export class EducationPageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private courseService: CourseService,
-    private renderer: Renderer2,
     private router: Router,
   ) {
     this.initialCourse();

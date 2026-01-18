@@ -10,7 +10,7 @@
       [class.text-red-theme]="currentRouter === 1"
       [class.text-2xl]="isOpenMenu()"
       [class.font-bold]="isOpenMenu()"
-      (click)="courses()"
+      (click)="navigate('courses')"
       >Courses</a
     >
   </li>
@@ -20,7 +20,7 @@
       [class.text-red-theme]="currentRouter === 2"
       [class.text-2xl]="isOpenMenu()"
       [class.font-bold]="isOpenMenu()"
-      routerLink="/about"
+      (click)="navigate('about')"
       >About</a
     >
   </li>
@@ -30,7 +30,7 @@
       [class.text-red-theme]="currentRouter === 3"
       [class.text-2xl]="isOpenMenu()"
       [class.font-bold]="isOpenMenu()"
-      routerLink="/contact"
+      (click)="navigate('contact')"
       >Contact</a
     >
   </li>

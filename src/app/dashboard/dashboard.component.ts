@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { InstructorComponent } from './instructor/instructor.component';
 import { StudentComponent } from './student/student.component';

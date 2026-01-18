@@ -1,7 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import {
   provideRouter,
-  RouteReuseStrategy,
   withRouterConfig,
 } from '@angular/router';
 

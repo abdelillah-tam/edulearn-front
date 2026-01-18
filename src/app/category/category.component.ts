@@ -1,12 +1,8 @@
 import {
-  AfterContentChecked,
   Component,
   input,
-  InputSignal,
-  OnInit,
   output,
 } from '@angular/core';
-import { CATEGORIES } from '../global/categories';
 @Component({
   selector: 'category-list',
   imports: [],

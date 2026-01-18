@@ -8,9 +8,6 @@ import { NavigationComponent } from '../navigation/navigation.component';
 import { MainSectionComponent } from '../custom-components/main-section/main-section.component';
 import { CourseService } from '../services/course.service';
 import { LoadingComponent } from '../loading/loading.component';
-import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { isSignedIn } from '../global/signed-in';
 
 @Component({
