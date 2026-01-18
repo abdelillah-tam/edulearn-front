@@ -179,7 +179,7 @@ export class CoursesComponent implements OnInit {
       queryParams: {
         page: 1,
       },
-      queryParamsHandling: 'merge',
+      queryParamsHandling: 'replace',
     });
   }
 }
