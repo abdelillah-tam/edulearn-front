@@ -102,7 +102,7 @@
             <li>
               <mat-paginator
                 [length]="courses?.last_page"
-                [pageSize]="1"
+                [hidePageSize]="true"
                 (page)="handlePage($event)"
               ></mat-paginator>
             </li>

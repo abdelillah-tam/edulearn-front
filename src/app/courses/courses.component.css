@@ -3,7 +3,5 @@
 }
 .mat-mdc-paginator {
     font-family: 'SamsungOne';
-    border-width: 1px;
-    border-radius: var(--radius-xl);
-    border-color: var(--color-gray-300);
+    background-color: white !important;
 }
