@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,7 +33,10 @@ export class CoursePageComponent implements OnInit {
 
   isEnrollLoading = false;
 
-  constructor(private courseService: CourseService) {}
+  constructor(
+    private courseService: CourseService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -46,9 +49,16 @@ export class CoursePageComponent implements OnInit {
 
   enroll() {
     this.isEnrollLoading = true;
-    this.courseService.enroll(this.course().id).subscribe((response) => {
-      this.isEnrollLoading = false;
-      this.enrolled = response;
-    });
+    if (
+      Boolean(sessionStorage.getItem('signed')) &&
+      JSON.parse(sessionStorage.getItem('user')!)
+    ) {
+      this.courseService.enroll(this.course().id).subscribe((response) => {
+        this.isEnrollLoading = false;
+        this.enrolled = response;
+      });
+    } else {
+      this.router.navigate(['/signin']);
+    }
   }
 }
