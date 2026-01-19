@@ -90,9 +90,13 @@ export class CourseService {
   }
 
   getCourse(id: number) {
-    return this.httpClient.post(`${environment.API}/course/${id}`, {
-      withCredentials: true,
-    });
+    return this.httpClient.post(
+      `${environment.API}/course/${id}`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
   }
 
   getCoursesEnrolled() {
