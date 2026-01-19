@@ -2,6 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, inject, input, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { unfixBodyTag } from '../../global/fix-body';
 
 @Component({
   selector: 'app-nav-menu',
@@ -36,8 +37,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   navigate(path: string) {
-    this.renderer.removeClass(document.body, 'fixed');
-    this.renderer.removeClass(document.body, 'w-full');
+    unfixBodyTag(this.renderer);
     this.router.navigate([`/${path}`]);
   }
 }

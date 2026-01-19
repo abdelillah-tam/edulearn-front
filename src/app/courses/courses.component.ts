@@ -11,10 +11,7 @@ import { CATEGORIES } from '../global/categories';
 import { DifficultyComponent } from '../difficulty/difficulty.component';
 import { DIFFICULTY } from '../global/difficulty-list';
 import { debounceTime } from 'rxjs';
-import {
-  FormControl,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MainSectionComponent } from '../custom-components/main-section/main-section.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnrolledComponent } from '../enrolled/enrolled.component';
@@ -59,9 +56,9 @@ export class CoursesComponent implements OnInit {
       }
     | undefined = undefined;
 
-  categoryList: string[] = [CATEGORIES[0]];
+  categoryList: string[] = CATEGORIES;
 
-  difficultyList: string[] = [DIFFICULTY[0]];
+  difficultyList: string[] = DIFFICULTY;
 
   selectedCategory = this.categoryList[0];
 
@@ -87,14 +84,6 @@ export class CoursesComponent implements OnInit {
     this.selectedCategory = this.categoryList[0];
 
     this.selectedDifficulty = this.difficultyList[0];
-
-    this.courseService.getCategoryList().subscribe((response) => {
-      this.categoryList.push(...response);
-    });
-
-    this.courseService.getDifficultyList().subscribe((response) => {
-      this.difficultyList.push(...response);
-    });
 
     this.searchFormControl.valueChanges
       .pipe(debounceTime(500))
@@ -175,6 +164,8 @@ export class CoursesComponent implements OnInit {
   }
 
   backToFirstPage() {
+    this.selectedCategory = this.categoryList[0];
+    this.selectedDifficulty = this.difficultyList[0];
     this.router.navigate([], {
       queryParams: {
         page: 1,

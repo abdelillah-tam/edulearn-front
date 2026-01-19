@@ -9,6 +9,8 @@ import { AuthService } from '../services/auth.service';
 import { Observable, of, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { fixBodyTag, unfixBodyTag } from '../global/fix-body';
+import { CATEGORIES } from '../global/categories';
 
 @Component({
   selector: 'app-navigation',
@@ -30,14 +32,13 @@ export class NavigationComponent implements OnInit {
 
   isOpenMenu = false;
 
-  categoryList: string[] = [];
+  categoryList: string[] = CATEGORIES;
 
   isLoggedIn: Observable<boolean> | undefined;
 
   isLoggingOut = false;
 
   constructor(
-    private courseService: CourseService,
     private authService: AuthService,
     private renderer: Renderer2,
     private router: Router,
@@ -67,9 +68,6 @@ export class NavigationComponent implements OnInit {
       }
     });
 
-    this.courseService.getCategoryList().subscribe((response) => {
-      this.categoryList = response;
-    });
   }
 
   logout() {
@@ -95,15 +93,14 @@ export class NavigationComponent implements OnInit {
 
   changeBodyPosition() {
     if (this.isOpenMenu) {
-      this.renderer.addClass(document.body, 'fixed');
-      this.renderer.addClass(document.body, 'w-full');
+      fixBodyTag(this.renderer);
     } else {
-      this.renderer.removeClass(document.body, 'fixed');
-      this.renderer.removeClass(document.body, 'w-full');
+      unfixBodyTag(this.renderer);
     }
   }
 
   navigateToCoursesCategory(category: string) {
+    unfixBodyTag(this.renderer);
     this.router.navigate(['/courses'], {
       queryParams: {
         category: category,

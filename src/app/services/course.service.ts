@@ -77,16 +77,6 @@ export class CourseService {
     return downloadUrl;
   }
 
-  getCategoryList() {
-    return this.httpClient.get<string[]>(`${environment.API}/getCategoryList`);
-  }
-
-  getDifficultyList() {
-    return this.httpClient.get<string[]>(
-      `${environment.API}/getDifficultyList`,
-    );
-  }
-
   enroll(course_id: number) {
     return this.httpClient.post<boolean>(
       `${environment.API}/enroll`,

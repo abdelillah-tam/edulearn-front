@@ -89,13 +89,15 @@
               <h3 class="text-lg text-gray-500">Courses By Category</h3>
               <ul class="flex flex-col gap-2">
                 @for (item of categoryList; track $index) {
-                  <li>
-                    <a
-                      class="hover:text-red-theme cursor-pointer text-lg font-bold"
-                      (click)="navigateToCoursesCategory(item)"
-                      >{{ item }}</a
-                    >
-                  </li>
+                  @if ($index != 0) {
+                    <li>
+                      <a
+                        class="hover:text-red-theme cursor-pointer text-lg font-bold"
+                        (click)="navigateToCoursesCategory(item)"
+                        >{{ item }}</a
+                      >
+                    </li>
+                  }
                 }
               </ul>
             </div>
