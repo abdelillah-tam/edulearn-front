@@ -25,9 +25,15 @@ export class AuthService {
   }
 
   getUser() {
-    return this.httpClient.get<any>(`${environment.API}/getUser`, {
-      withCredentials: true,
-    });
+    return this.httpClient
+      .get<User | undefined>(`${environment.API}/getUser`, {
+        withCredentials: true,
+      })
+      .pipe(
+        catchError((error) => {
+          return of(undefined);
+        }),
+      );
   }
 
   logout() {

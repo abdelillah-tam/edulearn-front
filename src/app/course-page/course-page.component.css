@@ -2,7 +2,3 @@
     color: var(--color-red-theme);
 }
 
-.enroll-loading {
-    --mat-progress-spinner-active-indicator-color: white;
-}
-

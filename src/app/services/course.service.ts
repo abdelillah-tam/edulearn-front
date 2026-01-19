@@ -102,7 +102,13 @@ export class CourseService {
   }
 
   getPopularCourses() {
-    return this.httpClient.get(`${environment.API}/getPopularCourses`);
+    return this.httpClient.post(
+      `${environment.API}/getPopularCourses`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
   }
 
   setWatched(lessonId: number) {
