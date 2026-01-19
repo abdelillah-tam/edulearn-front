@@ -5,6 +5,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { MainSectionComponent } from '../custom-components/main-section/main-section.component';
 import { isSignedIn } from '../global/signed-in';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-about',
@@ -14,7 +15,8 @@ import { isSignedIn } from '../global/signed-in';
     FooterComponent,
     MatIconModule,
     MainSectionComponent,
-  ],
+    RouterLink
+],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
 })

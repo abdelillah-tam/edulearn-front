@@ -90,7 +90,7 @@ export class CourseService {
   }
 
   getCourse(id: number) {
-    return this.httpClient.get(`${environment.API}/course/${id}`, {
+    return this.httpClient.post(`${environment.API}/course/${id}`, {
       withCredentials: true,
     });
   }

@@ -39,7 +39,7 @@
       <button type="button" class="white-btn" (click)="moveToDetails()">
         View Details
       </button>
-      @if (!course()?.is_enrolled) {
+      @if (!course()?.is_enrolled && !course()?.is_instructor) {
         <button type="button" class="red-btn" (click)="enroll()">
           @if (enrollLoading) {
             <mat-spinner class="enroll-loading" [diameter]="25"></mat-spinner>

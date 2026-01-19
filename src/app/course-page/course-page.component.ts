@@ -32,6 +32,7 @@ export class CoursePageComponent implements OnInit {
   enrolled = false;
 
   isEnrollLoading = false;
+
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {

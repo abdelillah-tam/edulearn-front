@@ -22,6 +22,7 @@ export class CourseItemComponent {
     students: number;
     users_count: number;
     is_enrolled: boolean;
+    is_instructor: boolean;
     instructor_user: { fullname: string };
   }>();
 
@@ -53,12 +54,14 @@ export class CourseItemComponent {
       Boolean(sessionStorage.getItem('signed')) &&
       JSON.parse(sessionStorage.getItem('user')!)
     ) {
-      this.courseService.enroll(this.course()!.id).subscribe((response) => {
-        if (response) {
-          this.enrollLoading = false;
-          this.enrolled.emit(response);
-        }
-      });
+      if (!this.course()?.is_instructor && !this.course()?.is_enrolled) {
+        this.courseService.enroll(this.course()!.id).subscribe((response) => {
+          if (response) {
+            this.enrollLoading = false;
+            this.enrolled.emit(response);
+          }
+        });
+      }
     } else {
       this.router.navigate(['/signin']);
     }

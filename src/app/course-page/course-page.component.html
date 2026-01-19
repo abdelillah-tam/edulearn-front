@@ -3,7 +3,7 @@
     <app-navigation></app-navigation>
   </header>
 
-  <main class="relative flex grow flex-col pb-8 bg-white">
+  <main class="relative flex grow flex-col bg-white pb-8">
     @if (isLoading) {
       <loading
         class="absolute h-full w-full bg-white"
@@ -52,7 +52,7 @@
             <li>
               <p>
                 Created by
-                <span class="text-red-theme">{{ course().instructor }}</span>
+                <span class="text-red-theme">{{ course().instructor_user.fullname }}</span>
               </p>
             </li>
           </ul>
@@ -61,19 +61,21 @@
           <ul class="bg-white">
             <li><img [src]="course().thumbnail" /></li>
             <li class="flex flex-col gap-4 p-4">
-              <button
-                class="red-btn flex items-center justify-center"
-                (click)="enroll()"
-              >
-                @if (isEnrollLoading) {
-                  <mat-spinner
-                    class="enroll-loading"
-                    [diameter]="25"
-                  ></mat-spinner>
-                } @else {
-                  Enroll Now
-                }
-              </button>
+              @if (!course().is_enrolled && !course().is_instructor) {
+                <button
+                  class="red-btn flex items-center justify-center"
+                  (click)="enroll()"
+                >
+                  @if (isEnrollLoading) {
+                    <mat-spinner
+                      class="enroll-loading"
+                      [diameter]="25"
+                    ></mat-spinner>
+                  } @else {
+                    Enroll Now
+                  }
+                </button>
+              }
               <div
                 class="flex items-center gap-1 border-t border-gray-300 pt-2"
               >
