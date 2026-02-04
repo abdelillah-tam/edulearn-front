@@ -6,14 +6,9 @@ import {
 
 import { routes } from './app.routes';
 import {
-  HttpEvent,
-  HttpHandlerFn,
-  HttpRequest,
   provideHttpClient,
-  withInterceptors,
   withXsrfConfiguration,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [

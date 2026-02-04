@@ -55,7 +55,9 @@ export class AuthService {
   }
 
   requestCsrfCookie() {
-    return this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`);
+    return this.httpClient.get(`${environment.API_CSRF}/sanctum/csrf-cookie`, {
+      withCredentials: true,
+    });
   }
 
   signup(user: User, password: string, passwordConfirmation: string) {
