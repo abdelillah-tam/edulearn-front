@@ -23,6 +23,7 @@ export class AppComponent {
     private router: Router,
     private authService: AuthService,
   ) {
+    console.log(document.cookie);
     this.router.events.subscribe((event) => {
       if (event instanceof GuardsCheckStart) {
         this.loading = true;
