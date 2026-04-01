@@ -2,9 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  MatProgressSpinnerModule,
-} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CourseService } from '../services/course.service';
 import imageCompression from 'browser-image-compression';
 import { LoadingComponent } from '../loading/loading.component';
@@ -141,47 +139,59 @@ export class CreateCourseComponent {
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       }).then((output) => {
-        this.courseService.uploadCourseThumbnail(output).then((response) => {
-          let objectiveValues: string[] = [];
+        let objectiveValues: string[] = [];
 
-          this.courseFormGroup.controls.objectives.controls.forEach((item) => {
-            objectiveValues.push(item.value!);
-          });
+        this.courseFormGroup.controls.objectives.controls.forEach((item) => {
+          objectiveValues.push(item.value!);
+        });
 
-          let moduleValues: {
-            title: string;
-            lessons: { title: string; duration: string }[];
-          }[] = [];
+        let moduleValues: {
+          title: string;
+          lessons: { title: string; duration: string }[];
+        }[] = [];
 
-          this.courseFormGroup.controls.modules.controls.forEach((item) => {
-            let lessons: { title: string; duration: string }[] = [];
-            item.controls.lessons.controls.forEach((lessonControl) => {
-              lessons.push({
-                title: lessonControl.controls.title.value!,
-                duration: lessonControl.controls.duration.value!,
-              });
-            });
-            moduleValues.push({
-              title: item.controls.title.value!,
-              lessons: lessons,
+        this.courseFormGroup.controls.modules.controls.forEach((item) => {
+          let lessons: { title: string; duration: string }[] = [];
+          item.controls.lessons.controls.forEach((lessonControl) => {
+            lessons.push({
+              title: lessonControl.controls.title.value!,
+              duration: lessonControl.controls.duration.value!,
             });
           });
+          moduleValues.push({
+            title: item.controls.title.value!,
+            lessons: lessons,
+          });
+        });
 
-          this.courseService
-            .createCourse(
-              this.courseFormGroup.controls.title.value!,
-              this.courseFormGroup.controls.description.value!,
-              this.courseFormGroup.controls.category.value!,
-              this.courseFormGroup.controls.difficulty.value!,
-              this.courseFormGroup.controls.duration.value!,
-              response,
-              objectiveValues,
-              this.courseFormGroup.controls.prerequisites.value!,
-              moduleValues,
-            )
-            .subscribe((response) => {
-              this.loading(false);
-            });
+        let course = new FormData();
+        course.append('title', this.courseFormGroup.controls.title.value!);
+        course.append(
+          'description',
+          this.courseFormGroup.controls.description.value!,
+        );
+        course.append(
+          'category',
+          this.courseFormGroup.controls.category.value!,
+        );
+        course.append(
+          'difficulty',
+          this.courseFormGroup.controls.difficulty.value!,
+        );
+        course.append(
+          'duration',
+          this.courseFormGroup.controls.duration.value!,
+        );
+        course.append('thumbnail', output);
+        course.append('objectives', JSON.stringify(objectiveValues));
+        course.append(
+          'prerequisites',
+          this.courseFormGroup.controls.prerequisites.value!,
+        );
+        course.append('modules', JSON.stringify(moduleValues));
+
+        this.courseService.createCourse(course).subscribe((response) => {
+          this.loading(false);
         });
       });
     }

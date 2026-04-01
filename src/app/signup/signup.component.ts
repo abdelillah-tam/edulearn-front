@@ -95,7 +95,6 @@ export class SignupComponent {
     }
 
     if (password.value !== confirmation.value) {
-      console.log(true);
       return { passwordMismatch: true };
     }
 
