@@ -1,4 +1,4 @@
-<nav class="flex h-24 flex-col items-center justify-center bg-white">
+<nav class="relative flex h-24 flex-col items-center justify-center bg-white">
   @let loggedIn = isLoggedIn | async;
   <ul class="flex w-full justify-between">
     <li
@@ -14,8 +14,137 @@
       <h1 class="px-1 text-xl">EduLearn</h1>
     </li>
     @if (!isSmallScreen) {
-      <li>
+      <li class="grow">
         <app-nav-menu></app-nav-menu>
+      </li>
+      <li class="flex grow items-center justify-center">
+        <button
+          class="border-red-theme white-btn flex items-center gap-2 rounded-xl border bg-white! text-black!"
+          (click)="changeChatVisibility()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="2em"
+            style="flex: none; line-height: 1"
+            viewBox="0 0 24 24"
+            width="2em"
+          >
+            <title>Gemini</title>
+            <path
+              d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z"
+              fill="#3186FF"
+            />
+            <path
+              d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z"
+              fill="url(#lobe-icons-gemini-0-_R_0_)"
+            />
+            <path
+              d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z"
+              fill="url(#lobe-icons-gemini-1-_R_0_)"
+            />
+            <path
+              d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z"
+              fill="url(#lobe-icons-gemini-2-_R_0_)"
+            />
+            <defs>
+              <linearGradient
+                gradientUnits="userSpaceOnUse"
+                id="lobe-icons-gemini-0-_R_0_"
+                x1="7"
+                x2="11"
+                y1="15.5"
+                y2="12"
+              >
+                <stop stop-color="#08B962" />
+                <stop offset="1" stop-color="#08B962" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient
+                gradientUnits="userSpaceOnUse"
+                id="lobe-icons-gemini-1-_R_0_"
+                x1="8"
+                x2="11.5"
+                y1="5.5"
+                y2="11"
+              >
+                <stop stop-color="#F94543" />
+                <stop offset="1" stop-color="#F94543" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient
+                gradientUnits="userSpaceOnUse"
+                id="lobe-icons-gemini-2-_R_0_"
+                x1="3.5"
+                x2="17.5"
+                y1="13.5"
+                y2="12"
+              >
+                <stop stop-color="#FABC12" />
+                <stop offset=".46" stop-color="#FABC12" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+          Ask Chat
+        </button>
+        @if (chatVisibility) {
+          <section
+            class="absolute top-full right-0 flex h-160 w-1/2 flex-col rounded-b-xl border-x border-b border-gray-200 bg-white p-4 px-4"
+          >
+            <ul
+              class="flex grow flex-col gap-2 overflow-y-auto"
+              [class.items-center]="chat.length == 0"
+              [class.justify-center]="chat.length == 0"
+            >
+              @for (item of chat; track $index) {
+                @if (typeof item == "string") {
+                  <li class="w-2/3 self-end rounded-xl bg-gray-100 p-4">
+                    <p>{{ item }}</p>
+                  </li>
+                } @else {
+                  <li class="flex w-2/3 flex-col gap-4 p-4">
+                    <p>{{ item.ai_response }}</p>
+                    @for (course of item.courses; track $index) {
+                      <ul class="flex flex-col gap-1">
+                        <li>
+                          <p class="font-bold">{{ course.title }}</p>
+                        </li>
+                        <li>
+                          <p>{{ course.description }}</p>
+                        </li>
+                        <li>
+                          <p>For: {{ course.level }}</p>
+                        </li>
+                        <li>
+                          <a class="cursor-pointer text-blue-500">{{
+                            course.link
+                          }}</a>
+                        </li>
+                      </ul>
+                    }
+                  </li>
+                }
+              } @empty {
+                <li>
+                  <p class="text-xl">
+                    You can search for courses that match your level.
+                  </p>
+                </li>
+              }
+            </ul>
+            <ul class="flex gap-2">
+              <li class="flex grow">
+                <input
+                  class="input-style grow"
+                  placeholder="Search for something..."
+                  [formControl]="promptController"
+                />
+              </li>
+              <li>
+                <button class="white-btn cursor-pointer" (click)="prompt()">
+                  Search
+                </button>
+              </li>
+            </ul>
+          </section>
+        }
       </li>
     }
     <li class="flex items-center justify-end">

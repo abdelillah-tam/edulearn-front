@@ -95,4 +95,18 @@ export class CourseService {
       },
     );
   }
+
+  prompt(prompt: string) {
+    return this.httpClient.post<{
+      ai_response: string;
+      courses: {
+        title: string;
+        description: string;
+        level: string;
+        link: string;
+      }[];
+    }>(`${environment.API}/prompting`, {
+      prompt: prompt,
+    });
+  }
 }

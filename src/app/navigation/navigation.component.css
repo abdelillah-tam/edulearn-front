@@ -30,6 +30,7 @@
     animation-duration: 0.8s;
 }
 
+
 @keyframes animate-menu {
     from {
         translate: 100%;

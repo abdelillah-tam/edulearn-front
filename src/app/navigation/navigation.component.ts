@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, inject, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router, RouterLink } from '@angular/router';
@@ -11,6 +11,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { fixBodyTag, unfixBodyTag } from '../global/fix-body';
 import { CATEGORIES } from '../global/categories';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-navigation',
@@ -21,6 +22,7 @@ import { CATEGORIES } from '../global/categories';
     MatTooltipModule,
     AsyncPipe,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css',
@@ -38,8 +40,28 @@ export class NavigationComponent implements OnInit {
 
   isLoggingOut = false;
 
+  promptController = new FormControl('', [Validators.required]);
+
+  chatVisibility = false;
+
+  chat: (
+    | {
+        ai_response: string;
+        courses: {
+          title: string;
+          description: string;
+          level: string;
+          link: string;
+        }[];
+      }
+    | string
+  )[] = [];
+
+
+
   constructor(
     private authService: AuthService,
+    private courseService: CourseService,
     private renderer: Renderer2,
     private router: Router,
   ) {
@@ -67,7 +89,6 @@ export class NavigationComponent implements OnInit {
         this.changeBodyPosition();
       }
     });
-
   }
 
   logout() {
@@ -107,5 +128,20 @@ export class NavigationComponent implements OnInit {
       },
       queryParamsHandling: 'replace',
     });
+  }
+
+  prompt() {
+    if (this.promptController.valid) {
+      this.chat.push(this.promptController.value!);
+      this.courseService
+        .prompt(this.promptController.value!)
+        .subscribe((response) => {
+          this.chat.push(response);
+        });
+    }
+  }
+
+  changeChatVisibility() {
+    this.chatVisibility = !this.chatVisibility;
   }
 }

@@ -7,10 +7,12 @@ import {
 } from '@angular/router';
 import { LoadingComponent } from './loading/loading.component';
 import { AuthService } from './services/auth.service';
+import { CourseService } from './services/course.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoadingComponent],
+  imports: [RouterOutlet, LoadingComponent, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -19,11 +21,11 @@ export class AppComponent {
 
   loading = true;
 
+
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
-    console.log(document.cookie);
     this.router.events.subscribe((event) => {
       if (event instanceof GuardsCheckStart) {
         this.loading = true;
@@ -39,4 +41,6 @@ export class AppComponent {
       }
     });
   }
+
+  
 }
