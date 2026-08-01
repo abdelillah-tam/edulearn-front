@@ -105,8 +105,12 @@ export class CourseService {
         level: string;
         link: string;
       }[];
-    }>(`${environment.API}/prompting`, {
-      prompt: prompt,
-    });
+    }>(
+      `${environment.API}/prompting`,
+      {
+        prompt: prompt,
+      },
+      { withCredentials: true },
+    );
   }
 }
