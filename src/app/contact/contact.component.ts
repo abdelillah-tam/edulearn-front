@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { NavigationComponent } from '../navigation/navigation.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from '../footer/footer.component';
 import { MainSectionComponent } from "../custom-components/main-section/main-section.component";
 
 @Component({
   selector: 'app-contact',
-  imports: [NavigationComponent, MatIconModule, FooterComponent, MainSectionComponent],
+  imports: [MatIconModule, FooterComponent, MainSectionComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css',
 })

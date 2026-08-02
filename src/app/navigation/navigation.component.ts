@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  Renderer2,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router, RouterLink } from '@angular/router';
@@ -57,7 +63,7 @@ export class NavigationComponent implements OnInit {
     | string
   )[] = [];
 
-
+  waitForResponseChat = false;
 
   constructor(
     private authService: AuthService,
@@ -131,13 +137,22 @@ export class NavigationComponent implements OnInit {
   }
 
   prompt() {
-    if (this.promptController.valid) {
+    if (
+      this.promptController.valid &&
+      this.waitForResponseChat == false &&
+      this.promptController.enabled
+    ) {
       this.chat.push(this.promptController.value!);
+      this.waitForResponseChat = true;
       this.courseService
         .prompt(this.promptController.value!)
         .subscribe((response) => {
           this.chat.push(response);
+          this.waitForResponseChat = false;
+          this.promptController.enable();
         });
+      this.promptController.disable();
+      this.promptController.reset();
     }
   }
 

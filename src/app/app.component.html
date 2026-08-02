@@ -5,6 +5,13 @@
     [isLoading]="loading"
   ></loading>
 } @else {
+  @if (currentRoute == "/" || currentRoute == "/courses" || currentRoute == "/about" || currentRoute == '/contact' ) {
+    <header
+      class="top-0 z-1000 w-full border-b border-b-gray-300 bg-white px-4 md:px-8"
+    >
+      <app-navigation></app-navigation>
+    </header>
+  }
 
   <router-outlet />
 }

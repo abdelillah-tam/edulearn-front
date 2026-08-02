@@ -3,7 +3,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CourseItemComponent } from '../course-item/course-item.component';
 import { FooterComponent } from '../footer/footer.component';
-import { NavigationComponent } from '../navigation/navigation.component';
 import { CourseService } from '../services/course.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { CategoryListComponent } from '../category/category.component';
@@ -20,7 +19,6 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-courses',
   imports: [
-    NavigationComponent,
     MatSelectModule,
     CourseItemComponent,
     FooterComponent,
