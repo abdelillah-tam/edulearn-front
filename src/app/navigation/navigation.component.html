@@ -114,7 +114,7 @@
                           <p>For: {{ course.level }}</p>
                         </li>
                         <li>
-                          <a class="cursor-pointer text-blue-500">{{
+                          <a class="cursor-pointer text-blue-500" [href]="course.link">{{
                             course.link
                           }}</a>
                         </li>
@@ -123,7 +123,7 @@
                   </li>
                 }
               } @empty {
-                <li>
+                <li class="p-4">
                   <p class="text-xl">
                     You can search for courses that match your level.
                   </p>

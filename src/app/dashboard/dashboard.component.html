@@ -1,7 +1,4 @@
 <div class="flex min-h-dvh flex-col">
-  <header class="z-50 w-full border-b border-b-gray-300 bg-white px-4 md:px-8">
-    <app-navigation></app-navigation>
-  </header>
   <main class="relative flex grow flex-col items-start">
     @if (type == "Instructor") {
       <app-instructor class="h-full w-full grow" [user]="user"></app-instructor>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavigationComponent } from '../navigation/navigation.component';
 import { AuthService } from '../services/auth.service';
 import { InstructorComponent } from './instructor/instructor.component';
 import { StudentComponent } from './student/student.component';
@@ -8,8 +7,7 @@ import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [
-    NavigationComponent,
+  imports: [ 
     InstructorComponent,
     StudentComponent,
     FooterComponent,
