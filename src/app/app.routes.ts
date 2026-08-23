@@ -16,6 +16,7 @@ import {
 import { CoursePageComponent } from './course-page/course-page.component';
 import { EnrolledComponent } from './enrolled/enrolled.component';
 import { EducationPageComponent } from './education-page/education-page.component';
+import { PricingComponent } from './pricing/pricing.component';
 
 export const routes: Routes = [
   {
@@ -67,4 +68,8 @@ export const routes: Routes = [
     component: EducationPageComponent,
     canActivate: [signedInGuard, studentGuard],
   },
+  {
+    path: 'pricing',
+    component: PricingComponent
+  }
 ];

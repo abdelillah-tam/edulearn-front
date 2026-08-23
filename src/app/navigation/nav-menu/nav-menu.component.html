@@ -4,34 +4,57 @@
   [class.items-start]="isSmallScreen"
   [class.gap-2]="isSmallScreen"
 >
-  <li>
+  <li class="flex h-full flex-col justify-evenly">
     <a
       class="hover:text-red-theme cursor-pointer"
-      [class.text-red-theme]="currentRouter === 1"
+      [class.text-red-theme]="currentRoute === 1"
       [class.text-2xl]="isOpenMenu()"
       [class.font-bold]="isOpenMenu()"
       (click)="navigate('courses')"
       >Courses</a
     >
+    @if (currentRoute === 1) {
+      <div class="bg-red-theme h-0.5"></div>
+    }
   </li>
-  <li>
+  <li class="flex h-full flex-col justify-evenly">
     <a
       class="hover:text-red-theme cursor-pointer"
-      [class.text-red-theme]="currentRouter === 2"
+      [class.text-red-theme]="currentRoute === 2"
       [class.text-2xl]="isOpenMenu()"
       [class.font-bold]="isOpenMenu()"
       (click)="navigate('about')"
       >About</a
     >
+    @if (currentRoute === 2) {
+      <div class="bg-red-theme h-0.5"></div>
+    }
   </li>
-  <li>
+  <li class="flex h-full flex-col justify-evenly">
     <a
       class="hover:text-red-theme cursor-pointer"
-      [class.text-red-theme]="currentRouter === 3"
+      [class.text-red-theme]="currentRoute === 3"
       [class.text-2xl]="isOpenMenu()"
       [class.font-bold]="isOpenMenu()"
       (click)="navigate('contact')"
       >Contact</a
     >
+    @if (currentRoute === 3) {
+      <div class="bg-red-theme h-0.5"></div>
+    }
+  </li>
+  <li class="flex h-full flex-col justify-evenly">
+    <a
+      class="hover:text-red-theme cursor-pointer"
+      [class.text-red-theme]="currentRoute === 4"
+      [class.text-2xl]="isOpenMenu()"
+      [class.font-bold]="isOpenMenu()"
+      (click)="navigate('pricing')"
+    >
+      Pricing
+    </a>
+    @if (currentRoute === 4) {
+      <div class="bg-red-theme h-0.5"></div>
+    }
   </li>
 </ul>
