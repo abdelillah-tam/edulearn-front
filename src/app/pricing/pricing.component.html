@@ -19,8 +19,105 @@
       </p>
     </section>
 
-    <section class="bg-white">
+    <section class="bg-white px-4 py-16 md:px-8">
+      <ul class="flex flex-col gap-16 md:flex-row">
+        <li
+          class="flex grow flex-col gap-6 rounded-xl border-2 border-gray-300 p-8"
+        >
+          <div>
+            <p class="flex flex-col text-2xl font-bold">
+              Starter<span class="text-xs font-normal text-gray-500"
+                >Monthly billing</span
+              >
+            </p>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-end">
+              <p class="text-6xl font-bold">$4</p>
+              <p class="text-4xl font-bold">
+                .99
+                <span
+                  class="relative top-1 align-super text-base leading-0 font-normal text-gray-500"
+                  >/ month</span
+                >
+              </p>
+            </div>
+            <p class="text-gray-500">
+              Perfect for casual learners exploring new skills
+            </p>
+          </div>
 
+          <ul class="flex grow flex-col gap-4">
+            @for (item of starter; track $index) {
+              <li class="flex items-center gap-4">
+                <div
+                  class="flex h-6 w-6 items-center justify-center rounded-full bg-green-100"
+                >
+                  <mat-icon
+                    class="material-symbols-rounded check"
+                    fontIcon="check"
+                  ></mat-icon>
+                </div>
+                <p>{{ item }}</p>
+              </li>
+            }
+          </ul>
+          <button
+            class="white-btn text-red-theme! border-red-theme! hover:bg-red-theme! w-full hover:text-white!"
+          >
+            Subscribe Now
+          </button>
+        </li>
+        <li
+          class="border-red-theme relative flex grow flex-col gap-6 rounded-xl border-2 p-8"
+        >
+          <p
+            class="bg-red-theme absolute top-0 left-1/2 -translate-1/2 rounded-full px-4 py-2 font-bold text-white"
+          >
+            MOST POPULAR
+          </p>
+
+          <div>
+            <p class="flex flex-col text-2xl font-bold">
+              Pro Annual<span class="text-xs font-normal text-gray-500"
+                >Billed yearly
+              </span>
+            </p>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-end">
+              <p class="text-6xl font-bold">$49</p>
+              <p class="text-4xl font-bold">
+                .99
+                <span
+                  class="relative top-1 align-super text-base leading-0 font-normal text-gray-500"
+                  >/ year</span
+                >
+              </p>
+            </div>
+            <p class="text-gray-500">
+              For committed learners who want everything
+            </p>
+          </div>
+
+          <ul class="flex grow flex-col gap-4">
+            @for (item of pro; track $index) {
+              <li class="flex items-center gap-4">
+                <div
+                  class="bg-red-theme flex h-6 w-6 items-center justify-center rounded-full"
+                >
+                  <mat-icon
+                    class="material-symbols-rounded red-check"
+                    fontIcon="check"
+                  ></mat-icon>
+                </div>
+                <p>{{ item }}</p>
+              </li>
+            }
+          </ul>
+          <button class="red-btn w-full">Subscribe Now</button>
+        </li>
+      </ul>
     </section>
   </main>
 </div>
