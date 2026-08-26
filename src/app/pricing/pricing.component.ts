@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-pricing',
-  imports: [MatIconModule],
+  imports: [MatIconModule, FooterComponent],
   templateUrl: './pricing.component.html',
   styleUrl: './pricing.component.css',
 })

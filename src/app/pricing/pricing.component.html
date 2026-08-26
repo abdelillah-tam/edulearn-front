@@ -19,17 +19,24 @@
       </p>
     </section>
 
-    <section class="bg-white px-4 py-16 md:px-8">
+    <section class="bg-white px-4 py-16 md:px-40">
       <ul class="flex flex-col gap-16 md:flex-row">
         <li
           class="flex grow flex-col gap-6 rounded-xl border-2 border-gray-300 p-8"
         >
-          <div>
-            <p class="flex flex-col text-2xl font-bold">
-              Starter<span class="text-xs font-normal text-gray-500"
-                >Monthly billing</span
-              >
-            </p>
+          <div class="flex h-11 gap-3 overflow-hidden">
+            <div
+              class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-200"
+            >
+              <mat-icon
+                class="material-symbols-rounded text-red-theme!"
+                fontIcon="bolt"
+              ></mat-icon>
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="text-lg font-bold">Starter</p>
+              <p class="text-xs font-normal text-gray-500">Monthly billing</p>
+            </div>
           </div>
           <div class="flex flex-col">
             <div class="flex items-end">
@@ -69,7 +76,7 @@
           </button>
         </li>
         <li
-          class="border-red-theme relative flex grow flex-col gap-6 rounded-xl border-2 p-8"
+          class="border-red-theme relative flex grow flex-col gap-6 rounded-xl border-2 p-8 shadow-2xl shadow-red-100"
         >
           <p
             class="bg-red-theme absolute top-0 left-1/2 -translate-1/2 rounded-full px-4 py-2 font-bold text-white"
@@ -77,12 +84,19 @@
             MOST POPULAR
           </p>
 
-          <div>
-            <p class="flex flex-col text-2xl font-bold">
-              Pro Annual<span class="text-xs font-normal text-gray-500"
-                >Billed yearly
-              </span>
-            </p>
+          <div class="flex h-11 gap-3 overflow-hidden">
+            <div
+              class="bg-red-theme flex h-11 w-11 items-center justify-center rounded-xl"
+            >
+              <mat-icon
+                class="material-symbols-rounded text-white!"
+                fontIcon="crown"
+              ></mat-icon>
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="text-lg font-bold">Pro Annual</p>
+              <p class="text-xs font-normal text-gray-500">Billed yearly</p>
+            </div>
           </div>
           <div class="flex flex-col">
             <div class="flex items-end">
@@ -120,4 +134,7 @@
       </ul>
     </section>
   </main>
+  <footer>
+    <app-footer></app-footer>
+  </footer>
 </div>
