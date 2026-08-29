@@ -60,6 +60,10 @@ body {
         background-color: var(--color-red-400);
         cursor: pointer;
     }
+
+    &:disabled{
+        background-color: var(--color-red-300);
+    }
 }
 
 .white-btn {
@@ -107,6 +111,13 @@ body {
     }
 }
 
+.stripe-focus {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    outline-style: var(--tw-outline-style);
+    outline-width: 2px;
+}
+
 .error {
     font-size: var(--text-xs);
     color: var(--color-red-theme);
@@ -142,4 +153,3 @@ body {
 .enroll-loading {
     --mat-progress-spinner-active-indicator-color: white;
 }
-

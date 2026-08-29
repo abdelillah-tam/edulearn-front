@@ -18,6 +18,8 @@ export class NavMenuComponent implements OnInit {
 
   breakPointObserver = inject(BreakpointObserver);
 
+  
+
   constructor(
     private router: Router,
     private renderer: Renderer2,

@@ -46,11 +46,13 @@ export class AppComponent {
       if (response) {
         sessionStorage.setItem('signed', 'true');
         sessionStorage.setItem('user', JSON.stringify(response));
+      } else {
+        sessionStorage.clear();
       }
     });
 
     this.router.events.subscribe((event) => {
-      if(event instanceof NavigationEnd){
+      if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
       }
     });

@@ -69,11 +69,30 @@
               </li>
             }
           </ul>
+
           <button
             class="white-btn text-red-theme! border-red-theme! hover:bg-red-theme! w-full hover:text-white!"
+            (click)="changeStarterSubscriptionState()"
           >
-            Subscribe Now
+            {{
+              isSignIn
+                ? isStarterSubscriptionOpened
+                  ? "Cancel"
+                  : "Subscribe Now"
+                : "Sign In To Subscribe"
+            }}
           </button>
+
+          @if (isStarterSubscriptionOpened) {
+            <div #stripe class="input-style"></div>
+            <button
+              class="red-btn"
+              (click)="subscribeStarter()"
+              [disabled]="!cardComplete"
+            >
+              Subscribe
+            </button>
+          }
         </li>
         <li
           class="border-red-theme relative flex grow flex-col gap-6 rounded-xl border-2 p-8 shadow-2xl shadow-red-100"
@@ -129,7 +148,28 @@
               </li>
             }
           </ul>
-          <button class="red-btn w-full">Subscribe Now</button>
+          <button
+            class="red-btn border-red-theme! w-full text-white! hover:bg-red-400! hover:text-white!"
+            (click)="changeProSubscriptionState()"
+          >
+            {{
+              isSignIn
+                ? isProSubscriptionOpened
+                  ? "Cancel"
+                  : "Subscribe Now"
+                : "Sign In To Subscribe"
+            }}
+          </button>
+          @if (isProSubscriptionOpened) {
+            <div #stripe class="input-style"></div>
+            <button
+              class="red-btn"
+              (click)="subscribePro()"
+              [disabled]="!cardComplete"
+            >
+              Subscribe
+            </button>
+          }
         </li>
       </ul>
     </section>

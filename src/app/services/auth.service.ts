@@ -87,4 +87,20 @@ export class AuthService {
       },
     );
   }
+
+  getSetupIntent() {
+    return this.httpClient.get<{ client_secret: string }>(
+      `${environment.API}/stripe/setup-intent`,
+      { withCredentials: true },
+    );
+  }
+
+  subscribe(plan: string, paymentMethod: any) {
+    return this.httpClient.post(`${environment.API}/stripe/subscribe`, {
+      plan: plan,
+      payment_method: paymentMethod
+    }, {
+      withCredentials: true
+    });
+  }
 }
