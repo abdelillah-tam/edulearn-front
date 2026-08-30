@@ -14,10 +14,11 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../model/user';
 import { lastValueFrom, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-pricing',
-  imports: [MatIconModule, FooterComponent],
+  imports: [MatIconModule, FooterComponent, MatProgressSpinnerModule],
   templateUrl: './pricing.component.html',
   styleUrl: './pricing.component.css',
 })
@@ -59,6 +60,8 @@ export class PricingComponent implements OnInit {
 
   isSignIn = false;
 
+  isLoading = true;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -73,14 +76,16 @@ export class PricingComponent implements OnInit {
     });
 
     this.authService.getUser().subscribe((response) => {
-      this.studentUser = response;
+      if (response) {
+        this.studentUser = response;
+        this.isSignIn = true;
+      }
+
+      this.isLoading = false;
     });
   }
 
   async ngOnInit() {
-    if (Boolean(sessionStorage.getItem('signed'))) {
-      this.isSignIn = true;
-    }
     this.stripe = await loadStripe(environment.STRIPE_PUBLISHABLE_KEY);
 
     this.authService.getSetupIntent().subscribe((response) => {

@@ -1,5 +1,12 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, inject, input, OnInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnInit,
+  output,
+  Renderer2,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { unfixBodyTag } from '../../global/fix-body';
@@ -12,18 +19,26 @@ import { unfixBodyTag } from '../../global/fix-body';
 })
 export class NavMenuComponent implements OnInit {
   currentRoute: number = 0;
+
   isSmallScreen = false;
 
   isOpenMenu = input(false);
 
+  isCloseMenu = output<boolean>();
+
   breakPointObserver = inject(BreakpointObserver);
 
-  
+  isInstructor = false;
 
   constructor(
     private router: Router,
     private renderer: Renderer2,
-  ) {}
+  ) {
+    let currentUser = sessionStorage.getItem('user');
+    if (currentUser) {
+      this.isInstructor = JSON.parse(currentUser).type == 'Instructor';
+    }
+  }
 
   ngOnInit(): void {
     this.breakPointObserver.observe(['(width<40rem)']).subscribe((result) => {
@@ -40,6 +55,7 @@ export class NavMenuComponent implements OnInit {
   navigate(path: string) {
     unfixBodyTag(this.renderer);
     this.router.navigate([`/${path}`]);
+    this.isCloseMenu.emit(false);
   }
 
   changeCurrentRoute() {
@@ -49,7 +65,7 @@ export class NavMenuComponent implements OnInit {
       this.currentRoute = 2;
     } else if (this.router.url === '/contact') {
       this.currentRoute = 3;
-    }else if(this.router.url === '/pricing'){
+    } else if (this.router.url === '/pricing') {
       this.currentRoute = 4;
     }
   }

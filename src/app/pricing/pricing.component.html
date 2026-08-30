@@ -71,16 +71,22 @@
           </ul>
 
           <button
-            class="white-btn text-red-theme! border-red-theme! hover:bg-red-theme! w-full hover:text-white!"
+            class="white-btn text-red-theme! border-red-theme! hover:bg-red-theme! flex w-full items-center justify-center hover:text-white!"
             (click)="changeStarterSubscriptionState()"
           >
-            {{
-              isSignIn
-                ? isStarterSubscriptionOpened
-                  ? "Cancel"
-                  : "Subscribe Now"
-                : "Sign In To Subscribe"
-            }}
+            @if (isLoading) {
+              <mat-spinner
+                [diameter]="25"
+              ></mat-spinner>
+            } @else {
+              {{
+                isSignIn
+                  ? isStarterSubscriptionOpened
+                    ? "Cancel"
+                    : "Subscribe Now"
+                  : "Sign In To Subscribe"
+              }}
+            }
           </button>
 
           @if (isStarterSubscriptionOpened) {
@@ -149,16 +155,23 @@
             }
           </ul>
           <button
-            class="red-btn border-red-theme! w-full text-white! hover:bg-red-400! hover:text-white!"
+            class="red-btn border-red-theme! flex w-full items-center justify-center text-white! hover:bg-red-400! hover:text-white!"
             (click)="changeProSubscriptionState()"
           >
-            {{
-              isSignIn
-                ? isProSubscriptionOpened
-                  ? "Cancel"
-                  : "Subscribe Now"
-                : "Sign In To Subscribe"
-            }}
+            @if (isLoading) {
+              <mat-spinner
+                class="pricing-pro-loading"
+                [diameter]="25"
+              ></mat-spinner>
+            } @else {
+              {{
+                isSignIn
+                  ? isProSubscriptionOpened
+                    ? "Cancel"
+                    : "Subscribe Now"
+                  : "Sign In To Subscribe"
+              }}
+            }
           </button>
           @if (isProSubscriptionOpened) {
             <div #stripe class="input-style"></div>

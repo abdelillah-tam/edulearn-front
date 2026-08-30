@@ -10,7 +10,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import {
   instructorGuard,
   signedInGuard,
-  loggedOutGuard,
+  signedOutGuard,
   studentGuard,
 } from './guards/auth.guard';
 import { CoursePageComponent } from './course-page/course-page.component';
@@ -38,12 +38,12 @@ export const routes: Routes = [
   {
     path: 'signin',
     component: SigninComponent,
-    canActivate: [loggedOutGuard],
+    canActivate: [signedOutGuard],
   },
   {
     path: 'signup',
     component: SignupComponent,
-    canActivate: [loggedOutGuard],
+    canActivate: [signedOutGuard],
   },
   {
     path: 'dashboard',
@@ -70,6 +70,7 @@ export const routes: Routes = [
   },
   {
     path: 'pricing',
-    component: PricingComponent
-  }
+    component: PricingComponent,
+    canActivate: [studentGuard],
+  },
 ];

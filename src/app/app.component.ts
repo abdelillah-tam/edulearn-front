@@ -44,7 +44,6 @@ export class AppComponent {
 
     this.authService.getUser().subscribe((response) => {
       if (response) {
-        sessionStorage.setItem('signed', 'true');
         sessionStorage.setItem('user', JSON.stringify(response));
       } else {
         sessionStorage.clear();

@@ -40,7 +40,11 @@
         View Details
       </button>
       @if (!course()?.is_enrolled && !course()?.is_instructor) {
-        <button type="button" class="red-btn" (click)="enroll()">
+        <button
+          type="button"
+          class="red-btn flex items-center justify-center"
+          (click)="enroll()"
+        >
           @if (enrollLoading) {
             <mat-spinner class="enroll-loading" [diameter]="25"></mat-spinner>
           } @else {

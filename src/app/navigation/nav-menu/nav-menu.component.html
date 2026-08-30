@@ -43,18 +43,20 @@
       <div class="bg-red-theme h-0.5"></div>
     }
   </li>
-  <li class="flex h-full flex-col justify-evenly">
-    <a
-      class="hover:text-red-theme cursor-pointer"
-      [class.text-red-theme]="currentRoute === 4"
-      [class.text-2xl]="isOpenMenu()"
-      [class.font-bold]="isOpenMenu()"
-      (click)="navigate('pricing')"
-    >
-      Pricing
-    </a>
-    @if (currentRoute === 4) {
-      <div class="bg-red-theme h-0.5"></div>
-    }
-  </li>
+  @if (!isInstructor) {
+    <li class="flex h-full flex-col justify-evenly">
+      <a
+        class="hover:text-red-theme cursor-pointer"
+        [class.text-red-theme]="currentRoute === 4"
+        [class.text-2xl]="isOpenMenu()"
+        [class.font-bold]="isOpenMenu()"
+        (click)="navigate('pricing')"
+      >
+        Pricing
+      </a>
+      @if (currentRoute === 4) {
+        <div class="bg-red-theme h-0.5"></div>
+      }
+    </li>
+  }
 </ul>

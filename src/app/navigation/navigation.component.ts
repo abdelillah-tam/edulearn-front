@@ -42,7 +42,7 @@ export class NavigationComponent implements OnInit {
 
   categoryList: string[] = CATEGORIES;
 
-  isLoggedIn: Observable<boolean> | undefined;
+  isSignIn: Observable<boolean> | undefined;
 
   isLoggingOut = false;
 
@@ -65,26 +65,15 @@ export class NavigationComponent implements OnInit {
 
   waitForResponseChat = false;
 
+
+
   constructor(
     private authService: AuthService,
     private courseService: CourseService,
     private renderer: Renderer2,
     private router: Router,
   ) {
-    if (
-      sessionStorage.getItem('signed') != null &&
-      Boolean(sessionStorage.getItem('signed')) == true
-    ) {
-      this.isLoggedIn = of(true);
-    } else {
-      this.isLoggedIn = this.authService.isSignedIn().pipe(
-        tap((loggedIn) => {
-          if (loggedIn == true) {
-            sessionStorage.setItem('signed', 'true');
-          }
-        }),
-      );
-    }
+    this.isSignIn = this.authService.isSignedIn();
   }
 
   ngOnInit(): void {
@@ -127,13 +116,13 @@ export class NavigationComponent implements OnInit {
   }
 
   navigateToCoursesCategory(category: string) {
-    unfixBodyTag(this.renderer);
     this.router.navigate(['/courses'], {
       queryParams: {
         category: category,
       },
       queryParamsHandling: 'replace',
     });
+    this.closeMenu();
   }
 
   prompt() {
@@ -158,5 +147,9 @@ export class NavigationComponent implements OnInit {
 
   changeChatVisibility() {
     this.chatVisibility = !this.chatVisibility;
+  }
+
+  printValue(value: any) {
+    console.log(value);
   }
 }

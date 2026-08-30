@@ -50,15 +50,16 @@ export class CourseItemComponent {
 
   enroll() {
     this.enrollLoading = true;
-    if (
-      Boolean(sessionStorage.getItem('signed')) &&
-      JSON.parse(sessionStorage.getItem('user')!)
-    ) {
+    if (JSON.parse(sessionStorage.getItem('user')!)) {
       if (!this.course()?.is_instructor && !this.course()?.is_enrolled) {
         this.courseService.enroll(this.course()!.id).subscribe((response) => {
-          if (response) {
-            this.enrollLoading = false;
-            this.enrolled.emit(response);
+          if (typeof response == 'boolean') {
+            if (response) {
+              this.enrollLoading = false;
+              this.enrolled.emit(response);
+            }
+          } else {
+            this.router.navigate(['/pricing']);
           }
         });
       }

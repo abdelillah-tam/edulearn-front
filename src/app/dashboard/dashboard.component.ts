@@ -7,7 +7,7 @@ import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [ 
+  imports: [
     InstructorComponent,
     StudentComponent,
     FooterComponent,
@@ -22,10 +22,7 @@ export class DashboardComponent {
   type = '';
 
   constructor(private authService: AuthService) {
-    if (
-      sessionStorage.getItem('user') == null ||
-      !sessionStorage.getItem('user')?.length
-    ) {
+    if (sessionStorage.getItem('user')) {
       this.authService.getUser().subscribe((response) => {
         sessionStorage.setItem('user', JSON.stringify(response));
         this.user = JSON.parse(sessionStorage.getItem('user')!);

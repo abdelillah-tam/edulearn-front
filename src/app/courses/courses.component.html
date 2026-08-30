@@ -98,8 +98,9 @@
           @if (courses?.data?.length) {
             <li>
               <mat-paginator
-                [length]="courses?.last_page"
+                [length]="courses?.total"
                 [hidePageSize]="true"
+                [pageSize]="courses?.per_page"
                 (page)="handlePage($event)"
               ></mat-paginator>
             </li>

@@ -58,7 +58,6 @@ export class SigninComponent {
           )
           .subscribe((response) => {
             if (response && response.email.length) {
-              sessionStorage.setItem('signed', 'true');
               sessionStorage.setItem('user', JSON.stringify(response));
               this.showSnack('Signed In Successfully', 'success');
               this.router.navigate(['/']);

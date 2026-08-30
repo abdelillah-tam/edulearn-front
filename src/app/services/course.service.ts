@@ -24,6 +24,8 @@ export class CourseService {
       current_page: number;
       data: any[];
       last_page: number;
+      per_page: number;
+      total: number;
     }>(
       `${environment.API}/getAllCourses?page=${page}`,
       {
@@ -38,7 +40,7 @@ export class CourseService {
   }
 
   enroll(course_id: number) {
-    return this.httpClient.post<boolean>(
+    return this.httpClient.post<boolean | { message: string; code: number }>(
       `${environment.API}/enroll`,
       {
         course_id: course_id,

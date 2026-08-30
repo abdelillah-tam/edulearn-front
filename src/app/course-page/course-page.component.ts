@@ -49,13 +49,14 @@ export class CoursePageComponent implements OnInit {
 
   enroll() {
     this.isEnrollLoading = true;
-    if (
-      Boolean(sessionStorage.getItem('signed')) &&
-      JSON.parse(sessionStorage.getItem('user')!)
-    ) {
+    if (JSON.parse(sessionStorage.getItem('user')!)) {
       this.courseService.enroll(this.course().id).subscribe((response) => {
-        this.isEnrollLoading = false;
-        this.enrolled = response;
+        if (response == true) {
+          this.isEnrollLoading = false;
+          this.enrolled = response;
+        } else {
+          this.router.navigate(['/pricing']);
+        }
       });
     } else {
       this.router.navigate(['/signin']);
