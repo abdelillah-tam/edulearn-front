@@ -2,7 +2,9 @@ import {
   Component,
   effect,
   ElementRef,
+  inject,
   OnInit,
+  runInInjectionContext,
   Signal,
   viewChild,
 } from '@angular/core';
@@ -15,6 +17,8 @@ import { User } from '../model/user';
 import { lastValueFrom, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { showSnack } from '../global/show-snack';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pricing',
@@ -23,6 +27,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './pricing.component.css',
 })
 export class PricingComponent implements OnInit {
+  snack = inject(MatSnackBar);
+
   starter = [
     'Access to 500+ courses',
     'Course completion certificates',
@@ -137,13 +143,23 @@ export class PricingComponent implements OnInit {
 
   subscribeStarter() {
     this.handlePayment(environment.STARTER_PRICE).then((response) => {
-      console.log(response);
+      if (typeof response == 'string') {
+        showSnack(this.snack, response, 'error');
+      } else {
+        showSnack(this.snack, 'Subscribed successfully', 'success');
+        this.router.navigate(['/courses']);
+      }
     });
   }
 
   subscribePro() {
     this.handlePayment(environment.PRO_PRICE).then((response) => {
-      console.log(response);
+      if (typeof response == 'string') {
+        showSnack(this.snack, response, 'error');
+      } else {
+        showSnack(this.snack, 'Subscribed successfully', 'success');
+        this.router.navigate(['/courses']);
+      }
     });
   }
 

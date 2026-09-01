@@ -52,13 +52,17 @@
             <li>
               <p>
                 Created by
-                <span class="text-red-theme">{{ course().instructor_user.fullname }}</span>
+                <span class="text-red-theme">{{
+                  course().instructor_user.fullname
+                }}</span>
               </p>
             </li>
           </ul>
         </li>
-        <li class="basis-1/3 overflow-hidden rounded-xl shadow-lg">
-          <ul class="bg-white">
+        <li
+          class="flex basis-1/3 flex-col overflow-hidden rounded-xl shadow-lg"
+        >
+          <ul class="grow bg-white">
             <li><img [src]="course().thumbnail" /></li>
             <li class="flex flex-col gap-4 p-4">
               @if (!course().is_enrolled && !course().is_instructor) {

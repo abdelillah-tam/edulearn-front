@@ -65,8 +65,6 @@ export class NavigationComponent implements OnInit {
 
   waitForResponseChat = false;
 
-
-
   constructor(
     private authService: AuthService,
     private courseService: CourseService,

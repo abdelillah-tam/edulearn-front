@@ -173,4 +173,6 @@ export class CoursesComponent implements OnInit {
       queryParamsHandling: 'replace',
     });
   }
+
+  
 }

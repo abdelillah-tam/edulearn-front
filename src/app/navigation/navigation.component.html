@@ -1,5 +1,5 @@
 <nav class="flex h-24 flex-col items-center justify-center bg-white">
-  @let loggedIn = isSignIn | async;
+  @let signIn = isSignIn | async;
   <ul class="flex w-full justify-between gap-2">
     <li
       class="flex cursor-pointer items-center px-2 select-none"
@@ -152,25 +152,27 @@
         }
       </li>
     }
-    <li class="flex items-center justify-end">
-      @if (loggedIn == false) {
+    <li class="flex min-w-24 items-center justify-end">
+      @if (signIn == false) {
         @if (!isSmallScreen) {
           <button class="red-btn" routerLink="/signin">Sign In</button>
         }
-      } @else if (loggedIn == true) {
+      } @else if (signIn == true) {
         <button
           class="flex items-center"
           matTooltip="Dashboard"
           routerLink="/dashboard"
         >
           <mat-icon
-            class="material-symbols-rounded mat-person cursor-pointer rounded-full px-2 py-2 hover:bg-red-200"
+            class="material-symbols-rounded mat-person cursor-pointer rounded-full p-2 hover:bg-red-200"
             fontIcon="person"
           ></mat-icon>
         </button>
         @if (!isSmallScreen) {
           @if (isLoggingOut) {
-            <mat-spinner [diameter]="25"></mat-spinner>
+            <div class="p-2">
+              <mat-spinner [diameter]="25"></mat-spinner>
+            </div>
           } @else {
             <button
               class="flex items-center"
@@ -178,7 +180,7 @@
               (click)="logout()"
             >
               <mat-icon
-                class="material-symbols-rounded mat-person cursor-pointer rounded-full px-2 py-2 hover:bg-red-200"
+                class="material-symbols-rounded mat-person cursor-pointer rounded-full p-2 hover:bg-red-200"
                 fontIcon="logout"
               ></mat-icon>
             </button>
@@ -243,7 +245,7 @@
               <h3 class="text-lg text-gray-500">Authentication</h3>
 
               <ul class="flex flex-col gap-2">
-                @if (loggedIn == false) {
+                @if (signIn == false) {
                   <li>
                     <a
                       class="hover:text-red-theme cursor-pointer text-base font-bold"

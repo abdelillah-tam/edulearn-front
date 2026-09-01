@@ -56,7 +56,9 @@ export class CourseItemComponent {
           if (typeof response == 'boolean') {
             if (response) {
               this.enrollLoading = false;
-              this.enrolled.emit(response);
+              this.router.navigate(['/enrolled'], {
+                state: { enrolled: response },
+              });
             }
           } else {
             this.router.navigate(['/pricing']);

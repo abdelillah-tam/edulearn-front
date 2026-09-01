@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../services/auth.service';
 import { showSnack } from '../global/show-snack';
 import { isSignedIn } from '../global/signed-in';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -27,6 +28,7 @@ import { isSignedIn } from '../global/signed-in';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
+  snack = inject(MatSnackBar);
   selectedType: number = 0;
 
   signupFormGroup = new FormGroup(
@@ -75,11 +77,11 @@ export class SignupComponent {
           .subscribe((response) => {
             if (response == true) {
               this.isSignupLoading = false;
-              showSnack('Signed Up Successfully', 'success');
+              showSnack(this.snack, 'Signed Up Successfully', 'success');
               this.router.navigate(['/signin']);
             } else {
               this.signupFormGroup.enable();
-              showSnack('Something Wrong! Try Again', 'success');
+              showSnack(this.snack, 'Something Wrong! Try Again', 'success');
             }
           });
       });

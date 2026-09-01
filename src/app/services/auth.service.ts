@@ -96,11 +96,17 @@ export class AuthService {
   }
 
   subscribe(plan: string, paymentMethod: any) {
-    return this.httpClient.post(`${environment.API}/stripe/subscribe`, {
-      plan: plan,
-      payment_method: paymentMethod
-    }, {
-      withCredentials: true
-    });
+    return this.httpClient.post<
+      string | { status: string; subscription: string }
+    >(
+      `${environment.API}/stripe/subscribe`,
+      {
+        plan: plan,
+        payment_method: paymentMethod,
+      },
+      {
+        withCredentials: true,
+      },
+    );
   }
 }

@@ -77,3 +77,15 @@ export const instructorGuard: CanActivateFn = (route, state) => {
     }),
   );
 };
+
+export const enrollGuard: CanActivateFn = (route, state) => {
+  const router = inject(Router);
+
+  let isEnrolled = router.currentNavigation()?.extras.state?.['enrolled'];
+
+  if (isEnrolled == true) {
+    return true;
+  }
+
+  return new RedirectCommand(router.parseUrl(''));
+};

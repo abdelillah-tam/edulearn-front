@@ -8,6 +8,7 @@ import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import {
+  enrollGuard,
   instructorGuard,
   signedInGuard,
   signedOutGuard,
@@ -17,6 +18,7 @@ import { CoursePageComponent } from './course-page/course-page.component';
 import { EnrolledComponent } from './enrolled/enrolled.component';
 import { EducationPageComponent } from './education-page/education-page.component';
 import { PricingComponent } from './pricing/pricing.component';
+import { CourseItemComponent } from './course-item/course-item.component';
 
 export const routes: Routes = [
   {
@@ -62,6 +64,7 @@ export const routes: Routes = [
   {
     path: 'enrolled',
     component: EnrolledComponent,
+    canActivate: [enrollGuard],
   },
   {
     path: 'education',

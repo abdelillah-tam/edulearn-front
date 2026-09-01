@@ -3,8 +3,10 @@ import {
   GuardsCheckEnd,
   GuardsCheckStart,
   NavigationEnd,
+  NavigationStart,
   Router,
   RouterOutlet,
+  RoutesRecognized,
 } from '@angular/router';
 import { LoadingComponent } from './loading/loading.component';
 import { AuthService } from './services/auth.service';
@@ -41,18 +43,17 @@ export class AppComponent {
         this.loading = false;
       }
     });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
 
     this.authService.getUser().subscribe((response) => {
       if (response) {
         sessionStorage.setItem('user', JSON.stringify(response));
       } else {
         sessionStorage.clear();
-      }
-    });
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
       }
     });
   }
